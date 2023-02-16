@@ -10,6 +10,9 @@ on:
     paths: 
       - 'RockStarsITHelloWorld-Backend/**'
 
+  workflow_dispatch:
+    runs-on:
+
 jobs:
   build:
     runs-on: windows-latest
