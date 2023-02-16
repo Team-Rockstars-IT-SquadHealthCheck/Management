@@ -6,10 +6,11 @@ name: Build and deploy ASP.Net Core app to Azure Web App - RockstarsSquadHealthC
 on:
   push:
     branches:
-      [ Deployment ]
-    paths: 
-      - 'RockStarsITHelloWorld-Backend/**'
-      
+      [ "Deployment" ]
+  pull_request:
+    branches: 
+      [ "Deployment" ]
+
 env:
   AZURE_WEBAPP_NAME: rockstarssquadhealthcheck    # set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
@@ -35,6 +36,9 @@ jobs:
         
       - name: Publish with dotnet
         run:  dotnet publish -c Release
+        with:
+          path: 
+            ${{env.DOTNET_ROOT}}/RockStarsITHelloWorld-Backend
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
