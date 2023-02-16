@@ -8,7 +8,12 @@ on:
     branches:
       [ Deployment ]
     paths: 
-      - 'rockstarsithelloworld/**'
+      - 'RockStarsITHelloWorld-Backend/**'
+      
+env:
+  AZURE_WEBAPP_NAME: rockstarssquadhealthcheck    # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
+  DOTNET_VERSION: '6.0.14'           # set this to the dot net version to use
 
 jobs:
   build:
@@ -24,10 +29,12 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: |
+          dotnet --clean
+          dotnet build --configuration Release
         
       - name: Publish with dotnet
-          dotnet publish -c Release
+        run:  dotnet publish -c Release
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
