@@ -8,8 +8,8 @@ on:
     branches:
       - Deployment
     paths: 
-      exclude:
-      - rockstarsithelloworld/*
+      - RockStarsITHelloWorld-Backend/*
+
   workflow_dispatch:
 
 jobs:
