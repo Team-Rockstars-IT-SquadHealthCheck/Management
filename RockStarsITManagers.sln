@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "rockstarsithelloworld-Frontend", "RockStarsITHelloWorld\rockstarsithelloworld-Frontend.esproj", "{01940C52-AD4E-4D5C-92C2-95DE525EB075}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RockStarsITHelloWorld-Backend", "RockStarsITHelloWorld-Backend\RockStarsITHelloWorld-Backend.csproj", "{729BBF7F-51C1-4E99-A0F6-009D2DAD6A29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RockStarsITHelloWorld-Backend", "RockStarsITHelloWorld-Backend\RockStarsITHelloWorld-Backend.csproj", "{729BBF7F-51C1-4E99-A0F6-009D2DAD6A29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
