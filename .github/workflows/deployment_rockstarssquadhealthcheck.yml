@@ -9,7 +9,6 @@ on:
       - Deployment
     paths-ignore: 
       - 'rockstarsithelloworld/**'
-  workflow_dispatch:
 
 jobs:
   build:
