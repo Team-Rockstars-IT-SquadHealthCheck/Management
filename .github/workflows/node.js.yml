@@ -27,5 +27,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
+      working-directory: ./rockstarsithelloworld
     - run: npm run build --if-present
+      working-directory: ./rockstarsithelloworld
     - run: npm test
+      working-directory: ./rockstarsithelloworld
