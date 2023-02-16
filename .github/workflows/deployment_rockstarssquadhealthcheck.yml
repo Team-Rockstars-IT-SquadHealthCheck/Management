@@ -26,7 +26,7 @@ jobs:
         run: dotnet build --configuration Release
         
       - name: Publish with dotnet
-          dotnet publish -c Release ${{env.DOTNET_ROOT}}/RockStarsITHelloWorld-Backend
+          dotnet publish -c Release
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
