@@ -7,9 +7,8 @@ on:
   push:
     branches:
       - Deployment
-    paths-ignore: 
+    paths: 
       - 'rockstarsithelloworld/**'
-  workflow_dispatch:
 
 jobs:
   build:
