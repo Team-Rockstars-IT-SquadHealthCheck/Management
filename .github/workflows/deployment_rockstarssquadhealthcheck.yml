@@ -31,7 +31,7 @@ jobs:
         
       - name: Publish with dotnet
         run:  |
-          dotnet publish -c Release --output ${{env.DOTNET_ROOT}}/myapp ManagementSquadHealthCheckTeamRockstarsIT/ManagementSquadHealthCheckTeamRockstarsIT.csproj  ManagementSquadHealthCheckAPI/ManagementSquadHealthCheckAPI.csproj
+          dotnet publish -c Release --output ${{env.DOTNET_ROOT}}/myapp ManagementSquadHealthCheckTeamRockstarsIT/ManagementSquadHealthCheckTeamRockstarsIT/ManagementSquadHealthCheckTeamRockstarsIT.csproj  ManagementSquadHealthCheckTeamRockstarsIT/ManagementSquadHealthCheckAPI/ManagementSquadHealthCheckAPI.csproj
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
