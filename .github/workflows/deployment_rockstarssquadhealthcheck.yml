@@ -30,7 +30,7 @@ jobs:
           dotnet build --configuration Release
         
       - name: Publish with dotnet
-        run:  dotnet publish -c Release
+        run:  dotnet publish -c Release --output ASPDotNetapi RockStarsITHelloWorld-Backend/RockStarsITHelloWorld-Backend.csproj
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
