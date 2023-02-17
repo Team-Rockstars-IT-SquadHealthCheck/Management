@@ -36,7 +36,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/RockStarsITHelloWorld-Backend
+          path: RockStarsITHelloWorld-Backend
 
   deploy:
     runs-on: windows-latest
