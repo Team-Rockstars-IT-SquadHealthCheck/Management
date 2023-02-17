@@ -30,13 +30,13 @@ jobs:
           dotnet build --configuration Release
         
       - name: Publish with dotnet
-        run:  dotnet publish -c Release --output ASPDotNetapi RockStarsITHelloWorld-Backend/RockStarsITHelloWorld-Backend.csproj
+        run:  dotnet publish -c Release --output ${{env.DOTNET_ROOT}}/myapp RockStarsITHelloWorld-Backend/RockStarsITHelloWorld-Backend.csproj
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: .net-app
-          path: RockStarsITHelloWorld-Backend
+          path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
     runs-on: windows-latest
@@ -58,4 +58,4 @@ jobs:
           app-name: 'RockstarsSquadHealthCheck'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B7A70F00B7A94BE39B9288BBC1A77AAA }}
-          package: './bin/Release/net6.0/**'
+          package: .
