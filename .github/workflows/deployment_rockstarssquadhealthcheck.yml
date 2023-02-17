@@ -6,9 +6,10 @@ name: Build and deploy ASP.Net Core app to Azure Web App - RockstarsSquadHealthC
 on:
   push:
     branches:
-      - Deployment
-    paths-ignore: 
-      - 'rockstarsithelloworld/**'
+      [ "Deployment" ]
+  pull_request:
+    branches: 
+      [ "Deployment" ]
 
 jobs:
   build:
@@ -24,16 +25,19 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: |
+          dotnet --clean
+          dotnet build --configuration Release
         
       - name: Publish with dotnet
-          dotnet publish -c Release
+        run:  |
+          dotnet publish -c Release --output ${{env.DOTNET_ROOT}}/myapp ManagementSquadHealthCheckTeamRockstarsIT/ManagementSquadHealthCheckTeamRockstarsIT.csproj  ManagementSquadHealthCheckAPI/ManagementSquadHealthCheckAPI.csproj
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/RockStarsITHelloWorld-Backend
+          path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
     runs-on: windows-latest
