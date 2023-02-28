@@ -1,4 +1,4 @@
-namespace ManagementSquadHealthCheckAPI
+namespace RockstarsManagementSquadAPI
 {
     public class WeatherForecast
     {

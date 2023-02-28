@@ -1,4 +1,4 @@
-namespace ManagementSquadHealthCheckTeamRockstarsIT.Models
+namespace RockstarsManagementSquad.Models
 {
     public class ErrorViewModel
     {

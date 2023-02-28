@@ -3,16 +3,16 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:19901",
-      "sslPort": 44325
+      "applicationUrl": "http://localhost:14927",
+      "sslPort": 44302
     }
   },
   "profiles": {
-    "ManagementSquadHealthCheckTeamRockstarsIT": {
+    "RockstarsManagementSquad": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:7206;http://localhost:5290",
+      "applicationUrl": "https://localhost:7078;http://localhost:5186",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

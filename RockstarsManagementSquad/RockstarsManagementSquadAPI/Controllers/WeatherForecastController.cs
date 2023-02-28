@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace ManagementSquadHealthCheckAPI.Controllers
+namespace RockstarsManagementSquadAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]

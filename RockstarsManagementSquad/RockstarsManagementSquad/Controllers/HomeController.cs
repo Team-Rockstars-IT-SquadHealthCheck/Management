@@ -1,8 +1,8 @@
-﻿using ManagementSquadHealthCheckTeamRockstarsIT.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using RockstarsManagementSquad.Models;
 using System.Diagnostics;
 
-namespace ManagementSquadHealthCheckTeamRockstarsIT.Controllers
+namespace RockstarsManagementSquad.Controllers
 {
     public class HomeController : Controller
     {
