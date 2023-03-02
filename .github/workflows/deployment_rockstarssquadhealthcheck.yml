@@ -25,10 +25,10 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release **/RockstarsManagementSquad.csproj
+        run: dotnet build --configuration Release
         
       - name: Publish with dotnet
-        run:  dotnet publish -c Release --output ${{env.DOTNET_ROOT}}/myapp **/RockstarsManagementSquad.csproj
+        run:  dotnet publish -c Release --output ${{env.DOTNET_ROOT}}/myapp RockstarsManagementSquad/RockstarsManagementSquad/RockstarsManagementSquad.csproj
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
