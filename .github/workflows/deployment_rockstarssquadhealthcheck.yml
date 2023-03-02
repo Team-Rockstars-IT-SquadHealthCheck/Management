@@ -30,7 +30,7 @@ jobs:
           dotnet build --configuration Release
         
       - name: Publish with dotnet
-        run:  dotnet publish -c Release --output ${{env.DOTNET_ROOT}}/myapp RockStarsITHelloWorld-Backend/RockStarsITHelloWorld-Backend.csproj
+        run:  dotnet publish -c Release --output ${{env.DOTNET_ROOT}}/myapp RockstarsManagementSquad/RockstarsManagementSquad.csproj RockstarsManagementSquad/RockstarsManagementSquadAPI.csproj
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
