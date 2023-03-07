@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RockstarsManagementSquadLibrary
 {
-    public class SquadHealthCheck
+    public class Answer
     {
-        public List<Company> companies { get; private set; }
     }
 }
