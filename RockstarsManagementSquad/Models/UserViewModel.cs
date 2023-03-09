@@ -1,6 +1,6 @@
 ﻿namespace RockstarsManagementSquad.Models
 {
-    public class User
+    public class UserViewModel
     {
         public string Name { get; set; }
         public string Email { get; set; }
@@ -8,7 +8,7 @@
         public string Password { get; set; }
         public string PasswordConfirmed { get; set; }
 
-        public User(string name, string email, string emailConfirmed, string password, string passwordConfirmed) 
+        public UserViewModel(string name, string email, string emailConfirmed, string password, string passwordConfirmed) 
         { 
             Name = name;
             Email = email;
