@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace RockstarsManagementSquadLibrary
 {
@@ -43,11 +44,27 @@ namespace RockstarsManagementSquadLibrary
             return result;
         }
 
-        public bool TryCreateNewUser()
+        public bool TryCreateNewUser(string username)
         {
             bool result = false;
 
-            result = true;
+            if (NewUserMayBeCreated(username))
+            {
+                User user = new User(username);
+                result = true;
+            }
+
+            return result;
+        }
+
+        private bool NewUserMayBeCreated(string username)
+        {
+            bool result = false;
+
+            if (username != string.Empty)
+            {
+                result = true;
+            }
 
             return result;
         }
