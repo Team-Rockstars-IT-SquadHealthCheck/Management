@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using RockstarsManagementSquad.Models;
 using System.Diagnostics;
 
-namespace RockstarsManagementSquad.Controllers;
-
-public class DashboardController : Controller
+namespace RockstarsManagementSquad.Controllers
 {
+    public class DashboardController : Controller
+    {
         private readonly ILogger<DashboardController> _logger;
 
         public DashboardController(ILogger<DashboardController> logger)
@@ -15,7 +15,7 @@ public class DashboardController : Controller
 
         public IActionResult Index()
         {
-            return View(CreateUser("jan", "j@upc.com", "j@upc.com", "j23m", "j23m"));
+            return View();
         }
 
         public IActionResult Privacy()
@@ -35,4 +35,5 @@ public class DashboardController : Controller
 
             return user;
         }
+    }
 }
