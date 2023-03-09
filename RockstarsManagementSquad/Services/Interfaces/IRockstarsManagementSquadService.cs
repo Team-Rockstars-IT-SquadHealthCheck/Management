@@ -3,5 +3,5 @@ namespace RockstarsManagementSquad.Services.Interfaces;
 
 public interface IRockstarsManagementSquadService
 {
-    Task<IEnumerable<>> Find();
+    Task<IEnumerable<CompanyViewModel>> Find();
 }
