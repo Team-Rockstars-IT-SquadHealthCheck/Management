@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RockstarsManagementSquadLibrary
 {
-    public class SquadHealthCheck
+    public class Squad
     {
-        public List<Company> Companies { get; private set; }
+        public int Id { get; private set; }
+        public string SurveyLink { get; private set; }
+        public Survey Survey { get; private set; }
         public List<User> Users { get; private set; }
     }
 }
