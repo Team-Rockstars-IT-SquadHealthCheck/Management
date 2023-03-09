@@ -19,7 +19,7 @@
         }
 
         // methods
-        public bool CreateNewSquad(string name, string adress, string telNr)
+        public bool CreateNewSquad()
         {
             Squad squad = new Squad();
             Squads.Add(squad);

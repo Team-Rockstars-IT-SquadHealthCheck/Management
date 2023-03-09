@@ -31,7 +31,7 @@ namespace RockstarsManagementSquadLibrary
             return result;
         }
 
-        public bool NewCompanyMayBeCreated(string name, string adress, string telNr)
+        private bool NewCompanyMayBeCreated(string name, string adress, string telNr)
         {
             bool result = false;
 
@@ -39,6 +39,15 @@ namespace RockstarsManagementSquadLibrary
             {
                 result = true;
             }
+
+            return result;
+        }
+
+        public bool TryCreateNewUser()
+        {
+            bool result = false;
+
+            result = true;
 
             return result;
         }
