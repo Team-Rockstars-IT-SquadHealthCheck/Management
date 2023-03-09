@@ -17,7 +17,7 @@
   <Class Name="RockstarsManagementSquadLibrary.Squad">
     <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAKACAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <HashCode>AAACACAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
       <FileName>Squad.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -45,7 +45,7 @@
   <Class Name="RockstarsManagementSquadLibrary.User">
     <Position X="5.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAQAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <HashCode>AAAKAAAAAAAAAAAAAQAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
       <FileName>User.cs</FileName>
     </TypeIdentifier>
   </Class>

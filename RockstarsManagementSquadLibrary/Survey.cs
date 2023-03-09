@@ -11,5 +11,17 @@ namespace RockstarsManagementSquadLibrary
         public string Name { get; private set; }
         public string Description { get; private set; }
         public List<Question> questions { get; private set; }
+
+        // constructors
+        public Survey(int id, string name, string description)
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            questions = new List<Question>();
+        }
+
+        // methods
+
     }
 }

@@ -7,9 +7,28 @@ namespace RockstarsManagementSquadLibrary
 {
     public class Squad
     {
+        // properties
         public int Id { get; private set; }
-        public string SurveyLink { get; private set; }
         public Survey Survey { get; private set; }
         public List<User> Users { get; private set; }
+
+        // constructors
+        public Squad()
+        {
+            Users = new List<User>();
+        }
+
+        // methods
+        public bool AddUserToSquad(User user)
+        {
+            bool result = false;
+
+            if(user != null)
+            {
+                Users.Add(user);
+            }
+
+            return result;
+        }
     }
 }

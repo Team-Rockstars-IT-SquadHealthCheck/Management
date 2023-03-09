@@ -1,7 +1,10 @@
-﻿namespace RockstarsManagementSquad.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace RockstarsManagementSquad.Models
 {
     public class UserViewModel
     {
+        public int Id { get; private set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string EmailConfirmed { get; set; }
