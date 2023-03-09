@@ -8,6 +8,7 @@ namespace RockstarsManagementSquadLibrary
 {
     public class SquadHealthCheck
     {
-        public List<Company> companies { get; private set; }
+        public List<Company> Companies { get; private set; }
+        public List<User> Users { get; private set; }
     }
 }

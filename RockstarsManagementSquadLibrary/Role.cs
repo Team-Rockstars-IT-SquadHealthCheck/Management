@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RockstarsManagementSquadLibrary
 {
-    public class Role
+    public enum Role
     {
     }
 }
