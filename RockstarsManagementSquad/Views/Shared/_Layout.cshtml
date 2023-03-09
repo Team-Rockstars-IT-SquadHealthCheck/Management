@@ -10,20 +10,47 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">RockstarsManagementSquad</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Dashboard" asp-action="Index"><img src="images/logo-rockstars2x.png" alt="Rockstar Logo" style="width:55px;"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav flex-grow-1 justify-content-around">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark padding-bottom-0 margin-0" asp-area="" asp-controller="Dashboard" asp-action="Index"><p class="color-yellow padding-top-10"><b>Dashboard</b></p></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <hr style="width: 2px; height: 55px; display: inline-block; color: #FFE000; margin: 0;">
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Rockstars" asp-action="Index"><p class="color-yellow padding-top-10"><b>Rockstars</b></p></a>
+                        </li>
+                        <li class="nav-item">
+                            <hr style="width: 2px; height: 55px; display: inline-block; color: #FFE000; margin: 0;">
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Squads" asp-action="Index"><p class="color-yellow padding-top-10"><b>Squads</b></p></a>
+                        </li>
+                        <li class="nav-item">
+                            <hr style="width: 2px; height: 55px; display: inline-block; color: #FFE000; margin: 0;">
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Companies" asp-action="Index"><p class="color-yellow padding-top-10"><b>Companies</b></p></a>
+                        </li>
+                        <li class="nav-item">
+                            <hr style="width: 2px; height: 55px; display: inline-block; color: #FFE000; margin: 0;">
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Enquêtes" asp-action="Index"><p class="color-yellow padding-top-10"><b>Enquêtes</b></p></a>
+                        </li>
+                        <li class="nav-item">
+                            <hr style="width: 2px; height: 55px; display: inline-block; color: #FFE000; margin: 0;">
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action=""><P class="color-white padding-top-10">Logout</P></a>
                         </li>
                     </ul>
                 </div>
