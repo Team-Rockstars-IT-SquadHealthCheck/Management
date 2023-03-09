@@ -4,9 +4,9 @@ namespace RockstarsManagementSquad.Controllers
 {
     public class DataController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        // public IActionResult Index()
+        // {
+        //     return View();
+        // }
     }
 }
