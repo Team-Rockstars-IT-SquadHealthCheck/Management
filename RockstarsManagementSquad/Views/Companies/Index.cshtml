@@ -1,4 +1,31 @@
-﻿@model RockstarsManagementSquad.Models.User
+﻿@model IEnumerable<RockstarsManagementSquad.Models.CompanyViewModel>
 
 @{
 }
+<div>
+    <br/>
+    <br/>
+    <table class="table">
+        <tdead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Adress</th>
+                <th>TelNr</th>
+            </tr>
+        </tdead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Adress</td>
+                <td>@item.TelNr</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+
