@@ -13,13 +13,22 @@ namespace RockstarsManagementSquadLibrary
         public List<User> Users { get; private set; }
 
         // constructors
-        public Squad(int id)
+        public Squad()
         {
-            Id = id;
             Users = new List<User>();
         }
 
         // methods
+        public bool AddUserToSquad(User user)
+        {
+            bool result = false;
 
+            if(user != null)
+            {
+                Users.Add(user);
+            }
+
+            return result;
+        }
     }
 }

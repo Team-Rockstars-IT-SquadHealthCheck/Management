@@ -19,6 +19,28 @@ namespace RockstarsManagementSquadLibrary
         }
 
         // methods
+        public bool TryCreateNewCompany(string name, string adress, string telNr)
+        {
+            bool result = false;
 
+            if(NewCompanyMayBeCreated(name, adress, telNr))
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        public bool NewCompanyMayBeCreated(string name, string adress, string telNr)
+        {
+            bool result = false;
+
+            if (name != string.Empty && adress != string.Empty && telNr != string.Empty)
+            {
+                result = true;
+            }
+
+            return result;
+        }
     }
 }

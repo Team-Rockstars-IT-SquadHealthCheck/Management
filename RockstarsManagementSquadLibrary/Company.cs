@@ -10,9 +10,8 @@
         public List<Squad> Squads { get; private set; }
 
         // constructors
-        public Company(int id, string name, string adress, string telNr)
+        public Company(string name, string adress, string telNr)
         {
-            Id = id;
             Name = name;
             Adress = adress;
             TelNr = telNr;
@@ -20,6 +19,13 @@
         }
 
         // methods
+        public bool CreateNewSquad(string name, string adress, string telNr)
+        {
+            Squad squad = new Squad();
+            Squads.Add(squad);
+            bool result = true;
 
+            return result;
+        }
     }
 }
