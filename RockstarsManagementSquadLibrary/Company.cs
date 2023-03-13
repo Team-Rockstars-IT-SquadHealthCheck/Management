@@ -19,9 +19,9 @@
         }
 
         // methods
-        public bool CreateNewSquad()
+        public bool CreateNewSquad(string name)
         {
-            Squad squad = new Squad();
+            Squad squad = new Squad(name);
             Squads.Add(squad);
             bool result = true;
 

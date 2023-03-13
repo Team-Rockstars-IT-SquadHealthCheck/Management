@@ -51,6 +51,7 @@ namespace RockstarsManagementSquadLibrary
             if (NewUserMayBeCreated(username))
             {
                 User user = new User(username);
+                Users.Add(user);
                 result = true;
             }
 

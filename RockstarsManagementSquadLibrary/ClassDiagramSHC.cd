@@ -3,7 +3,7 @@
   <Class Name="RockstarsManagementSquadLibrary.SquadHealthCheck">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAACAAAIAAAAAAAAAAAAgAAAAgAAAAAAAAAIAAAAA=</HashCode>
+      <HashCode>AAAAACAAAIAAAAAAAAAAAAgAAAAgAAAAAAAgAIAAAAA=</HashCode>
       <FileName>SquadHealthCheck.cs</FileName>
     </TypeIdentifier>
   </Class>

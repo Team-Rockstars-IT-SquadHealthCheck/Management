@@ -11,7 +11,7 @@ namespace RockstarsManagementSquad.Services;
 public class CompanyViewModelService : ICompanyViewModelService
 {
     private readonly HttpClient _client;
-    public const string BasePath = "/api/find";
+    public const string BasePath = "/";
 
     public CompanyViewModelService(HttpClient client)
     {
