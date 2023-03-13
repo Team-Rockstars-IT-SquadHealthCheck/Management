@@ -1,3 +1,4 @@
+using RockstarsManagementSquad.Models;
 using System.Text.Json;
 
 namespace RockstarsManagementSquad;

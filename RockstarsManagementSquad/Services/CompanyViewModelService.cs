@@ -1,6 +1,6 @@
 using RockstarsManagementSquad.Models;
 using RockstarsManagementSquad.Services.Interfaces;
-
+using System.Text.Json.Nodes;
 
 namespace RockstarsManagementSquad.Services;
 
@@ -20,7 +20,7 @@ public class CompanyViewModelService : ICompanyViewModelService
 
     public async Task<IEnumerable<CompanyViewModel>> Find()
     {
-        string path = "https://localhost:7259/GetAllCompanys";
+        string path = "https://localhost:7259/getallcompanies";
         var response = await _client.GetAsync(path); // path was BasePath
 
         return await response.ReadContentAsync<List<CompanyViewModel>>();
