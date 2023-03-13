@@ -21,6 +21,10 @@ namespace RockstarsManagementSquadLibrary
         }
 
         // methods
-
+        public bool TryGetAllAnswers()
+        {
+            bool result = false;
+            return result;
+        }
     }
 }

@@ -16,16 +16,19 @@ namespace RockstarsManagementSquadLibrary
         // constructors
         public SquadHealthCheck()
         {
-
+            Companies = new List<Company>();
+            Users = new List<User>();
         }
 
         // methods
-        public bool TryCreateNewCompany(string name, string adress, string telNr)
+        public bool TryCreateNewCompany(string name, string address, string telNr)
         {
             bool result = false;
 
-            if(NewCompanyMayBeCreated(name, adress, telNr))
+            if(NewCompanyMayBeCreated(name, address, telNr))
             {
+                Company company = new Company(name, address, telNr);
+                Companies.Add(company);
                 result = true;
             }
 

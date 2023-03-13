@@ -22,6 +22,26 @@ namespace RockstarsManagementSquadLibrary
         }
 
         // methods
+        public bool CreateNewSurveyLink(int squadId, int userId)
+        {
+            bool result = false;
+            if (SurveyLinkMayBeCreated(squadId, userId))
+            {
 
+            }
+            return result;
+        }
+
+        private bool SurveyLinkMayBeCreated(int squadId, int userId)
+        {
+            bool result = false;
+
+            if (squadId != -1 && userId != -1)
+            {
+                result = true;
+            }
+
+            return result;
+        }
     }
 }
