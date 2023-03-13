@@ -10,21 +10,21 @@
   <Class Name="RockstarsManagementSquadLibrary.Company">
     <Position X="2.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACBAAAAAIAAAAAAAAAAAQAAAoAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACBAAAAAIAAAAAAAAAAAQAAAIAAAACAAAAAAAAAAA=</HashCode>
       <FileName>Company.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="RockstarsManagementSquadLibrary.Squad">
     <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAADACAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <HashCode>AAADACAAAAAAAAAAAAAAAAQAAAAAAAAAAACAAAAAAAA=</HashCode>
       <FileName>Squad.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="RockstarsManagementSquadLibrary.Survey">
     <Position X="9.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAgAAAAAAAAAAQAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAgAACAAAAABAQAAAQAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Survey.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -45,7 +45,7 @@
   <Class Name="RockstarsManagementSquadLibrary.User">
     <Position X="5.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAKAAAAAAAAAAAAAQAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <HashCode>AAAKAAAAAAAAAAAAAQAAAAAAAAAAAAAAQAAAAAAAAAg=</HashCode>
       <FileName>User.cs</FileName>
     </TypeIdentifier>
   </Class>
