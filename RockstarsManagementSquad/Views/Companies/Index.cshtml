@@ -1,7 +1,17 @@
 ﻿@model IEnumerable<RockstarsManagementSquad.Models.CompanyViewModel>
-
 @{
+    ViewData["Title"] = "Companies";
 }
+
+<div class="text-center">
+    <form method="post" action="">
+        <input type="text" name="name" placeholder="Company Name" />
+        <input type="text" name="address" placeholder="Company Address" />
+        <input type="tel"  name="telNr" placeholder="Company Tel" />
+        <input type="submit" name="submit" value="Submit" />
+    </form>
+</div>
+
 <div>
     <br/>
     <br/>
@@ -10,7 +20,7 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Adress</th>
+                <th>Address</th>
                 <th>TelNr</th>
             </tr>
         </tdead>
@@ -20,7 +30,7 @@
             <tr>
                 <td>@item.Id</td>
                 <td>@item.Name</td>
-                <td>@item.Adress</td>
+                <td>@item.Address</td>
                 <td>@item.TelNr</td>
             </tr>
         }

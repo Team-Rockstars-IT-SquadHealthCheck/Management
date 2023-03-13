@@ -68,3 +68,9 @@ body {
 .padding-right-0 {
     padding-right: 0;
 }
+
+@media only screen and (max-width: 575px)  {
+    .line-display {
+        display: none;
+    }
+}
