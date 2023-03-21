@@ -10,4 +10,8 @@
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RockstarsManagementSquadLibrary\RockstarsManagementSquadLibrary.csproj" />
+  </ItemGroup>
+
 </Project>

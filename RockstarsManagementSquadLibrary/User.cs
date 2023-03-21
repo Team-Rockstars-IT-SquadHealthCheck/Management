@@ -14,6 +14,8 @@ namespace RockstarsManagementSquadLibrary
         public List<Answer> Answers { get; private set; }
 
         // constructors
+        public User() { }
+
         public User(string username) 
         { 
             Username = username;

@@ -4,11 +4,11 @@
 }
 
 <div class="text-center">
-    <form method="post" action="">
+    <form asp-controller="Companies" method="post" asp-action="Create">
         <input type="text" name="name" placeholder="Company Name" />
         <input type="text" name="address" placeholder="Company Address" />
         <input type="tel"  name="telNr" placeholder="Company Tel" />
-        <input type="submit" name="submit" value="Submit" />
+        <button type="submit" name="submit" value="Create">Create</button>
     </form>
 </div>
 

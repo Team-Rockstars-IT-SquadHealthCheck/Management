@@ -10,6 +10,8 @@
         public List<Squad> Squads { get; private set; }
 
         // constructors
+        public Company() { }
+
         public Company(string name, string address, string telNr)
         {
             Name = name;
@@ -19,11 +21,26 @@
         }
 
         // methods
-        public bool CreateNewSquad(string name)
+        public Squad CreateNewSquad(string name)
         {
-            Squad squad = new Squad(name);
-            Squads.Add(squad);
-            bool result = true;
+            Squad squad = new Squad();
+            if (SquadMayBeCreated(name))
+            {
+                squad = new Squad(name);
+                Squads.Add(squad);
+            }
+
+            return squad;
+        }
+
+        private bool SquadMayBeCreated(string name)
+        {
+            bool result = false;
+
+            if (name != string.Empty)
+            {
+                result = true;
+            }
 
             return result;
         }
