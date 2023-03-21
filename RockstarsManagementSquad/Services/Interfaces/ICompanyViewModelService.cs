@@ -1,4 +1,7 @@
 using RockstarsManagementSquad.Models;
+using RockstarsManagementSquad.Models.DTO;
+using RockstarsManagementSquadLibrary;
+
 namespace RockstarsManagementSquad.Services.Interfaces;
 
 /// <summary>
@@ -8,5 +11,6 @@ namespace RockstarsManagementSquad.Services.Interfaces;
 public interface ICompanyViewModelService
 {
     Task<IEnumerable<CompanyViewModel>> Find();
+    Task<CompanyViewModel> Create(CompanyDTO company);
 }
 

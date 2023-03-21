@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using RockstarsManagementSquad.Models;
+using RockstarsManagementSquad.Models.DTO;
 using RockstarsManagementSquad.Services.Interfaces;
+using RockstarsManagementSquadLibrary;
 
 namespace RockstarsManagementSquad.Controllers;
 
@@ -23,5 +25,20 @@ public class CompaniesController : Controller
             CompanyViewModel companyViewModel = new CompanyViewModel();
         }
         return View(products);
+    }
+
+    Company company = new Company();
+
+    [HttpPost]
+    public IActionResult Create(string name, string address, string telNr)
+    {
+        SquadHealthCheck squadHealthCheck = new SquadHealthCheck();
+
+        company = squadHealthCheck.TryCreateNewCompany(name, address, telNr);
+        CompanyDTO cDTO = new CompanyDTO(0, company.Name, company.Address, company.TelNr);
+
+        _service.Create(cDTO);
+
+        return RedirectToAction("Index");
     }
 }
