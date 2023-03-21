@@ -4,7 +4,7 @@ using RockstarsManagementSquad.Services.Interfaces;
 
 namespace RockstarsManagementSquad.Controllers;
 
-public class CompaniesController : Controller   
+public class CompaniesController : Controller
 {
     private readonly Services.Interfaces.ICompanyViewModelService _service;
 

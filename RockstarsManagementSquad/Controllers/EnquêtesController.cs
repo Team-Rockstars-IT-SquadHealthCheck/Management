@@ -4,9 +4,8 @@ namespace RockstarsManagementSquad.Controllers;
 
 public class EnquêtesController : Controller
 {
-    // GET
-    // public IActionResult Index()
-    // {
-    //     return View();
-    // }
+     public IActionResult Index()
+    {
+        return View();
+    }
 }

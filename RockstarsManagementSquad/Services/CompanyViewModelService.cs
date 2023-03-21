@@ -20,7 +20,7 @@ public class CompanyViewModelService : ICompanyViewModelService
 
     public async Task<IEnumerable<CompanyViewModel>> Find()
     {
-        string path = "https://localhost:7259/getallcompanies";
+        string path = "https://localhost:7259/companies";
         var response = await _client.GetAsync(path); // path was BasePath
 
         return await response.ReadContentAsync<List<CompanyViewModel>>();
