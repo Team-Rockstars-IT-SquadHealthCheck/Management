@@ -1,4 +1,15 @@
 ﻿@model RockstarsManagementSquad.Models.UserViewModel
 
 @{
+    ViewData["Title"] = "Enquêtes";
 }
+
+<div class="text-start">
+    <form asp-controller="Enquêtes" method="post" asp-action="">
+        <input type="text" name="name" placeholder="Enquête Name" />
+        <br />
+        <textarea name="discription" rows="4" cols="50" placeholder="Enquête discription."></textarea>
+        <br />
+        <input type="submit" name="submit" value="Submit" />
+    </form>
+</div>
