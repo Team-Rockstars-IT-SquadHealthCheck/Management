@@ -14,6 +14,8 @@ namespace RockstarsManagementSquadLibrary
         public List<User> Users { get; private set; }
 
         // constructors
+        public Squad() { }
+
         public Squad(string name)
         {
             Name = name;
@@ -21,16 +23,14 @@ namespace RockstarsManagementSquadLibrary
         }
 
         // methods
-        public bool AddUserToSquad(User user)
+        public User AddUserToSquad(User user)
         {
-            bool result = false;
-
             if(user != null)
             {
                 Users.Add(user);
             }
 
-            return result;
+            return user;
         }
     }
 }
