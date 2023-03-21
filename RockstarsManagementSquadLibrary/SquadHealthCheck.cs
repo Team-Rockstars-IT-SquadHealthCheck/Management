@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -21,18 +22,16 @@ namespace RockstarsManagementSquadLibrary
         }
 
         // methods
-        public bool TryCreateNewCompany(string name, string address, string telNr)
+        public Company TryCreateNewCompany(string name, string address, string telNr)
         {
-            bool result = false;
-
+            Company company = new Company();
             if(NewCompanyMayBeCreated(name, address, telNr))
             {
-                Company company = new Company(name, address, telNr);
+                company = new Company(name, address, telNr);
                 Companies.Add(company);
-                result = true;
             }
 
-            return result;
+            return company;
         }
 
         private bool NewCompanyMayBeCreated(string name, string adress, string telNr)
@@ -47,18 +46,17 @@ namespace RockstarsManagementSquadLibrary
             return result;
         }
 
-        public bool TryCreateNewUser(string username)
+        public User TryCreateNewUser(string username)
         {
-            bool result = false;
+            User user = new User();
 
             if (NewUserMayBeCreated(username))
             {
-                User user = new User(username);
+                user = new User(username);
                 Users.Add(user);
-                result = true;
             }
 
-            return result;
+            return user;
         }
 
         private bool NewUserMayBeCreated(string username)
