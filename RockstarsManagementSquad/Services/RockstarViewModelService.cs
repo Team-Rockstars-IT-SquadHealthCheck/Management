@@ -8,21 +8,21 @@ namespace RockstarsManagementSquad.Services;
 /// Now we will create the class that will implement the previous Interface.
 /// It will also consume the API endpoint through the route represented by the “BasePath” variable.
 /// </summary>
-public class CompanyViewModelService : ICompanyViewModelService
+public class RockstarViewModelService : IRockstarViewModelService
 {
     private readonly HttpClient _client;
     public const string BasePath = "/";
 
-    public CompanyViewModelService(HttpClient client)
+    public RockstarViewModelService(HttpClient client)
     {
         _client = client ?? throw new ArgumentNullException(nameof(client));
     }
 
-    public async Task<IEnumerable<CompanyViewModel>> Find()
+    public async Task<IEnumerable<RockstarViewModel>> Find()
     {
-        string path = "https://localhost:7259/companies";
+        string path = "https://localhost:7259/users";
         var response = await _client.GetAsync(path); // path was BasePath
 
-        return await response.ReadContentAsync<List<CompanyViewModel>>();
+        return await response.ReadContentAsync<List<RockstarViewModel>>();
     }
 }
