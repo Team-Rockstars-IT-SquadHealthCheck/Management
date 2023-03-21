@@ -6,22 +6,22 @@ using RockstarsManagementSquadLibrary;
 
 namespace RockstarsManagementSquad.Controllers;
 
-public class EnquêtesController : Controller
+public class SurveysController : Controller
 {
-    private readonly Services.Interfaces.ICompanyViewModelService _service;
+    private readonly Services.Interfaces.ISurveyViewModelService _service;
 
-    public CompaniesController(RockstarsManagementSquad.Services.Interfaces.ICompanyViewModelService service)
+    public SurveysController(RockstarsManagementSquad.Services.Interfaces.ISurveyViewModelService service)
     {
         _service = service ?? throw new ArgumentNullException(nameof(service));
     }
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
         //var companies = await _service.Find();
         var products = await _service.Find();
         // foreach company create new in view model
         foreach (var product in products)
         {
-            CompanyViewModel companyViewModel = new CompanyViewModel();
+            SurveyViewModel surveyViewModel = new SurveyViewModel();
         }
         return View(products);
     }
