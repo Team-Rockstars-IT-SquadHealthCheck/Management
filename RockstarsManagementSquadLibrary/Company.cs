@@ -21,10 +21,10 @@
         }
 
         // methods
-        public Squad CreateNewSquad(string name)
+        public Squad CreateNewSquad(string name, string dbName)
         {
             Squad squad = new Squad();
-            if (SquadMayBeCreated(name))
+            if (SquadMayBeCreated(name, dbName))
             {
                 squad = new Squad(name);
                 Squads.Add(squad);
@@ -33,16 +33,29 @@
             return squad;
         }
 
-        private bool SquadMayBeCreated(string name)
+        private bool SquadMayBeCreated(string name, string dbName)
         {
             bool result = false;
 
-            if (name != string.Empty)
+            if (name != string.Empty && name.ToLower() != dbName.ToLower())
             {
                 result = true;
             }
 
             return result;
+        }
+
+        public bool AddSquad(Squad squad)
+        {
+            bool squadHasBeenAdded = false;
+
+            if (squad != null)
+            {
+                Squads.Add(squad);
+                squadHasBeenAdded = true;
+            }
+
+            return squadHasBeenAdded;
         }
     }
 }
