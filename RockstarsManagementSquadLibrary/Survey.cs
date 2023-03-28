@@ -13,6 +13,11 @@ namespace RockstarsManagementSquadLibrary
         public List<Question> questions { get; private set; }
 
         // constructors
+        public Survey()
+        {
+            
+        }
+
         public Survey(int id, string name, string description)
         {
             Id = id;
@@ -22,16 +27,18 @@ namespace RockstarsManagementSquadLibrary
         }
 
         // methods
-        public bool CreateNewSurveyLink(int squadId, int userId)
+        public string CreateNewSurveyLink(int squadId, int userId)
         {
-            bool result = false;
+            string personalisedSurveyLink = "";
             if (SurveyLinkMayBeCreated(squadId, userId))
             {
-
+                Guid myuuid = Guid.NewGuid();
+                string uuid = myuuid.ToString();
+                personalisedSurveyLink = $"{uuid}&{Convert.ToString(squadId)}&{Convert.ToString(userId)}";
             }
-            return result;
+            return personalisedSurveyLink;
         }
-
+        
         private bool SurveyLinkMayBeCreated(int squadId, int userId)
         {
             bool result = false;

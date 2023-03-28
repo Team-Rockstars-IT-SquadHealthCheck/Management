@@ -20,7 +20,7 @@ public class RockstarViewModelService : IRockstarViewModelService
 
     public async Task<IEnumerable<RockstarViewModel>> Find()
     {
-        string path = "https://localhost:7259/users";
+        string path = "https://localhost:6001/users";
         var response = await _client.GetAsync(path); // path was BasePath
 
         return await response.ReadContentAsync<List<RockstarViewModel>>();

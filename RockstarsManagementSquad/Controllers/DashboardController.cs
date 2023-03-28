@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using RockstarsManagementSquad.Models;
+using RockstarsManagementSquadLibrary;
 using System.Diagnostics;
 
 namespace RockstarsManagementSquad.Controllers
@@ -15,6 +16,8 @@ namespace RockstarsManagementSquad.Controllers
 
         public IActionResult Index()
         {
+            Survey survey = new Survey();
+            survey.CreateNewSurveyLink(3, 2);
             return View();
         }
 
