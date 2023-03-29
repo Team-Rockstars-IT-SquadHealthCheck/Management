@@ -25,4 +25,12 @@ public class SurveysController : Controller
         }
         return View(products);
     }
+
+    public IActionResult CreateSurveyLink(int squadId)
+    {
+        Survey survey = new Survey();
+        string surveyLink = survey.CreateNewSurveyLink(squadId, 3);
+        //_service.CreateSurveyLink(surveyLink);
+        return RedirectToAction("Index");
+    }
 }
