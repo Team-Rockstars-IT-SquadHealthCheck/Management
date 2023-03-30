@@ -27,12 +27,4 @@ public class SurveyViewModelService : ISurveyViewModelService
 
         return await response.ReadContentAsync<List<SurveyViewModel>>();
     }
-
-    //public async Task<string> Create(string SurveyLink)
-    //{
-    //    string path = "https://localhost:6001/survey";
-    //    var response = await _client.PostAsJsonAsync<string>(path, SurveyLink); // path was BasePath
-
-    //    return await response.ReadContentAsync<string>();
-    //}
 }

@@ -4,33 +4,44 @@ using RockstarsManagementSquad.Models.DTO;
 using RockstarsManagementSquad.Services.Interfaces;
 using RockstarsManagementSquadLibrary;
 
-namespace RockstarsManagementSquad.Controllers;
-
-public class SurveysController : Controller
+namespace RockstarsManagementSquad.Controllers
 {
-    private readonly Services.Interfaces.ISurveyViewModelService _service;
+    public class SurveysController : Controller
+    {
+        private readonly ISurveyViewModelService _surveyService;
+        private readonly IUserViewModelService _userService;
+        private readonly ISquadViewModelService _squadService;
 
-    public SurveysController(RockstarsManagementSquad.Services.Interfaces.ISurveyViewModelService service)
-    {
-        _service = service ?? throw new ArgumentNullException(nameof(service));
-    }
-    public async Task<IActionResult> Index()
-    {
-        //var companies = await _service.Find();
-        var products = await _service.Find();
-        // foreach company create new in view model
-        foreach (var product in products)
+        public SurveysController(ISurveyViewModelService surveyService, IUserViewModelService userService, ISquadViewModelService squadService)
         {
-            SurveyViewModel surveyViewModel = new SurveyViewModel();
+            _surveyService = surveyService ?? throw new ArgumentNullException(nameof(surveyService));
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
+            _squadService = squadService ?? throw new ArgumentNullException(nameof(squadService));
         }
-        return View(products);
-    }
 
-    public IActionResult CreateSurveyLink(int squadId)
-    {
-        Survey survey = new Survey();
-        string surveyLink = survey.CreateNewSurveyLink(squadId, 3);
-        //_service.CreateSurveyLink(surveyLink);
-        return RedirectToAction("Index");
+        public async Task<IActionResult> Index()
+        {
+            var products = await _surveyService.Find();
+            foreach (var product in products)
+            {
+                SurveyViewModel surveyViewModel = new SurveyViewModel();
+            }
+            return View(products);
+        }
+
+        public async Task<IActionResult> CreateSurveyLink(int squadId)
+        {
+            IEnumerable<UserViewModel> UsersInSquad = await _squadService.UsersInSquad(squadId);
+            List<UserViewModel> usersList = UsersInSquad.ToList();
+
+            Survey survey = new Survey();
+            foreach (var user in usersList)
+            {
+                int userId = user.Id;
+                string surveyLink = survey.CreateNewSurveyLink(squadId, userId);
+                _userService.AddSurveyLinkToUser(surveyLink, userId);
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
