@@ -48,19 +48,30 @@ namespace RockstarsManagementSquad;
         /// </summary>
         private static async Task RunAsync()
         {
+            //LOCALHOST PORT MOET API PORT ZIJN
+            client.BaseAddress = new Uri("https://localhost:6001/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
             try
             {
-                //LOCALHOST PORT MOET API PORT ZIJN
-                client.BaseAddress = new Uri("http://localhost:7078/");
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(
-                    new MediaTypeWithQualityHeaderValue("application/json"));
+                UserDTO newuserDto = new UserDTO()
+                {
+                    // username = "Gizmo",
+                    // password = "koekje",
+                    // email = "emailtest",
+                    // roleid = 1,
+                    // squadid = 1,
+                };
+
+                var url = await CreateRockstarRecord(newuserDto);
+                Console.WriteLine($"Created at {url}");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                throw;
             }
+            Console.ReadLine();
         }
         
         //Ik ben benieuwd of dit gaat werken, ben gewoon blind een artikel van microsoft aan het volgen namelijk
