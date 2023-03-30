@@ -34,7 +34,8 @@ namespace RockstarsManagementSquadLibrary
             {
                 Guid myuuid = Guid.NewGuid();
                 string uuid = myuuid.ToString();
-                personalisedSurveyLink = $"{uuid}&{Convert.ToString(squadId)}&{Convert.ToString(userId)}";
+                int SurveyNumber = 00000;
+                personalisedSurveyLink = $"{SurveyNumber}&{uuid}&{Convert.ToString(squadId)}&{Convert.ToString(userId)}";
             }
             return personalisedSurveyLink;
         }
