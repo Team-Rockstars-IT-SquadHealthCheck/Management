@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RockstarsManagementSquad.Models;
 using RockstarsManagementSquadLibrary;
@@ -7,6 +8,7 @@ namespace RockstarsManagementSquad.Controllers
 {
     public class DashboardController : Controller
     {
+        
         private readonly ILogger<DashboardController> _logger;
 
         public DashboardController(ILogger<DashboardController> logger)
@@ -14,6 +16,7 @@ namespace RockstarsManagementSquad.Controllers
             _logger = logger;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             Survey survey = new Survey();
