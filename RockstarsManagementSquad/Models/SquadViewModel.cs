@@ -1,4 +1,6 @@
-﻿namespace RockstarsManagementSquad.Models
+﻿using RockstarsManagementSquadLibrary;
+
+namespace RockstarsManagementSquad.Models
 {
     public class SquadViewModel
     {

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using RockstarsManagementSquad.Models;
+using RockstarsManagementSquad.Models.DTO;
 using RockstarsManagementSquad.Services.Interfaces;
 
 namespace RockstarsManagementSquad.Controllers;
