@@ -20,9 +20,17 @@ public class SquadViewModelService : ISquadViewModelService
 
     public async Task<IEnumerable<SquadViewModel>> Find()
     {
-        string path = "https://localhost:7259/squads";
+        string path = "https://localhost:6001/squads";
         var response = await _client.GetAsync(path); // path was BasePath
 
         return await response.ReadContentAsync<List<SquadViewModel>>();
+    }
+
+    public async Task<IEnumerable<UserViewModel>> UsersInSquad(int squadId)
+    {
+        string path = $"https://localhost:6001/UsersInSquad/{squadId}";
+        var response = await _client.GetAsync(path); // path was BasePath
+
+        return await response.ReadContentAsync<List<UserViewModel>>();
     }
 }

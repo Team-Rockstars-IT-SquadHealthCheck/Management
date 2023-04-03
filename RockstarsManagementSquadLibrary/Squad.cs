@@ -23,14 +23,17 @@ namespace RockstarsManagementSquadLibrary
         }
 
         // methods
-        public User AddUserToSquad(User user)
+        public bool AddUserToSquad(User user)
         {
+            bool userHasBeenAdded = false;
+
             if(user != null)
             {
                 Users.Add(user);
+                userHasBeenAdded = true;
             }
 
-            return user;
+            return userHasBeenAdded;
         }
     }
 }

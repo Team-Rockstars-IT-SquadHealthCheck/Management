@@ -11,6 +11,5 @@ namespace RockstarsManagementSquad.Services.Interfaces;
 public interface ISurveyViewModelService
 {
     Task<IEnumerable<SurveyViewModel>> Find();
-    Task<SurveyViewModel> Create(SurveyDTO survey);
 }
 

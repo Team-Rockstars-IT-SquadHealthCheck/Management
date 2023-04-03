@@ -1,5 +1,7 @@
+using System.Net.Http.Headers;
 using RockstarsManagementSquad.Models;
 using System.Text.Json;
+using RockstarsManagementSquad.Models.DTO;
 
 namespace RockstarsManagementSquad;
 
@@ -18,6 +20,10 @@ namespace RockstarsManagementSquad;
 
     public static class HttpClientExtensions
     {
+        //Dit is voor de tweede method, in het geval dat dit alle opkut, gewoon weghalen, dan vind ik wel een andere manier
+        static HttpClient client = new HttpClient();
+        
+        
         public static async Task<T> ReadContentAsync<T>(this HttpResponseMessage response)
         {
             if (response.IsSuccessStatusCode == false)
@@ -33,4 +39,50 @@ namespace RockstarsManagementSquad;
 
             return result;
         }
+        
+        
+        /// <summary>
+        /// The following code:
+        /// Sets the base URI for HTTP requests.
+        /// Sets the Accept header to "application/json". Setting this header tells the server to send data in JSON format.
+        /// </summary>
+        private static async Task RunAsync()
+        {
+            //LOCALHOST PORT MOET API PORT ZIJN
+            client.BaseAddress = new Uri("https://localhost:6001/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+            try
+            {
+                UserDTO newuserDto = new UserDTO()
+                {
+                    // username = "Gizmo",
+                    // password = "koekje",
+                    // email = "emailtest",
+                    // roleid = 1,
+                    // squadid = 1,
+                };
+
+                var url = await CreateRockstarRecord(newuserDto);
+                Console.WriteLine($"Created at {url}");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            Console.ReadLine();
+        }
+        
+        //Ik ben benieuwd of dit gaat werken, ben gewoon blind een artikel van microsoft aan het volgen namelijk
+        //UPDATE: het werkt
+        public static async Task<Uri> CreateRockstarRecord(UserDTO userdto)
+        {
+            HttpResponseMessage response = await client.PostAsJsonAsync("api/User", userdto);
+            response.EnsureSuccessStatusCode();
+
+            // return URI of the created resource.
+            return response.Headers.Location;
+        }
     }
+

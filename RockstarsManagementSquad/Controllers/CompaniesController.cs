@@ -8,17 +8,17 @@ namespace RockstarsManagementSquad.Controllers;
 
 public class CompaniesController : Controller
 {
-    private readonly Services.Interfaces.ICompanyViewModelService _service;
+    private readonly Services.Interfaces.ICompanyViewModelService _companyService;
 
     public CompaniesController(RockstarsManagementSquad.Services.Interfaces.ICompanyViewModelService service)
     {
-        _service = service ?? throw new ArgumentNullException(nameof(service));
+        _companyService = service ?? throw new ArgumentNullException(nameof(service));
     }
-
+    
     public async Task<IActionResult> Index()
     {
         //var companies = await _service.Find();
-        var products = await _service.Find();
+        var products = await _companyService.Find();
         // foreach company create new in view model
         foreach (var product in products)
         {
@@ -37,7 +37,7 @@ public class CompaniesController : Controller
         company = squadHealthCheck.TryCreateNewCompany(name, address, telNr);
         CompanyDTO cDTO = new CompanyDTO(0, company.Name, company.Address, company.TelNr);
 
-        _service.Create(cDTO);
+        _companyService.Create(cDTO);
 
         return RedirectToAction("Index");
     }
