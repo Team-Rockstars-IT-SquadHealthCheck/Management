@@ -1,18 +1,14 @@
-@model TModel
-
+﻿@model RockstarViewModel
 @{
-    Layout = null;
+    ViewData["Title"] = "Create Rockstars";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>title</title>
-</head>
-<body>
-<div>
-      
+<div class="text-center">
+    <form method="post">
+        <input type="text" asp-for="username" placeholder="Username" />
+        <input type="email" asp-for="email" placeholder="E-mail" />
+        <select asp-for="squadid" asp-items="ViewBag.Squads" style="width: 150px;"></select>
+        <input type="submit" name="submit" value="Submit" />
+        <div asp-validation-summary="All"></div>
+    </form>
 </div>
-</body>
-</html>
