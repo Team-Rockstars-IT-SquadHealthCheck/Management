@@ -33,65 +33,8 @@ public class RockstarsController : Controller
         return View(rockstarProducts);
     }
 
-    
-
-    [HttpGet]
-    public async Task<IActionResult> Create()
-    {
-        List<SquadViewModel> squads = new List<SquadViewModel>();
-
-        var squadProducts = await _squadService.Find();
-
-        foreach (var squadProduct in squadProducts)
-        {
-            squads.Add(squadProduct);
-        }
-
-        List<SelectListItem> items = squads.Select(s => new SelectListItem
-        {
-            Text = s.id.ToString(),
-            Value = s.id.ToString()
-        }).ToList();
-
-        ViewBag.Squads = items;
-
-        return View();
-    }
-
     [HttpPost]
-    public async Task<IActionResult> Create(RockstarViewModel rockstar)
-    {
-        if (ModelState.IsValid)
-        {
-            //TODO Rockstar in database
-            return RedirectToAction("Index", "Rockstar");
-        }
-        else
-        {
-            List<SquadViewModel> squads = new List<SquadViewModel>();
-
-            var squadProducts = await _squadService.Find();
-
-            foreach (var squadProduct in squadProducts)
-            {
-                squads.Add(squadProduct);
-            }
-
-            List<SelectListItem> items = squads.Select(s => new SelectListItem
-            {
-                Text = s.id.ToString(),
-                Value = s.id.ToString()
-            }).ToList();
-
-            ViewBag.Squads = items;
-            return View(rockstar);
-
-        }
-    }
-    
-
-    [HttpPost]
-    public async Task<IActionResult> Create(string name, string address, string telNr, string username, string password, string email, int roleid, int squadid)
+    public async Task<IActionResult> Create(string username, string password, string email, int roleid, int squadid)
     {
         UserDTO newuserDto = new UserDTO()
         {
@@ -104,7 +47,7 @@ public class RockstarsController : Controller
 
         try
         {
-            var url = await HttpClientExtensions.CreateRockstarRecord(newuserDto);
+            var url = await _rockstarsService.Create(newuserDto);
             ViewBag.Message = $"User created at {url}";
         }
         catch (Exception e)
@@ -112,7 +55,6 @@ public class RockstarsController : Controller
             ViewBag.Error = e.Message;
         }
 
-        return View();
+        return RedirectToAction("Index");
     }
-
 }

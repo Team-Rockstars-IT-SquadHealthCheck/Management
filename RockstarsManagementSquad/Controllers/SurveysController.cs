@@ -33,12 +33,20 @@ namespace RockstarsManagementSquad.Controllers
         {
             IEnumerable<UserViewModel> UsersInSquad = await _squadService.UsersInSquad(squadId);
             List<UserViewModel> usersList = UsersInSquad.ToList();
+            
+            int surveyNumber = 0;
 
-            Survey survey = new Survey();
+            Survey survey = new Survey(); Random rnd = new Random();
+
+            for (int j = 0; j < 1; j++)
+            {
+                surveyNumber = rnd.Next(0, 9999);
+            }
+
             foreach (var user in usersList)
             {
                 int userId = user.Id;
-                string surveyLink = survey.CreateNewSurveyLink(squadId, userId);
+                string surveyLink = survey.CreateNewSurveyLink(surveyNumber, squadId, userId);
                 _userService.AddSurveyLinkToUser(surveyLink, userId);
             }
             return RedirectToAction("Index");

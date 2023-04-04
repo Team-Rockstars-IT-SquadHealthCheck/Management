@@ -37,15 +37,15 @@ builder.Services.AddControllersWithViews()
 
 // Add services to the container.
 builder.Services.AddHttpClient<ICompanyViewModelService, CompanyViewModelService>(c =>
-    c.BaseAddress = new Uri("https://localhost:6001"));
+    c.BaseAddress = new Uri("https://localhost:7259"));
 builder.Services.AddHttpClient<ISquadViewModelService, SquadViewModelService>(c =>
-    c.BaseAddress = new Uri("https://localhost:6001"));
+    c.BaseAddress = new Uri("https://localhost:7259"));
 builder.Services.AddHttpClient<IRockstarViewModelService, RockstarViewModelService>(c =>
-    c.BaseAddress = new Uri("https://localhost:6001"));
+    c.BaseAddress = new Uri("https://localhost:7259"));
 builder.Services.AddHttpClient<ISurveyViewModelService, SurveyViewModelService>(c =>
-    c.BaseAddress = new Uri("https://localhost:6001"));
+    c.BaseAddress = new Uri("https://localhost:7259"));
 builder.Services.AddHttpClient<IUserViewModelService, UserViewModelService>(c =>
-    c.BaseAddress = new Uri("https://localhost:6001"));
+    c.BaseAddress = new Uri("https://localhost:7259"));
 //====================================
 //BIJ LOCALHOST MOET DE LOCAL API PORT
 //====================================

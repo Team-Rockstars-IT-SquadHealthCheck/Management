@@ -3,14 +3,14 @@
     ViewData["Title"] = "Squads";
 }
 
-<div class="text-center">
+@*<div class="text-center">
     <form method="post" action="">
         <input type="text" name="name" placeholder="zeg even" />
         <input type="text" name="address" placeholder="wat je" />
         <input type="tel"  name="telNr" placeholder="hier wilt" />
         <input type="submit" name="submit" value="Submit" />
     </form>
-</div>
+</div>*@
 
 <div>
     <br/>
@@ -19,7 +19,7 @@
         <tdead>
             <tr>
                 <th>Id</th>
-                <th>surveyId</th>
+                <th>name</th>
                 <th>companyId</th>
             </tr>
         </tdead>
@@ -28,7 +28,7 @@
         {
             <tr>
                 <td>@item.id</td>
-                <td>@item.surveyId</td>
+                <td>@item.name</td>
                 <td>@item.companyId</td>
             </tr>
         }

@@ -1,4 +1,6 @@
-﻿using RockstarsManagementSquad.Services.Interfaces;
+﻿using RockstarsManagementSquad.Models.DTO;
+using RockstarsManagementSquad.Models;
+using RockstarsManagementSquad.Services.Interfaces;
 
 namespace RockstarsManagementSquad.Services
 {
@@ -14,7 +16,7 @@ namespace RockstarsManagementSquad.Services
 
         public async Task<string> AddSurveyLinkToUser(string SurveyLink, int userId)
         {
-            string path = $"https://localhost:6001/User/{userId}/Url";
+            string path = $"https://localhost:7259/User/{userId}/Url";
             var response = await _client.PutAsJsonAsync<string>(path, SurveyLink); // path was BasePath
 
             return await response.ReadContentAsync<string>();

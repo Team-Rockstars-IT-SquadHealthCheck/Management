@@ -10,4 +10,5 @@ public class RockstarViewModel
     public string email { get; set; }
     public int roleid { get; set; }
     public int squadid { get; set; }
+    public string url { get; set; }
 }
