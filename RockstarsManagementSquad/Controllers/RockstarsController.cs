@@ -3,6 +3,7 @@ using RockstarsManagementSquad.Models;
 using RockstarsManagementSquad.Models.DTO;
 using RockstarsManagementSquad.Services.Interfaces;
 
+
 namespace RockstarsManagementSquad.Controllers;
 
 public class RockstarsController : Controller   
@@ -25,4 +26,31 @@ public class RockstarsController : Controller
         }
         return View(products);
     }
+    
+
+    [HttpPost]
+    public async Task<IActionResult> Create(string name, string address, string telNr, string username, string password, string email, int roleid, int squadid)
+    {
+        UserDTO newuserDto = new UserDTO()
+        {
+            username = username,
+            password = password,
+            email = email,
+            roleid = roleid,
+            squadid = squadid,
+        };
+
+        try
+        {
+            var url = await HttpClientExtensions.CreateRockstarRecord(newuserDto);
+            ViewBag.Message = $"User created at {url}";
+        }
+        catch (Exception e)
+        {
+            ViewBag.Error = e.Message;
+        }
+
+        return View();
+    }
+
 }

@@ -10,17 +10,10 @@ namespace RockstarsManagementSquad;
 /// Dit stond er op de website:
 /// The client will be responsible for direct communication with the API.
 /// It will contain a static method responsible for deserializing the API response and formatting it.
-///
-/// chatGPT:
-/// This code defines an extension method to read and deserialize the content of a successful HTTP response into an object of a specified type using System.Text.Json.
-/// It checks if the response was successful and throws an exception if not. The method is asynchronous,
-/// reads the response content as a string, and deserializes it into an object of type T with the PropertyNameCaseInsensitive option set to true.
-/// This simplifies HTTP request/response handling in .NET applications.
 /// </summary>
 
     public static class HttpClientExtensions
     {
-        //Dit is voor de tweede method, in het geval dat dit alle opkut, gewoon weghalen, dan vind ik wel een andere manier
         static HttpClient client = new HttpClient();
         
         
@@ -49,7 +42,7 @@ namespace RockstarsManagementSquad;
         private static async Task RunAsync()
         {
             //LOCALHOST PORT MOET API PORT ZIJN
-            client.BaseAddress = new Uri("https://localhost:6001/");
+            client.BaseAddress = new Uri("https://localhost:7259/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
@@ -57,11 +50,11 @@ namespace RockstarsManagementSquad;
             {
                 UserDTO newuserDto = new UserDTO()
                 {
-                    // username = "Gizmo",
-                    // password = "koekje",
-                    // email = "emailtest",
-                    // roleid = 1,
-                    // squadid = 1,
+                    username = "Gizmo",
+                    password = "koekje",
+                    email = "emailtest",
+                    roleid = 1,
+                    squadid = 1,
                 };
 
                 var url = await CreateRockstarRecord(newuserDto);
@@ -74,11 +67,9 @@ namespace RockstarsManagementSquad;
             Console.ReadLine();
         }
         
-        //Ik ben benieuwd of dit gaat werken, ben gewoon blind een artikel van microsoft aan het volgen namelijk
-        //UPDATE: het werkt
-        public static async Task<Uri> CreateRockstarRecord(UserDTO userdto)
+        public static async Task<Uri> CreateRockstarRecord(UserDTO userDto)
         {
-            HttpResponseMessage response = await client.PostAsJsonAsync("api/User", userdto);
+            var response = await client.PostAsJsonAsync("api/User", userDto);
             response.EnsureSuccessStatusCode();
 
             // return URI of the created resource.
