@@ -1,4 +1,7 @@
-﻿namespace RockstarsManagementSquad.Services.Interfaces
+﻿using RockstarsManagementSquad.Models.DTO;
+using RockstarsManagementSquad.Models;
+
+namespace RockstarsManagementSquad.Services.Interfaces
 {
     public interface IUserViewModelService
     {

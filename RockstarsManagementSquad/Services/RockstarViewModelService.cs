@@ -1,4 +1,5 @@
 using RockstarsManagementSquad.Models;
+using RockstarsManagementSquad.Models.DTO;
 using RockstarsManagementSquad.Services.Interfaces;
 using System.Text.Json.Nodes;
 
@@ -20,9 +21,17 @@ public class RockstarViewModelService : IRockstarViewModelService
 
     public async Task<IEnumerable<RockstarViewModel>> Find()
     {
-        string path = "https://localhost:6001/users";
+        string path = "https://localhost:7259/users";
         var response = await _client.GetAsync(path); // path was BasePath
 
         return await response.ReadContentAsync<List<RockstarViewModel>>();
+    }
+
+    public async Task<UserViewModel> Create(UserDTO user)
+    {
+        string path = "https://localhost:7259/api/User";
+        var response = await _client.PostAsJsonAsync<UserDTO>(path, user); // path was BasePath
+
+        return await response.ReadContentAsync<UserViewModel>();
     }
 }

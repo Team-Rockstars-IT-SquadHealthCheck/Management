@@ -3,10 +3,16 @@
     ViewData["Title"] = "Rockstars";
 }
 
-
-<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#userModal">Add User</a>
-
-
+<div class="text-center">
+    <form asp-controller="Rockstars" method="post" asp-action="Create">
+        <input type="text" name="username" placeholder="UserName" />
+        <input type="text" name="email" placeholder="Email" />
+        <input type="text" name="password" placeholder="Password" />
+        <input type="text" name="roleid" placeholder="RoleID" />
+        <input type="text" name="squadid" placeholder="SquadID" />
+        <input type="submit" name="submit" value="Create" />
+    </form>
+</div>
 
 <div>
     <br/>
@@ -19,6 +25,7 @@
                 <th>Email</th>
                 <th>RoleID</th>
                 <th>SquadID</th>
+                <th>url</th>
             </tr>
         </tdead>
         <tbody>
@@ -30,6 +37,7 @@
                 <td>@item.email</td>
                 <td>@item.roleid</td>
                 <td>@item.squadid</td>
+                <td>@item.url</td>
             </tr>
         }
         </tbody>

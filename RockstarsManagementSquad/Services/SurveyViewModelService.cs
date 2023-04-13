@@ -22,7 +22,7 @@ public class SurveyViewModelService : ISurveyViewModelService
 
     public async Task<IEnumerable<SurveyViewModel>> Find()
     {
-        string path = "https://localhost:6001/surveys";
+        string path = "https://localhost:7259/surveys";
         var response = await _client.GetAsync(path); // path was BasePath
 
         return await response.ReadContentAsync<List<SurveyViewModel>>();

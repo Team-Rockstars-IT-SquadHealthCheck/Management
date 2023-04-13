@@ -27,15 +27,14 @@ namespace RockstarsManagementSquadLibrary
         }
 
         // methods
-        public string CreateNewSurveyLink(int squadId, int userId)
+        public string CreateNewSurveyLink(int surveyNumber, int squadId, int userId)
         {
             string personalisedSurveyLink = "";
             if (SurveyLinkMayBeCreated(squadId, userId))
             {
                 Guid myuuid = Guid.NewGuid();
                 string uuid = myuuid.ToString();
-                int SurveyNumber = 00000;
-                personalisedSurveyLink = $"{SurveyNumber}&{uuid}&{Convert.ToString(squadId)}&{Convert.ToString(userId)}";
+                personalisedSurveyLink = $"{surveyNumber}&{uuid}&{Convert.ToString(squadId)}&{Convert.ToString(userId)}";
             }
             return personalisedSurveyLink;
         }

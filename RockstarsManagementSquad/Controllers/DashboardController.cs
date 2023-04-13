@@ -16,11 +16,9 @@ namespace RockstarsManagementSquad.Controllers
             _logger = logger;
         }
 
-        [Authorize]
+        //[Authorize]
         public IActionResult Index()
         {
-            Survey survey = new Survey();
-            survey.CreateNewSurveyLink(3, 2);
             return View();
         }
 
