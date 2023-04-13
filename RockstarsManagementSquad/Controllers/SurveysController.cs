@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using RockstarsManagementSquad.Helpers;
 using RockstarsManagementSquad.Models;
 using RockstarsManagementSquad.Models.DTO;
 using RockstarsManagementSquad.Services.Interfaces;
@@ -31,8 +32,8 @@ namespace RockstarsManagementSquad.Controllers
 
         public async Task<IActionResult> CreateSurveyLink(int squadId)
         {
-            IEnumerable<UserViewModel> UsersInSquad = await _squadService.UsersInSquad(squadId);
-            List<UserViewModel> usersList = UsersInSquad.ToList();
+            IEnumerable<RockstarViewModel> UsersInSquad = await _squadService.UsersInSquad(squadId);
+            List<RockstarViewModel> usersList = UsersInSquad.ToList();
             
             int surveyNumber = 0;
 
@@ -45,9 +46,10 @@ namespace RockstarsManagementSquad.Controllers
 
             foreach (var user in usersList)
             {
-                int userId = user.Id;
+                int userId = user.id;
                 string surveyLink = survey.CreateNewSurveyLink(surveyNumber, squadId, userId);
                 _userService.AddSurveyLinkToUser(surveyLink, userId);
+                survey.SendSurveyLinkToRockstar(user.ConvertRockstarViewModelToUser());
             }
             return RedirectToAction("Index");
         }

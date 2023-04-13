@@ -8,5 +8,5 @@ namespace RockstarsManagementSquad.Services.Interfaces;
 public interface ISquadViewModelService
 {
     Task<IEnumerable<SquadViewModel>> Find();
-    Task<IEnumerable<UserViewModel>> UsersInSquad(int squadId);
+    Task<IEnumerable<RockstarViewModel>> UsersInSquad(int squadId);
 }

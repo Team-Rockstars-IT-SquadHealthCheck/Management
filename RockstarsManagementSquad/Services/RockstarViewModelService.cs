@@ -27,11 +27,11 @@ public class RockstarViewModelService : IRockstarViewModelService
         return await response.ReadContentAsync<List<RockstarViewModel>>();
     }
 
-    public async Task<UserViewModel> Create(UserDTO user)
+    public async Task<RockstarViewModel> Create(UserDTO user)
     {
         string path = "https://localhost:7259/api/User";
         var response = await _client.PostAsJsonAsync<UserDTO>(path, user); // path was BasePath
 
-        return await response.ReadContentAsync<UserViewModel>();
+        return await response.ReadContentAsync<RockstarViewModel>();
     }
 }
