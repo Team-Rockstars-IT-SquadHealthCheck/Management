@@ -39,7 +39,7 @@ public class MailService : IMailService
                 //this is the SmtpClient from the Mailkit.Net.Smtp namespace, not the System.Net.Mail one
                 using (SmtpClient mailClient = new SmtpClient())
                 {
-                    await mailClient.ConnectAsync(_mailSettings.Server, _mailSettings.Port, SecureSocketOptions.SslOnConnect);
+                    await mailClient.ConnectAsync(_mailSettings.Server, _mailSettings.Port, SecureSocketOptions.StartTls);
                     await mailClient.AuthenticateAsync(_mailSettings.UserName, _mailSettings.Password);
                     await mailClient.SendAsync(emailMessage);
                     await mailClient.DisconnectAsync(true);
