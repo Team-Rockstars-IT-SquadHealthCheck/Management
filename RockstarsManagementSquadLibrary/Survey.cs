@@ -50,12 +50,5 @@ namespace RockstarsManagementSquadLibrary
 
             return result;
         }
-
-        public bool SendSurveyLinkToRockstar(User user)
-        {
-            bool surveyLinkHasBeenSend = false;
-
-            return surveyLinkHasBeenSend;
-        }
     }
 }

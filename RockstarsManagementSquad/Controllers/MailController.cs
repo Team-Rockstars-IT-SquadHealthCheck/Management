@@ -15,10 +15,10 @@ public class MailController : ControllerBase
         _mailService = _MailService;
     }
 
-    [HttpPost]
-    [Route("SendMail")]
-    public bool SendMail(MailData mailData)
-    {
-        return _mailService.SendMail(mailData);
-    }
+    //[HttpPost]
+    //[Route("SendMail")]
+    //public bool SendMail(MailData mailData)
+    //{
+    //    return _mailService.SendMail(mailData);
+    //}
 }

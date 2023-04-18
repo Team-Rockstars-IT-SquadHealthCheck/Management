@@ -4,5 +4,5 @@ namespace RockstarsManagementSquad.Services.Interfaces;
 
 public interface IMailService
 {
-    bool SendMail(MailData mailData);
+    Task<bool> SendMail(MailData mailData);
 }
