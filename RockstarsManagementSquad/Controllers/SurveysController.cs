@@ -23,7 +23,7 @@ namespace RockstarsManagementSquad.Controllers
         public async Task<IActionResult> Index()
         {
             var squads = await _squadService.Find();
-            var users = await _userService.Find();
+            var products = await _surveyService.Find();
 
             List<SelectListItem> items = squads.Select(c => new SelectListItem
             {
@@ -33,11 +33,11 @@ namespace RockstarsManagementSquad.Controllers
 
             ViewBag.Squads = items;
 
-            foreach (var product in users)
+            foreach (var product in products)
             {
                 SurveyViewModel surveyViewModel = new SurveyViewModel();
             }
-            return View(users);
+            return View(products);
         }
 
         public async Task<IActionResult> CreateSurveyLink(int squadId)
