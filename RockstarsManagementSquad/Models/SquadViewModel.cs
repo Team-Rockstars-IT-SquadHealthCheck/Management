@@ -7,6 +7,7 @@ namespace RockstarsManagementSquad.Models
         public int id { get; set; }
         public int surveyId { get; set; }
         public int companyId { get; set; }
+        public string companyName { get; set; }
         public string name { get; set; }
     }
 }
