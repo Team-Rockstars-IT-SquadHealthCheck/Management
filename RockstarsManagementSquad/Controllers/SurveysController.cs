@@ -22,7 +22,7 @@ namespace RockstarsManagementSquad.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var squads = await _squadService.Find();
+            var squads = await _squadService.FindAll();
             var products = await _surveyService.Find();
 
             List<SelectListItem> items = squads.Select(c => new SelectListItem
