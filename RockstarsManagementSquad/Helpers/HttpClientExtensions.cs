@@ -22,7 +22,7 @@ namespace RockstarsManagementSquad;
             if (response.IsSuccessStatusCode == false)
                 throw new ApplicationException($"Something went wrong calling the API: {response.ReasonPhrase}");
 
-            var dataAsString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var dataAsString = await response.Content.ReadAsStringAsync();
 
             var result = JsonSerializer.Deserialize<T>(
                 dataAsString, new JsonSerializerOptions

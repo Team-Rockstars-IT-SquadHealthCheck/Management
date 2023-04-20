@@ -6,6 +6,7 @@ using RockstarsManagementSquad.Models;
 using RockstarsManagementSquad.Models.DTO;
 using RockstarsManagementSquad.Services.Interfaces;
 using RockstarsManagementSquadLibrary;
+using PostmarkDotNet;
 
 namespace RockstarsManagementSquad.Controllers
 {
@@ -53,13 +54,13 @@ namespace RockstarsManagementSquad.Controllers
                 int userId = user.id;
                 string surveyLink = survey.CreateNewSurveyLink(surveyNumber, squadId, userId);
                 _userService.AddSurveyLinkToUser(surveyLink, userId);
-                SendMail(
+                await SendMail(
                     new MailData() 
                     { 
                         EmailToAddress = user.email,
                         EmailToName = user.username,
                         EmailSubject = "Squad Health Check",
-                        EmailBody = $"This is your personal surveylink: {user.url}"
+                        EmailBody = $"This is your personal surveylink: {surveyLink}"
                     }
                     );
             }
