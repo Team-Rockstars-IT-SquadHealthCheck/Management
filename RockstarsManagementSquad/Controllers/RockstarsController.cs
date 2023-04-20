@@ -47,6 +47,7 @@ public class RockstarsController : Controller
         UserDTO newuserDto = new UserDTO()
         {
             username = username,
+            password = "Password1",
             email = email,
             roleid = roleid,
             squadid = squadid,
