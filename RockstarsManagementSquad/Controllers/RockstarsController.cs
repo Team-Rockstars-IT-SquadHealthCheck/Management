@@ -27,7 +27,7 @@ public class RockstarsController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var squads = await _squadService.Find();
+        var squads = await _squadService.FindAll();
         var rockstarProducts = await _rockstarsService.Find();
 
         List<SelectListItem> items = squads.Select(c => new SelectListItem
