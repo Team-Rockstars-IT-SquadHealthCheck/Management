@@ -27,19 +27,26 @@ public class RockstarsController : Controller
 
     public async Task<IActionResult> Index()
     {
-        //var squads = await _service.Find();
+        var squads = await _squadService.Find();
         var rockstarProducts = await _rockstarsService.Find();
+
+        List<SelectListItem> items = squads.Select(c => new SelectListItem
+        {
+            Text = c.name.ToString(),
+            Value = c.id.ToString()
+        }).ToList();
+
+        ViewBag.Squads = items;
 
         return View(rockstarProducts);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(string username, string password, string email, int roleid, int squadid)
+    public async Task<IActionResult> Create(string username, string email, int roleid, int squadid)
     {
         UserDTO newuserDto = new UserDTO()
         {
             username = username,
-            password = password,
             email = email,
             roleid = roleid,
             squadid = squadid,

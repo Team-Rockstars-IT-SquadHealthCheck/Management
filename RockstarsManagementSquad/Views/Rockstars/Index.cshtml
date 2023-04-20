@@ -3,15 +3,31 @@
     ViewData["Title"] = "Rockstars";
 }
 
-<div class="text-center">
-    <form asp-controller="Rockstars" method="post" asp-action="Create">
-        <input type="text" name="username" placeholder="UserName" />
-        <input type="text" name="email" placeholder="Email" />
-        <input type="text" name="password" placeholder="Password" />
-        <input type="text" name="roleid" placeholder="RoleID" />
-        <input type="text" name="squadid" placeholder="SquadID" />
-        <input type="submit" name="submit" value="Create" />
-    </form>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CreateRockstar">
+    Create Rockstar
+</button>
+
+<div class="modal fade" id="CreateRockstar" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-controller="Rockstars" method="post" asp-action="Create">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Rockstar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" name="username" placeholder="UserName" /><br />
+                    <input type="text" class="form-control" name="email" placeholder="Email" /><br />
+                    <input type="text" class="form-control" name="roleid" placeholder="RoleID" value="1" readonly/><br />
+                    <select name="squadid" class="form-select" asp-items="ViewBag.Squads"></select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" name="submit" value="Create" />
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <div>
