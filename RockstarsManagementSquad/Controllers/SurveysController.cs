@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using RockstarsManagementSquad.Models;
 using RockstarsManagementSquad.Models.DTO;
 using RockstarsManagementSquad.Services.Interfaces;
@@ -21,12 +22,22 @@ namespace RockstarsManagementSquad.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var products = await _surveyService.Find();
-            foreach (var product in products)
+            var squads = await _squadService.Find();
+            var users = await _userService.Find();
+
+            List<SelectListItem> items = squads.Select(c => new SelectListItem
+            {
+                Text = c.name.ToString(),
+                Value = c.id.ToString()
+            }).ToList();
+
+            ViewBag.Squads = items;
+
+            foreach (var product in users)
             {
                 SurveyViewModel surveyViewModel = new SurveyViewModel();
             }
-            return View(products);
+            return View(users);
         }
 
         public async Task<IActionResult> CreateSurveyLink(int squadId)
