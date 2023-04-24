@@ -1,4 +1,4 @@
-﻿using RockstarsManagementSquad.Models;
+using RockstarsManagementSquad.Models;
 using RockstarsManagementSquad.Models.DTO;
 
 namespace RockstarsManagementSquad.Services.Interfaces

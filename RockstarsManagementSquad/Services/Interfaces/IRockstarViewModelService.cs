@@ -6,5 +6,5 @@ namespace RockstarsManagementSquad.Services.Interfaces;
 public interface IRockstarViewModelService
 {
     Task<IEnumerable<RockstarViewModel>> Find();
-    Task<UserViewModel> Create(UserDTO user);
+    Task<RockstarViewModel> Create(UserDTO user);
 }

@@ -27,8 +27,9 @@ public class SquadViewModelService : ISquadViewModelService
         return await response.ReadContentAsync<List<SquadViewModel>>();
     }
 
-    public async Task<SquadViewModel> FindById(int? squadId)
-    {
+
+  public async Task<SquadViewModel> FindById(int? squadId)
+  {
 		string path = $"https://localhost:7259/SquadDetails/{squadId}";
 		var response = await _client.GetAsync(path); // path was BasePath
 
@@ -49,6 +50,6 @@ public class SquadViewModelService : ISquadViewModelService
         string path = $"https://localhost:7259/UsersInSquad/{squadId}";
         var response = await _client.GetAsync(path); // path was BasePath
 
-        return await response.ReadContentAsync<List<UserViewModel>>();
+        return await response.ReadContentAsync<List<RockstarViewModel>>();
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace RockstarsManagementSquad.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace RockstarsManagementSquad.Models
 {
     public class AnswerViewModel
     {

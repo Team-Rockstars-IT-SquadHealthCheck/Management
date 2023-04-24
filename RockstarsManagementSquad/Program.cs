@@ -6,6 +6,7 @@ using RockstarsManagementSquad.Services;
 using RockstarsManagementSquad.Services.Interfaces;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
+using RockstarsManagementSquad.Configuration;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,7 +34,8 @@ builder.Services.AddControllersWithViews();
 //        options.Filters.Add(new AuthorizeFilter(policy));
 //    })
 //    .AddMicrosoftIdentityUI();
-
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+builder.Services.AddTransient<IMailService, MailService>();
 
 // Add services to the container.
 builder.Services.AddHttpClient<ICompanyViewModelService, CompanyViewModelService>(c =>
