@@ -9,6 +9,6 @@ public interface ISquadViewModelService
 {
     Task<IEnumerable<SquadViewModel>> FindAll();
     Task<SquadViewModel> FindById(int? id);
-    Task<List<UserViewModel>> UsersInSquad(int? id);
-    Task<IEnumerable<UserViewModel>> UsersInSquad(int squadId);
+    Task<List<RockstarViewModel>> UsersInSquad(int? id);
+    Task<IEnumerable<RockstarViewModel>> UsersInSquad(int squadId);
 }
