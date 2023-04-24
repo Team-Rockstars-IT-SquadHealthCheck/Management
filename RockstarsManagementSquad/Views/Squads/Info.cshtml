@@ -1,0 +1,31 @@
+﻿@model SquadInfoViewModel
+
+<h1>@Model.squad.name</h1>
+<h2>@Model.squad.companyName</h2>
+<div>
+    <a asp-action="Index" class="btn btn-dark" >Back</a>
+    <a class="btn btn-success">Squad result</a>
+    <br />
+    <br />
+    <table class="table">
+        <tdead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Url</th>
+            </tr>
+        </tdead>
+        <tbody>
+            @foreach (var item in Model.rockstars)
+            {
+                <tr>
+                    <td>@item.username</td>
+                    <td>@item.email</td>
+                    <td>@item.url</td>
+                    <td><button class="btn btn-outline-success" >Result</button></td>
+                    <td><button class="btn btn-outline-danger">Remove Rockstar</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

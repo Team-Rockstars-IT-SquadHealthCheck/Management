@@ -1,6 +1,10 @@
-namespace RockstarsManagementSquad.Services.Interfaces;
+using RockstarsManagementSquad.Models;
+using RockstarsManagementSquad.Models.DTO;
 
-public interface IAnswerViewModelService
+namespace RockstarsManagementSquad.Services.Interfaces
 {
-    
+    public interface IAnswerViewModelService
+    {
+        Task <IEnumerable<AnswerViewModel>> UserAnswers(int id);
+    }
 }

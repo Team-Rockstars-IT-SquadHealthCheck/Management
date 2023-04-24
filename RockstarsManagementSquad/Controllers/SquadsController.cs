@@ -16,12 +16,30 @@ public class SquadsController : Controller
     public async Task<IActionResult> Index()
     {
         //var squads = await _service.Find();
-        var products = await _service.Find();
-        // foreach squad create new in view model
-        foreach (var product in products)
-        {
-            SquadViewModel SquadViewModel = new SquadViewModel();
-        }
+        var products = await _service.FindAll();
+        
+        
         return View(products);
+    }
+
+    public async Task<IActionResult> Info(int? id)
+    {
+        var squad = await _service.FindById(id);
+        var rockstars = await _service.UsersInSquad(id);
+        SquadInfoViewModel infoViewModel = new SquadInfoViewModel();
+        infoViewModel.squad = squad;
+        infoViewModel.rockstars = rockstars;
+
+        return View(infoViewModel);
+    }
+
+    public async Task<IActionResult> Results()
+    {
+        return View();
+    }
+
+    public async Task<IActionResult> Delete()
+    {
+        return View();
     }
 }

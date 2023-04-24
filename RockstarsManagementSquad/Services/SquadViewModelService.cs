@@ -1,5 +1,6 @@
 using RockstarsManagementSquad.Models;
 using RockstarsManagementSquad.Services.Interfaces;
+using RockstarsManagementSquadLibrary;
 using System.Text.Json.Nodes;
 
 namespace RockstarsManagementSquad.Services;
@@ -18,7 +19,7 @@ public class SquadViewModelService : ISquadViewModelService
         _client = client ?? throw new ArgumentNullException(nameof(client));
     }
 
-    public async Task<IEnumerable<SquadViewModel>> Find()
+    public async Task<IEnumerable<SquadViewModel>> FindAll()
     {
         string path = "https://localhost:7259/squads";
         var response = await _client.GetAsync(path); // path was BasePath
@@ -26,7 +27,25 @@ public class SquadViewModelService : ISquadViewModelService
         return await response.ReadContentAsync<List<SquadViewModel>>();
     }
 
-    public async Task<IEnumerable<RockstarViewModel>> UsersInSquad(int squadId)
+
+  public async Task<SquadViewModel> FindById(int? squadId)
+  {
+		string path = $"https://localhost:7259/SquadDetails/{squadId}";
+		var response = await _client.GetAsync(path); // path was BasePath
+
+		return await response.ReadContentAsync<SquadViewModel>();
+	}
+
+	public async Task<List<RockstarViewModel>> UsersInSquad(int? squadId)
+	{
+		string path = $"https://localhost:7259/UsersInSquad/{squadId}";
+		var response = await _client.GetAsync(path); // path was BasePath
+
+		return await response.ReadContentAsync<List<RockstarViewModel>>();
+	}
+
+
+	public async Task<IEnumerable<RockstarViewModel>> UsersInSquad(int squadId)
     {
         string path = $"https://localhost:7259/UsersInSquad/{squadId}";
         var response = await _client.GetAsync(path); // path was BasePath
