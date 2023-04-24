@@ -16,12 +16,12 @@
             </tr>
         </tdead>
         <tbody>
-            @foreach (var item in Model.users)
+            @foreach (var item in Model.rockstars)
             {
                 <tr>
-                    <td>@item.Username</td>
-                    <td>@item.Email</td>
-                    <td>@item.Url</td>
+                    <td>@item.username</td>
+                    <td>@item.email</td>
+                    <td>@item.url</td>
                     <td><button class="btn btn-outline-success" >Result</button></td>
                     <td><button class="btn btn-outline-danger">Remove Rockstar</button></td>
                 </tr>

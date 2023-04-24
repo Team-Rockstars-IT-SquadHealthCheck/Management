@@ -7,6 +7,7 @@ using RockstarsManagementSquad.Models.DTO;
 using RockstarsManagementSquad.Services.Interfaces;
 using RockstarsManagementSquadLibrary;
 using PostmarkDotNet;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace RockstarsManagementSquad.Controllers
 {

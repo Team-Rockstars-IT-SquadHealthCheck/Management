@@ -36,16 +36,16 @@ public class SquadViewModelService : ISquadViewModelService
 		return await response.ReadContentAsync<SquadViewModel>();
 	}
 
-	public async Task<List<UserViewModel>> UsersInSquad(int? squadId)
+	public async Task<List<RockstarViewModel>> UsersInSquad(int? squadId)
 	{
 		string path = $"https://localhost:7259/UsersInSquad/{squadId}";
 		var response = await _client.GetAsync(path); // path was BasePath
 
-		return await response.ReadContentAsync<List<UserViewModel>>();
+		return await response.ReadContentAsync<List<RockstarViewModel>>();
 	}
 
 
-	public async Task<IEnumerable<UserViewModel>> UsersInSquad(int squadId)
+	public async Task<IEnumerable<RockstarViewModel>> UsersInSquad(int squadId)
     {
         string path = $"https://localhost:7259/UsersInSquad/{squadId}";
         var response = await _client.GetAsync(path); // path was BasePath

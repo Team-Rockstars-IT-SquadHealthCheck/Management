@@ -3,6 +3,6 @@
 	public class SquadInfoViewModel
 	{
 		public SquadViewModel squad { get; set; }
-		public List<UserViewModel> users { get; set; }	
+		public List<RockstarViewModel> rockstars { get; set; }	
 	}
 }

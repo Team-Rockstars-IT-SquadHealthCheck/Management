@@ -25,10 +25,10 @@ public class SquadsController : Controller
     public async Task<IActionResult> Info(int? id)
     {
         var squad = await _service.FindById(id);
-        var users = await _service.UsersInSquad(id);
+        var rockstars = await _service.UsersInSquad(id);
         SquadInfoViewModel infoViewModel = new SquadInfoViewModel();
         infoViewModel.squad = squad;
-        infoViewModel.users = users;
+        infoViewModel.rockstars = rockstars;
 
         return View(infoViewModel);
     }
