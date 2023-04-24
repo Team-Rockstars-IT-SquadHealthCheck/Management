@@ -3,12 +3,28 @@
     ViewData["Title"] = "Surveys";
 }
 
-<div class="text-start">
-    <form asp-controller="Surveys" asp-action="CreateSurveyLink">
-        <input type="text" name="squadId" placeholder="Squad" value="1" />
-        <br />
-        <input type="submit" name="submit" value="Submit" />
-    </form>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CreateSurvey">
+    Create Survey
+</button>
+
+<div class="modal fade" id="CreateSurvey" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-controller="Surveys" asp-action="CreateSurveyLink">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Survey</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <select name="squadid" class="form-select" asp-items="ViewBag.Squads"></select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" name="submit" value="Create" />
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <div>

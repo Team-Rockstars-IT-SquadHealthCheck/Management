@@ -27,7 +27,17 @@ namespace RockstarsManagementSquad.Controllers
         
         public async Task<IActionResult> Index()
         {
+            var squads = await _squadService.FindAll();
             var products = await _surveyService.Find();
+
+            List<SelectListItem> items = squads.Select(c => new SelectListItem
+            {
+                Text = c.name.ToString(),
+                Value = c.id.ToString()
+            }).ToList();
+
+            ViewBag.Squads = items;
+
             foreach (var product in products)
             {
                 SurveyViewModel surveyViewModel = new SurveyViewModel();

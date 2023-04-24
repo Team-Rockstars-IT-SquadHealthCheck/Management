@@ -33,9 +33,9 @@ namespace RockstarsManagementSquad.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public UserViewModel CreateUser(string name, string email, string emailConfirmed, string password, string passwordConfirmed)
+        public UserViewModel CreateUser(string name, string email, string emailConfirmed, string password)
         {
-            UserViewModel user = new UserViewModel(name, email.ToLower(), emailConfirmed.ToLower(), password, passwordConfirmed);
+            UserViewModel user = new UserViewModel(name, email.ToLower(), emailConfirmed.ToLower(), password);
 
             return user;
         }
