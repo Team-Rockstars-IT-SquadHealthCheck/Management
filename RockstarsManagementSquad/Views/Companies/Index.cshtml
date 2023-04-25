@@ -3,16 +3,82 @@
     ViewData["Title"] = "Companies";
 }
 
-<div class="text-center">
+@*<div class="text-center">
     <form asp-controller="Companies" method="post" asp-action="Create">
         <input type="text" name="name" placeholder="Company Name" />
         <input type="text" name="address" placeholder="Company Address" />
         <input type="tel"  name="telNr" placeholder="Company Tel" />
         <input type="submit" name="submit" value="Create" />
     </form>
+</div>*@
+<h1 class="title">Companies</h1>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CreateCompany">
+    Create Company
+</button>
+
+<div class="modal fade" id="CreateCompany" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-controller="Companies" method="post" asp-action="Create">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Company</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" name="name" placeholder="Name" /><br />
+                    <input type="text" class="form-control" name="address" placeholder="Address" /><br />
+                    <input type="tel" class="form-control" name="telNr" placeholder="Telefoon" /><br />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" name="submit" value="Create" />
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
-<div>
+<a class="btn btn-secondary">Add squad to company</a>
+
+<div class="center-content">
+    <br />
+    <br />
+    <div class="card-container">
+        @foreach (var item in Model)
+        {
+            <div class="ag-courses_box">
+                <div class="ag-courses_item">
+                    <div class="ag-courses-item_link">
+
+
+                        <div class="ag-courses-item_bg"></div>
+
+                        <div class="ag-courses-item_title">
+                            @item.name
+                        </div>
+
+                        <div class="ag-courses-item_content">
+                            
+                        </div>
+
+                        <div class="ag-courses-item_date-box">
+
+
+                            @*<a asp-action="" class="btn btn-success">Squads</a>*@
+
+                            <a asp-action="Info" asp-controller="Companies" asp-route-id="@item.id" class="btn btn-info" style="background-color:#FFE000; border-color:#FFE000">Info</a>
+                            <a asp-action="" class="btn btn-danger" onclick="return confirm('Wil je deze company verwijderen? Alles met deze company zal verloren gaan.')">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+
+</div>
+
+@*<div>
     <br/>
     <br/>
     <table class="table">
@@ -36,4 +102,4 @@
         }
         </tbody>
     </table>
-</div>
+</div>*@

@@ -1,0 +1,31 @@
+﻿@model RockstarsManagementSquad.Models.CompanyInfoViewModel
+
+@{
+    ViewData["Title"] = "Company Info";
+}
+
+<h1>@Model.company.name</h1>
+<div>
+    <a asp-action="Index" class="btn btn-dark">Back</a>
+    <br />
+    <br />
+    <table class="table">
+        <tdead>
+            <tr>
+                <th>Squad name</th>
+                <th>Survey Id</th>
+            </tr>
+        </tdead>
+        <tbody>
+            @foreach (var item in Model.squads)
+            {
+                <tr>
+                    <td>@item.name</td>
+                    <td>@item.surveyId</td>
+                    <td><button class="btn btn-outline-success">Result</button></td>
+                    <td><button class="btn btn-outline-danger">Remove Squad</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

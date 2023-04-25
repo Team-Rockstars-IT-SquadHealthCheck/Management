@@ -41,4 +41,15 @@ public class CompaniesController : Controller
 
         return RedirectToAction("Index");
     }
+
+    public async Task<IActionResult> Info(int? id)
+    {
+        var company = await _companyService.FindById(id);
+        var squads = await _companyService.SquadsInCompany(id);
+        CompanyInfoViewModel infoViewModel = new CompanyInfoViewModel();
+        infoViewModel.company = company;
+        infoViewModel.squads = squads;
+
+        return View(infoViewModel);
+    }
 }
