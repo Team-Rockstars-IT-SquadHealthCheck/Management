@@ -54,6 +54,9 @@
                 <td>@item.roleid</td>
                 <td>@item.squadid</td>
                 <td>@item.url</td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { id=item.id })
+                </td>
             </tr>
         }
         </tbody>
