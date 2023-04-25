@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.SignalR;
 using RockstarsManagementSquad.Models;
 using RockstarsManagementSquad.Models.DTO;
 using RockstarsManagementSquad.Services.Interfaces;
@@ -19,7 +20,14 @@ namespace RockstarsManagementSquad.Services
 
         public async Task<IEnumerable<AnswerViewModel>> UserAnswers(int id)
         {
-            string path = "https://localhost:7259/companies";
+            string path = $"https://localhost:7259/Answer/User/{id}";
+            var response = await _client.GetAsync(path); // path was BasePath
+
+            return await response.ReadContentAsync<List<AnswerViewModel>>();
+        }
+        public async Task<IEnumerable<AnswerViewModel>> SquadAnswers(int id)
+        {
+            string path = $"https://localhost:7259/Answer/User/{id}";
             var response = await _client.GetAsync(path); // path was BasePath
 
             return await response.ReadContentAsync<List<AnswerViewModel>>();

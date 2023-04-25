@@ -10,6 +10,14 @@ namespace RockstarsManagementSquad.Controllers
     {
         
         private readonly ILogger<DashboardController> _logger;
+        private readonly Services.Interfaces.IAnswerViewModelService _answerService;
+        private readonly Services.Interfaces.ISquadViewModelService _squadService;
+
+        public DashboardController(RockstarsManagementSquad.Services.Interfaces.IAnswerViewModelService answerService, RockstarsManagementSquad.Services.Interfaces.ISquadViewModelService squadService)
+        {
+            _answerService = answerService ?? throw new ArgumentNullException(nameof(answerService));
+            _squadService = squadService ?? throw new ArgumentNullException(nameof(squadService));
+        }
 
         public DashboardController(ILogger<DashboardController> logger)
         {
@@ -19,6 +27,7 @@ namespace RockstarsManagementSquad.Controllers
         //[Authorize]
         public IActionResult Index()
         {
+            GetAllAnswers();
             return View();
         }
 
@@ -38,6 +47,12 @@ namespace RockstarsManagementSquad.Controllers
             UserViewModel user = new UserViewModel(name, email.ToLower(), emailConfirmed.ToLower(), password);
 
             return user;
+        }
+
+        public List<AnswerViewModel> GetAllAnswers()
+        {
+
+            return new List<AnswerViewModel>();
         }
     }
 }
