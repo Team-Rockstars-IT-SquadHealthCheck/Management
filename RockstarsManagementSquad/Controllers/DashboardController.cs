@@ -13,14 +13,12 @@ namespace RockstarsManagementSquad.Controllers
         private readonly Services.Interfaces.IAnswerViewModelService _answerService;
         private readonly Services.Interfaces.ISquadViewModelService _squadService;
 
-        public DashboardController(RockstarsManagementSquad.Services.Interfaces.IAnswerViewModelService answerService, RockstarsManagementSquad.Services.Interfaces.ISquadViewModelService squadService)
+        public DashboardController(RockstarsManagementSquad.Services.Interfaces.IAnswerViewModelService answerService, 
+            RockstarsManagementSquad.Services.Interfaces.ISquadViewModelService squadService,
+            ILogger<DashboardController> logger)
         {
             _answerService = answerService ?? throw new ArgumentNullException(nameof(answerService));
             _squadService = squadService ?? throw new ArgumentNullException(nameof(squadService));
-        }
-
-        public DashboardController(ILogger<DashboardController> logger)
-        {
             _logger = logger;
         }
 
