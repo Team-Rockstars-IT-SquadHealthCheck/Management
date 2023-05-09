@@ -48,6 +48,8 @@ builder.Services.AddHttpClient<ISurveyViewModelService, SurveyViewModelService>(
     c.BaseAddress = new Uri("https://localhost:7259"));
 builder.Services.AddHttpClient<IUserViewModelService, UserViewModelService>(c =>
     c.BaseAddress = new Uri("https://localhost:7259"));
+builder.Services.AddHttpClient<IAnswerViewModelService, AnswerViewModelService>(c =>
+    c.BaseAddress = new Uri("https://localhost:7259"));
 //====================================
 //BIJ LOCALHOST MOET DE LOCAL API PORT
 //====================================
