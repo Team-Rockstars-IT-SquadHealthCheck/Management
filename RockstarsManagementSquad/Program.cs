@@ -25,15 +25,15 @@ builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
 //});
 
 
-builder.Services.AddControllersWithViews()
-    .AddMvcOptions(options =>
-    {
-        var policy = new AuthorizationPolicyBuilder()
-                         .RequireAuthenticatedUser()
-                         .Build();
-        options.Filters.Add(new AuthorizeFilter(policy));
-    })
-    .AddMicrosoftIdentityUI();
+builder.Services.AddControllersWithViews();
+    //.AddMvcOptions(options =>
+    //{
+    //    var policy = new AuthorizationPolicyBuilder()
+    //                     .RequireAuthenticatedUser()
+    //                     .Build();
+    //    options.Filters.Add(new AuthorizeFilter(policy));
+    //})
+    //.AddMicrosoftIdentityUI();
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 builder.Services.AddTransient<IMailService, MailService>();
 
@@ -73,8 +73,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication();
-app.UseAuthorization();
+//app.UseAuthentication();
+//app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
