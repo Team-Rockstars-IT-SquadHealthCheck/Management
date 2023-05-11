@@ -16,24 +16,24 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
   .AddMicrosoftIdentityWebApp(builder.Configuration);
 
-//builder.Services.AddControllersWithViews(options =>
-//{
-//    var policy = new AuthorizationPolicyBuilder()
-//        .RequireAuthenticatedUser()
-//        .Build();
-//    options.Filters.Add(new AuthorizeFilter(policy));
-//});
+builder.Services.AddControllersWithViews(/*options =>*/
+{
+    var policy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+    options.Filters.Add(new AuthorizeFilter(policy));
+});
 
 
-builder.Services.AddControllersWithViews()
-    .AddMvcOptions(options =>
-    {
-        var policy = new AuthorizationPolicyBuilder()
-                         .RequireAuthenticatedUser()
-                         .Build();
-        options.Filters.Add(new AuthorizeFilter(policy));
-    })
-    .AddMicrosoftIdentityUI();
+//builder.Services.AddControllersWithViews()
+//    .AddMvcOptions(options =>
+//    {
+//        var policy = new AuthorizationPolicyBuilder()
+//                         .RequireAuthenticatedUser()
+//                         .Build();
+//        options.Filters.Add(new AuthorizeFilter(policy));
+//    })
+//    .AddMicrosoftIdentityUI();
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 builder.Services.AddTransient<IMailService, MailService>();
 
