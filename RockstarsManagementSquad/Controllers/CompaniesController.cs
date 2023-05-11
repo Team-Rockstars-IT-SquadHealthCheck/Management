@@ -8,7 +8,7 @@ namespace RockstarsManagementSquad.Controllers;
 
 public class CompaniesController : Controller
 {
-    private readonly Services.Interfaces.ICompanyViewModelService _companyService;
+    private readonly ICompanyViewModelService _companyService;
 
     public CompaniesController(RockstarsManagementSquad.Services.Interfaces.ICompanyViewModelService service)
     {
@@ -40,5 +40,16 @@ public class CompaniesController : Controller
         _companyService.Create(cDTO);
 
         return RedirectToAction("Index");
+    }
+
+    public async Task<IActionResult> Info(int? id)
+    {
+        var company = await _companyService.FindById(id);
+        var squads = await _companyService.SquadsInCompany(id);
+        CompanyInfoViewModel infoViewModel = new CompanyInfoViewModel();
+        infoViewModel.company = company;
+        infoViewModel.squads = squads;
+
+        return View(infoViewModel);
     }
 }

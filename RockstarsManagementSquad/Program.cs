@@ -16,8 +16,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
   .AddMicrosoftIdentityWebApp(builder.Configuration);
 
-
-
 builder.Services.AddControllersWithViews();
 //    .AddMvcOptions(options =>
 //    {
@@ -28,6 +26,7 @@ builder.Services.AddControllersWithViews();
 //    })
 //    .AddMicrosoftIdentityUI();
 
+// mail
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 builder.Services.AddTransient<IMailService, MailService>();
 

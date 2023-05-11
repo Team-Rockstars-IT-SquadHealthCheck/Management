@@ -22,7 +22,7 @@
                     <td>@item.username</td>
                     <td>@item.email</td>
                     <td>@item.url</td>
-                    <td><button class="btn btn-outline-success" >Result</button></td>
+                    <td><button class="btn btn-outline-success" onclick="location.href='@Url.Action("User", "Answer", new { id = item.id })'">Result</button></td>
                     <td><button class="btn btn-outline-danger">Remove Rockstar</button></td>
                 </tr>
             }

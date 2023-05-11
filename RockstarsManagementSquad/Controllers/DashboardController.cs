@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RockstarsManagementSquad.Models;
+using RockstarsManagementSquad.Services.Interfaces;
 using RockstarsManagementSquadLibrary;
 using System.Diagnostics;
 using RockstarsManagementSquad.Services.Interfaces;
@@ -10,24 +11,57 @@ namespace RockstarsManagementSquad.Controllers
 {
     public class DashboardController : Controller
     {
-        private readonly Services.Interfaces.IAnswerViewModelService _answerService;
-        private readonly Services.Interfaces.ISquadViewModelService _squadService;
-        private readonly Services.Interfaces.IRockstarViewModelService _rockstarsService;
+        private readonly IAnswerViewModelService _answerViewModelService;
+        private readonly ISquadViewModelService _squadViewModelService;
+        private readonly IRockstarViewModelService _rockstarsViewModelService;
 
-        public DashboardController(RockstarsManagementSquad.Services.Interfaces.IAnswerViewModelService answerService, 
-            RockstarsManagementSquad.Services.Interfaces.ISquadViewModelService squadService,
+        public DashboardController(IAnswerViewModelService answerService, ISquadViewModelService squadService,
             ILogger<DashboardController> logger)
         {
-            _answerService = answerService ?? throw new ArgumentNullException(nameof(answerService));
-            _squadService = squadService ?? throw new ArgumentNullException(nameof(squadService));
+            _answerViewModelService = answerService ?? throw new ArgumentNullException(nameof(answerService));
+            _squadViewModelService = squadService ?? throw new ArgumentNullException(nameof(squadService));
 			//_rockstarsService = rockstarsService ?? throw new ArgumentNullException(nameof(rockstarsService));
 			//_logger = logger;
         }
 
         //[Authorize]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var allSquads = await _squadViewModelService.FindAll();
+
+            DashboardViewModel dashboardViewModel = new DashboardViewModel();
+
+            List<SquadViewModel> NotFinnishedEnquetes = new List<SquadViewModel>();
+            List<SquadViewModel> FinnishedEnquetes = new List<SquadViewModel>();
+
+            foreach (var squad in allSquads)
+            {
+                var answerInSquad = await _answerViewModelService.GetSquadAnswers(squad.id);
+                var usersInSquad = await _squadViewModelService.UsersInSquad(squad.id);
+                bool squadHasEnquete = false;
+
+                foreach (var user in usersInSquad)
+                {
+                    if (user.url != null)
+                    {
+                        squadHasEnquete = true;
+                    }
+                }
+
+                if (squadHasEnquete && answerInSquad.Count() == usersInSquad.Count())
+                {
+                    FinnishedEnquetes.Add(squad);
+                }
+                else if (squadHasEnquete && answerInSquad.Count() != usersInSquad.Count())
+                {
+                    NotFinnishedEnquetes.Add(squad);
+                }
+            }
+
+            dashboardViewModel.SquadFinnishedEnquetes = FinnishedEnquetes;
+            dashboardViewModel.SquadNotFinnishedEnquetes = NotFinnishedEnquetes;
+
+            return View(dashboardViewModel);
         }
 
         public IActionResult Privacy()
@@ -50,7 +84,7 @@ namespace RockstarsManagementSquad.Controllers
 
         public async Task<List<int>> GetAllExistingSurveyNumbers()
         {
-            var users = await _rockstarsService.Find();
+            var users = await _rockstarsViewModelService.Find();
 
             int surveyNumber = 0;
             List<int> surveyNumbers = new List<int>();

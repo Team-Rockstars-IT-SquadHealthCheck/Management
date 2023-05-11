@@ -1,7 +1,7 @@
 @model AnswerUserViewModel
 
 @{
-    Layout = null;
+    Layout = "_Layout";
 }
 
 <!DOCTYPE html>
@@ -9,6 +9,10 @@
 <html>
 <head>
     <h1>@Model.rockstar.username</h1>
+    <form asp-controller="Squads" asp-action="Info">
+        <input style="display: none;" name="id" value="@Model.rockstar.squadid"></input>
+        <input type="submit" name="Info" value="Back" class="btn btn-dark"></input>
+    </form>
 </head>
         <table class="table">
                 <tdead>
