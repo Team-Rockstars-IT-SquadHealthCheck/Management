@@ -11,16 +11,15 @@ namespace RockstarsManagementSquad.Controllers
 {
     public class DashboardController : Controller
     {
-        private readonly Services.Interfaces.IAnswerViewModelService _answerService;
-        private readonly Services.Interfaces.ISquadViewModelService _squadService;
-        private readonly Services.Interfaces.IRockstarViewModelService _rockstarsService;
+        private readonly IAnswerViewModelService _answerViewModelService;
+        private readonly ISquadViewModelService _squadViewModelService;
+        private readonly IRockstarViewModelService _rockstarsViewModelService;
 
-        public DashboardController(RockstarsManagementSquad.Services.Interfaces.IAnswerViewModelService answerService, 
-            RockstarsManagementSquad.Services.Interfaces.ISquadViewModelService squadService,
+        public DashboardController(IAnswerViewModelService answerService, ISquadViewModelService squadService,
             ILogger<DashboardController> logger)
         {
-            _answerService = answerService ?? throw new ArgumentNullException(nameof(answerService));
-            _squadService = squadService ?? throw new ArgumentNullException(nameof(squadService));
+            _answerViewModelService = answerService ?? throw new ArgumentNullException(nameof(answerService));
+            _squadViewModelService = squadService ?? throw new ArgumentNullException(nameof(squadService));
 			//_rockstarsService = rockstarsService ?? throw new ArgumentNullException(nameof(rockstarsService));
 			//_logger = logger;
         }
@@ -85,7 +84,7 @@ namespace RockstarsManagementSquad.Controllers
 
         public async Task<List<int>> GetAllExistingSurveyNumbers()
         {
-            var users = await _rockstarsService.Find();
+            var users = await _rockstarsViewModelService.Find();
 
             int surveyNumber = 0;
             List<int> surveyNumbers = new List<int>();
