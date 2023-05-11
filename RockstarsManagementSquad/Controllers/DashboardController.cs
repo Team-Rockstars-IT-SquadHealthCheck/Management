@@ -20,8 +20,8 @@ namespace RockstarsManagementSquad.Controllers
         {
             _answerService = answerService ?? throw new ArgumentNullException(nameof(answerService));
             _squadService = squadService ?? throw new ArgumentNullException(nameof(squadService));
-			_rockstarsService = rockstarsService ?? throw new ArgumentNullException(nameof(rockstarsService));
-			_logger = logger;
+			//_rockstarsService = rockstarsService ?? throw new ArgumentNullException(nameof(rockstarsService));
+			//_logger = logger;
         }
 
         //[Authorize]
