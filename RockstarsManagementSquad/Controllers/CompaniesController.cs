@@ -8,7 +8,7 @@ namespace RockstarsManagementSquad.Controllers;
 
 public class CompaniesController : Controller
 {
-    private readonly Services.Interfaces.ICompanyViewModelService _companyService;
+    private readonly ICompanyViewModelService _companyService;
 
     public CompaniesController(RockstarsManagementSquad.Services.Interfaces.ICompanyViewModelService service)
     {

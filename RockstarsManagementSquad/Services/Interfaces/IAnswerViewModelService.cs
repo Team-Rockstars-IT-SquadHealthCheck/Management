@@ -5,6 +5,8 @@ namespace RockstarsManagementSquad.Services.Interfaces
 {
     public interface IAnswerViewModelService
     {
-        Task <IEnumerable<AnswerViewModel>> UserAnswers(int id);
+        Task <IEnumerable<AnswerViewModel>> GetUserAswers(int userId);
+        Task<IEnumerable<AnswerViewModel>> GetSquadAnswers(int squadId);
+        Task<IEnumerable<AnswerViewModel>> GetAllAnswers();
     }
 }

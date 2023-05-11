@@ -17,10 +17,26 @@ namespace RockstarsManagementSquad.Services
             _client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
-        public async Task<IEnumerable<AnswerViewModel>> UserAnswers(int id)
+        public async Task<IEnumerable<AnswerViewModel>> GetUserAswers(int userId)
         {
-            string path = "https://localhost:7259/companies";
+            string path = $"https://localhost:7259/Answer/User/{userId}";
             var response = await _client.GetAsync(path); // path was BasePath
+
+            return await response.ReadContentAsync<List<AnswerViewModel>>();
+        }
+
+        public async Task<IEnumerable<AnswerViewModel>> GetSquadAnswers(int squadId)
+        {
+            string path = $"https://localhost:7259/Answer/Squad/{squadId}";
+            var response = await _client.GetAsync(path);
+
+            return await response.ReadContentAsync<List<AnswerViewModel>>();
+        }
+
+        public async Task<IEnumerable<AnswerViewModel>> GetAllAnswers()
+        {
+            string path = $"https://localhost:7259/Answers";
+            var response = await _client.GetAsync(path);
 
             return await response.ReadContentAsync<List<AnswerViewModel>>();
         }

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RockstarsManagementSquad.Models;
+using RockstarsManagementSquad.Services.Interfaces;
 using RockstarsManagementSquadLibrary;
 using System.Diagnostics;
 
@@ -10,16 +11,57 @@ namespace RockstarsManagementSquad.Controllers
     {
         
         private readonly ILogger<DashboardController> _logger;
-
-        public DashboardController(ILogger<DashboardController> logger)
+        private readonly IAnswerViewModelService _answerViewModelService;
+        private readonly IUserViewModelService _userViewModelService;
+        private readonly ISquadViewModelService _squadViewModelService;
+        private readonly IRockstarViewModelService _rockstarViewModelService;
+        public DashboardController(ILogger<DashboardController> logger, IAnswerViewModelService answerViewModelService, IUserViewModelService userViewModelService, ISquadViewModelService squadViewModelService, IRockstarViewModelService rockstarViewModelService)
         {
             _logger = logger;
+            _answerViewModelService = answerViewModelService ?? throw new ArgumentNullException(nameof(answerViewModelService));
+            _userViewModelService = userViewModelService ?? throw new ArgumentNullException(nameof(userViewModelService));
+            _squadViewModelService = squadViewModelService ?? throw new ArgumentNullException(nameof(squadViewModelService));
+            _rockstarViewModelService = rockstarViewModelService ?? throw new ArgumentNullException(nameof(rockstarViewModelService));
         }
 
         //[Authorize]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var allSquads = await _squadViewModelService.FindAll();
+
+            DashboardViewModel dashboardViewModel = new DashboardViewModel();
+
+            List<SquadViewModel> NotFinnishedEnquetes = new List<SquadViewModel>();
+            List<SquadViewModel> FinnishedEnquetes = new List<SquadViewModel>();
+
+            foreach (var squad in allSquads)
+            {
+                var answerInSquad = await _answerViewModelService.GetSquadAnswers(squad.id);
+                var usersInSquad = await _squadViewModelService.UsersInSquad(squad.id);
+                bool squadHasEnquete = false;
+
+                foreach (var user in usersInSquad)
+                {
+                    if (user.url != null)
+                    {
+                        squadHasEnquete = true;
+                    }
+                }
+
+                if (squadHasEnquete && answerInSquad.Count() == usersInSquad.Count())
+                {
+                    FinnishedEnquetes.Add(squad);
+                }
+                else if (squadHasEnquete && answerInSquad.Count() != usersInSquad.Count())
+                {
+                    NotFinnishedEnquetes.Add(squad);
+                }
+            }
+
+            dashboardViewModel.SquadFinnishedEnquetes = FinnishedEnquetes;
+            dashboardViewModel.SquadNotFinnishedEnquetes = NotFinnishedEnquetes;
+
+            return View(dashboardViewModel);
         }
 
         public IActionResult Privacy()
