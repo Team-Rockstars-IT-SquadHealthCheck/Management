@@ -5,7 +5,7 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welkom, @User.Identity.Name</h1>
+    <h1 class="display-4">Welkom, @User.Claims.FirstOrDefault(c => c.Type == "name")?.Value</h1>
 </div>
 
 
