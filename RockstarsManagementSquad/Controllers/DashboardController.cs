@@ -35,7 +35,7 @@ namespace RockstarsManagementSquad.Controllers
 
             foreach (var squad in allSquads)
             {
-                var answerInSquad = await _answerViewModelService.GetSquadAnswers(squad.id);
+                var answerInSquad = await _answerViewModelService.GetSquadFinnishedEnquetes(squad.id);
                 var usersInSquad = await _squadViewModelService.UsersInSquad(squad.id);
                 bool squadHasEnquete = false;
 
