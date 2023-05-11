@@ -1,4 +1,4 @@
-@model AnswerViewModel
+@model AnswerSquadViewModel
 
 @{
     Layout = null;
@@ -8,11 +8,27 @@
 
 <html>
 <head>
-    <title>title</title>
+    <h1>@Model.squad.id</h1>
 </head>
-<body>
-<div>
-      
-</div>
-</body>
+<table class="table">
+    <tdead>
+        <tr>
+            <th>QuestionID</th>
+            <th>Question</th>
+            <th>Answer</th>
+            <th>Comment</th>
+        </tr>
+    </tdead>
+    <tbody>
+    @foreach (var item in Model.answers)
+    {
+        <tr>
+            <td>@item.id</td>
+            <td>@item.question</td>
+            <td>@item.answerText</td>
+            <td>@item.comment</td>
+        </tr>
+    }
+    </tbody>
+</table>
 </html>
