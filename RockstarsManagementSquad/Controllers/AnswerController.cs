@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RockstarsManagementSquad.Models;
 using RockstarsManagementSquad.Services.Interfaces;
+using RockstarsManagementSquadLibrary;
 
 namespace RockstarsManagementSquad.Controllers;
 
@@ -38,13 +39,52 @@ public class AnswerController : Controller
         var squadAnswersTask = _service.SquadAnswers(id);
         var squadTask = _squadViewModelService.FindById(id);
 
-        var squadAnswers = await squadAnswersTask;
+        var answers = await squadAnswersTask;
         var squad = await squadTask;
 
-        AnswerSquadViewModel answerSquadViewModel = new AnswerSquadViewModel();
-        answerSquadViewModel.answers = squadAnswers;
-        answerSquadViewModel.squad = squad;
-        return View(answerSquadViewModel);
+		
+		Dictionary<int, AnswerUserViewModel> userAnswers = new Dictionary<int, AnswerUserViewModel>();
+
+        
+		foreach (AnswerViewModel answer in answers)
+		{
+			if (!userAnswers.ContainsKey(answer.userid))
+			{
+				
+				userAnswers[answer.userid] = new AnswerUserViewModel
+				{
+					userid = answer.userid,
+					answers = new List<AnswerViewModel>()
+				};
+			}
+
+			
+			userAnswers[answer.userid].answers.Add(answer);
+		}
+
+		
+		List<AnswerUserViewModel> userAnswersList = userAnswers.Values.ToList();
+
+        
+        var squadAnswers = new AnswerSquadViewModel
+        {
+            userAnswer = userAnswersList,
+            squad = squad
+		};
+
+        foreach (var item in squadAnswers.userAnswer)
+        {
+
+			var rockstarTask = _rockstarViewModelService.FindById(item.userid);
+			var rockstar = await rockstarTask;
+            item.rockstar = rockstar;
+		}
+
+
+		//AnswerSquadViewModel answerSquadViewModel = new AnswerSquadViewModel();
+		//answerSquadViewModel.answers = squadAnswers;
+		//answerSquadViewModel.squad = squad;
+		return null;
     }
 
 }

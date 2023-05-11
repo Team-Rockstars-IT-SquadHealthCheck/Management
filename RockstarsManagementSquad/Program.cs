@@ -18,7 +18,7 @@ builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
 
 
 
-//builder.Services.AddControllersWithViews()
+builder.Services.AddControllersWithViews();
 //    .AddMvcOptions(options =>
 //    {
 //        var policy = new AuthorizationPolicyBuilder()
