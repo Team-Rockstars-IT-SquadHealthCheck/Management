@@ -4,24 +4,25 @@ using RockstarsManagementSquad.Models;
 using RockstarsManagementSquad.Services.Interfaces;
 using RockstarsManagementSquadLibrary;
 using System.Diagnostics;
+using RockstarsManagementSquad.Services.Interfaces;
+using System.ComponentModel;
 
 namespace RockstarsManagementSquad.Controllers
 {
     public class DashboardController : Controller
     {
-        
-        private readonly ILogger<DashboardController> _logger;
-        private readonly IAnswerViewModelService _answerViewModelService;
-        private readonly IUserViewModelService _userViewModelService;
-        private readonly ISquadViewModelService _squadViewModelService;
-        private readonly IRockstarViewModelService _rockstarViewModelService;
-        public DashboardController(ILogger<DashboardController> logger, IAnswerViewModelService answerViewModelService, IUserViewModelService userViewModelService, ISquadViewModelService squadViewModelService, IRockstarViewModelService rockstarViewModelService)
+        private readonly Services.Interfaces.IAnswerViewModelService _answerService;
+        private readonly Services.Interfaces.ISquadViewModelService _squadService;
+        private readonly Services.Interfaces.IRockstarViewModelService _rockstarsService;
+
+        public DashboardController(RockstarsManagementSquad.Services.Interfaces.IAnswerViewModelService answerService, 
+            RockstarsManagementSquad.Services.Interfaces.ISquadViewModelService squadService,
+            ILogger<DashboardController> logger)
         {
-            _logger = logger;
-            _answerViewModelService = answerViewModelService ?? throw new ArgumentNullException(nameof(answerViewModelService));
-            _userViewModelService = userViewModelService ?? throw new ArgumentNullException(nameof(userViewModelService));
-            _squadViewModelService = squadViewModelService ?? throw new ArgumentNullException(nameof(squadViewModelService));
-            _rockstarViewModelService = rockstarViewModelService ?? throw new ArgumentNullException(nameof(rockstarViewModelService));
+            _answerService = answerService ?? throw new ArgumentNullException(nameof(answerService));
+            _squadService = squadService ?? throw new ArgumentNullException(nameof(squadService));
+			//_rockstarsService = rockstarsService ?? throw new ArgumentNullException(nameof(rockstarsService));
+			//_logger = logger;
         }
 
         //[Authorize]
@@ -80,6 +81,28 @@ namespace RockstarsManagementSquad.Controllers
             UserViewModel user = new UserViewModel(name, email.ToLower(), emailConfirmed.ToLower(), password);
 
             return user;
+        }
+
+        public async Task<List<int>> GetAllExistingSurveyNumbers()
+        {
+            var users = await _rockstarsService.Find();
+
+            int surveyNumber = 0;
+            List<int> surveyNumbers = new List<int>();
+
+            foreach (var user in users)
+            {
+                var url = user.url.Split('&');
+                for (int i = 0; i < 1; i++)
+                {
+                    surveyNumber = Convert.ToInt32(url[i]);
+                    if (!surveyNumbers.Contains(surveyNumber))
+                    {
+                        surveyNumbers.Add(surveyNumber);
+                    }
+                }
+            }
+            return surveyNumbers;
         }
     }
 }

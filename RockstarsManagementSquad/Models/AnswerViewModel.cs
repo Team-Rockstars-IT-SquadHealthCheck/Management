@@ -9,6 +9,6 @@ namespace RockstarsManagementSquad.Models
         public int answerNumb { get; set; }
         public string answerText { get; set; }
         public string comment { get; set; }
-        public int userId { get; set; }
+        public int userid { get; set; }
     }
 }

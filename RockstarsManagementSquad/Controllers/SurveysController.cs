@@ -8,6 +8,8 @@ using RockstarsManagementSquad.Services.Interfaces;
 using RockstarsManagementSquadLibrary;
 using PostmarkDotNet;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Reflection;
+using System.Linq;
 
 namespace RockstarsManagementSquad.Controllers
 {
@@ -39,32 +41,33 @@ namespace RockstarsManagementSquad.Controllers
 
             ViewBag.Squads = items;
 
+            List<SurveyViewModel> surveyViewModels = new List<SurveyViewModel>();
+
             foreach (var product in products)
             {
-                SurveyViewModel surveyViewModel = new SurveyViewModel();
+                SurveyViewModel surveyViewModel = product.ConvertSurveyDTOToSurveyViewModel();
+                surveyViewModels.Add(surveyViewModel);
             }
-            return View(products);
+
+            return View(surveyViewModels);
         }
 
-        public async Task<IActionResult> CreateSurveyLink(int squadId)
+        public async Task<IActionResult> CreateSurveyLink(string title, string description, int squadId)
         {
+            Survey survey = new Survey(title, description);
+            survey = CreateAndGetNewSurvey(survey, squadId);
+
             IEnumerable<RockstarViewModel> UsersInSquad = await _squadService.UsersInSquad(squadId);
             List<RockstarViewModel> usersList = UsersInSquad.ToList();
-            
-            int surveyNumber = 0;
-
-            Survey survey = new Survey(); Random rnd = new Random();
-
-            for (int j = 0; j < 1; j++)
-            {
-                surveyNumber = rnd.Next(0, 9999);
-            }
 
             foreach (var user in usersList)
             {
+                int surveyId = survey.Id;
                 int userId = user.id;
-                string surveyLink = survey.CreateNewSurveyLink(surveyNumber, squadId, userId);
+                string surveyLink = survey.CreateNewSurveyLink(surveyId, squadId, userId);
+                
                 _userService.AddSurveyLinkToUser(surveyLink, userId);
+
                 await SendMail(
                     new MailData() 
                     { 
@@ -76,6 +79,23 @@ namespace RockstarsManagementSquad.Controllers
                     );
             }
             return RedirectToAction("Index");
+        }
+
+        private Survey CreateAndGetNewSurvey(Survey survey, int squadId)
+        {
+            _surveyService.Create(survey.ConvertSurveyToSurveyDTO());
+
+            Task<IEnumerable<SurveyDTO>> _surveys = _surveyService.Find();
+            List<SurveyDTO> surveys = _surveys.Result.ToList();
+
+            for (int i = surveys.Count()-1; i < surveys.Count(); i++)
+            {
+                survey = surveys[i].ConvertSurveyDTOToSurvey();
+            }
+
+            _surveyService.CreateLinkSurveySquad(new LinkSurveySquadDTO(survey.Id, squadId));
+
+            return survey;
         }
 
         [HttpPost]

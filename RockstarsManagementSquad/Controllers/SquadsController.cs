@@ -6,17 +6,20 @@ namespace RockstarsManagementSquad.Controllers;
 
 public class SquadsController : Controller   
 {
-    private readonly Services.Interfaces.ISquadViewModelService _service;
+    private readonly Services.Interfaces.ISquadViewModelService _squad;
+    private readonly Services.Interfaces.IAnswerViewModelService _answer;
 
-    public SquadsController(RockstarsManagementSquad.Services.Interfaces.ISquadViewModelService service)
+    public SquadsController(RockstarsManagementSquad.Services.Interfaces.ISquadViewModelService squad,
+        RockstarsManagementSquad.Services.Interfaces.IAnswerViewModelService answer)
     {
-        _service = service ?? throw new ArgumentNullException(nameof(service));
+        _squad = squad ?? throw new ArgumentNullException(nameof(squad));
+        _answer = answer ?? throw new ArgumentNullException(nameof(answer));
     }
 
     public async Task<IActionResult> Index()
     {
         //var squads = await _service.Find();
-        var products = await _service.FindAll();
+        var products = await _squad.FindAll();
         
         
         return View(products);
@@ -24,8 +27,8 @@ public class SquadsController : Controller
 
     public async Task<IActionResult> Info(int? id)
     {
-        var squad = await _service.FindById(id);
-        var rockstars = await _service.UsersInSquad(id);
+        var squad = await _squad.FindById(id);
+        var rockstars = await _squad.UsersInSquad(id);
         SquadInfoViewModel infoViewModel = new SquadInfoViewModel();
         infoViewModel.squad = squad;
         infoViewModel.rockstars = rockstars;
@@ -33,9 +36,16 @@ public class SquadsController : Controller
         return View(infoViewModel);
     }
 
-    public async Task<IActionResult> Results()
+    public async Task<IActionResult> Results(int id)
     {
+        var results = await _answer.SquadAnswers(id);
+
         return View();
+    }
+
+    public SquadAnswerViewModel SortAnswersToUser()
+    {
+        return null;
     }
 
     public async Task<IActionResult> Delete()

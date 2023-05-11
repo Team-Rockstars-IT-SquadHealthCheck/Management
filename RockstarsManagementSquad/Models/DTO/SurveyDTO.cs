@@ -6,6 +6,11 @@
         public string name { get; set; }
         public string description { get; set; }
 
+        public SurveyDTO()
+        {
+            
+        }
+
         public SurveyDTO(int _id, string _name, string _description)
         {
             id = _id;

@@ -15,7 +15,15 @@ namespace RockstarsManagementSquadLibrary
         // constructors
         public Survey()
         {
-            
+
+        }
+
+        public Survey(string name, string description)
+        {
+            Id = 0;
+            Name = name;
+            Description = description;
+            questions = new List<Question>();
         }
 
         public Survey(int id, string name, string description)
@@ -27,23 +35,23 @@ namespace RockstarsManagementSquadLibrary
         }
 
         // methods
-        public string CreateNewSurveyLink(int surveyNumber, int squadId, int userId)
+        public string CreateNewSurveyLink(int surveyId, int squadId, int userId)
         {
             string personalisedSurveyLink = "";
-            if (SurveyLinkMayBeCreated(squadId, userId))
+            if (SurveyLinkMayBeCreated(surveyId, squadId, userId))
             {
                 Guid myuuid = Guid.NewGuid();
                 string uuid = myuuid.ToString();
-                personalisedSurveyLink = $"{surveyNumber}&{uuid}&{Convert.ToString(squadId)}&{Convert.ToString(userId)}";
+                personalisedSurveyLink = $"{surveyId}&{uuid}&{Convert.ToString(squadId)}&{Convert.ToString(userId)}";
             }
             return personalisedSurveyLink;
         }
         
-        private bool SurveyLinkMayBeCreated(int squadId, int userId)
+        private bool SurveyLinkMayBeCreated(int surveyId, int squadId, int userId)
         {
             bool result = false;
 
-            if (squadId != -1 && userId != -1)
+            if (surveyId != -1 && squadId != -1 && userId != -1)
             {
                 result = true;
             }
