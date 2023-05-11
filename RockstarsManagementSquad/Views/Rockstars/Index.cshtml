@@ -57,6 +57,9 @@
                 <td>
                     @Html.ActionLink("Delete", "Delete", new { id=item.id })
                 </td>
+                    <td>
+                        @Html.ActionLink("Results", "User", "Answer", new { id = item.id }, null)
+                    </td>
             </tr>
         }
         </tbody>
