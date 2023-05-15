@@ -40,22 +40,22 @@ public class AnswerController : Controller
 		AnswerSquadViewModel squadAnswers = await GetAllSquadAnswersAsync(id);
 		
 
-		return null;
+		return View(squadAnswers);
     }
 
     private async Task<AnswerSquadViewModel> GetAllSquadAnswersAsync(int id)
     {
-		var squadAnswersTask = _service.SquadAnswers(id);
+		Task<List<AnswerViewModel>> squadAnswersTask = _service.SquadAnswers(id);
 		var squadTask = _squadViewModelService.FindById(id);
 
-		var answers = await squadAnswersTask;
+        List<AnswerViewModel> SquadAnswers = await squadAnswersTask;
 		var squad = await squadTask;
 
 
 		Dictionary<int, AnswerUserViewModel> userAnswers = new Dictionary<int, AnswerUserViewModel>();
 
 
-		foreach (AnswerViewModel answer in answers)
+		foreach (AnswerViewModel answer in SquadAnswers)
 		{
 			if (!userAnswers.ContainsKey(answer.userid))
 			{
