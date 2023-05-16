@@ -34,4 +34,11 @@ public class RockstarViewModelService : IRockstarViewModelService
 
         return await response.ReadContentAsync<RockstarViewModel>();
     }
+    public async Task<RockstarViewModel> FindById(int userId)
+    {
+        string path = $"https://localhost:7259/UserDetails/{userId}";
+        var response = await _client.GetAsync(path); // path was BasePath
+
+        return await response.ReadContentAsync<RockstarViewModel>();
+    }
 }

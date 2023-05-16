@@ -15,8 +15,10 @@
                     <h5 class="modal-title">Create Survey</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <select name="squadid" class="form-select" asp-items="ViewBag.Squads"></select>
+                <div class="modal-body" style="display: flex; flex-direction: column;">
+                    <p>Titel: <input name="title" class="text"></input></p>
+                    <p>Beschrijving: <input name="description" class="text"></input></p>
+                    <select name="squadId" class="form-select" asp-items="ViewBag.Squads"></select>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -28,6 +28,30 @@ public class CompanyViewModelService : ICompanyViewModelService
         return await response.ReadContentAsync<List<CompanyViewModel>>();
     }
 
+    public async Task<CompanyViewModel> FindById(int? companyId)
+    {
+        string path = $"https://localhost:7259/CompanyDetails/{companyId}";
+        var response = await _client.GetAsync(path); // path was BasePath
+
+        return await response.ReadContentAsync<CompanyViewModel>();
+    }
+
+    public async Task<List<SquadViewModel>> SquadsInCompany(int? companyId)
+    {
+        string path = $"https://localhost:7259/SquadsInCompany/{companyId}";
+        var response = await _client.GetAsync(path); // path was BasePath
+
+        return await response.ReadContentAsync<List<SquadViewModel>>();
+    }
+
+    public async Task<IEnumerable<SquadViewModel>> SquadsInCompany(int companyId)
+    {
+        string path = $"https://localhost:7259/SquadsInCompany/{companyId}";
+        var response = await _client.GetAsync(path); // path was BasePath
+
+        return await response.ReadContentAsync<List<SquadViewModel>>();
+    }
+
     public async Task<CompanyViewModel> Create(CompanyDTO company)
     {
         string path = "https://localhost:7259/Company";

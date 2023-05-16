@@ -13,17 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 //Azure AD authentication
-//builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-//  .AddMicrosoftIdentityWebApp(builder.Configuration);
-
-//builder.Services.AddControllersWithViews(options =>
-//{
-//    var policy = new AuthorizationPolicyBuilder()
-//        .RequireAuthenticatedUser()
-//        .Build();
-//    options.Filters.Add(new AuthorizeFilter(policy));
-//});
-
+builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+  .AddMicrosoftIdentityWebApp(builder.Configuration);
 
 builder.Services.AddControllersWithViews();
 //    .AddMvcOptions(options =>
@@ -34,6 +25,8 @@ builder.Services.AddControllersWithViews();
 //        options.Filters.Add(new AuthorizeFilter(policy));
 //    })
 //    .AddMicrosoftIdentityUI();
+
+// mail
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 builder.Services.AddTransient<IMailService, MailService>();
 
@@ -47,6 +40,8 @@ builder.Services.AddHttpClient<IRockstarViewModelService, RockstarViewModelServi
 builder.Services.AddHttpClient<ISurveyViewModelService, SurveyViewModelService>(c =>
     c.BaseAddress = new Uri("https://localhost:7259"));
 builder.Services.AddHttpClient<IUserViewModelService, UserViewModelService>(c =>
+    c.BaseAddress = new Uri("https://localhost:7259"));
+builder.Services.AddHttpClient<IAnswerViewModelService, AnswerViewModelService>(c =>
     c.BaseAddress = new Uri("https://localhost:7259"));
 //====================================
 //BIJ LOCALHOST MOET DE LOCAL API PORT

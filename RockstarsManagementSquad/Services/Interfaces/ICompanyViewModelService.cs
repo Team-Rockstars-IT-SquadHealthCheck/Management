@@ -12,5 +12,8 @@ public interface ICompanyViewModelService
 {
     Task<IEnumerable<CompanyViewModel>> Find();
     Task<CompanyViewModel> Create(CompanyDTO company);
+    Task<CompanyViewModel> FindById(int? id);
+    Task<List<SquadViewModel>> SquadsInCompany(int? companyId);
+    Task<IEnumerable<SquadViewModel>> SquadsInCompany(int companyId);
 }
 

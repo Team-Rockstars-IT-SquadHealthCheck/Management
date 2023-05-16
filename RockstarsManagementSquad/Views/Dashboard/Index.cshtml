@@ -1,10 +1,44 @@
-﻿@model RockstarsManagementSquad.Models.UserViewModel
+﻿@model RockstarsManagementSquad.Models.DashboardViewModel
 
 @{
     ViewData["Title"] = "Dashboard";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome, [Username]!</h1>
-    <h2 class="display-5">Welkom Rockstars!</h2>
+    <h1 class="display-4">Welkom, @User.Claims.FirstOrDefault(c => c.Type == "name")?.Value</h1>
+</div>
+
+
+<div class="text-center">
+    <div class="row">
+        <div class="col">
+            <div class="rectangle">
+                <h2>Lopende Enquêtes</h2>
+                <hr />
+                @foreach (var item in Model.SquadNotFinnishedEnquetes)
+                {
+                    <h4>
+                        <b>
+                            @Html.ActionLink(item.name, "Squad", "Answer", new { id = item.id }, null)
+                        </b>
+                    </h4>
+                }
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="rectangle">
+                <h2>Voltooide Enquêtes</h2>
+                <hr />
+                @foreach (var item in Model.SquadFinnishedEnquetes)
+                {
+                    <h4>
+                        <b>
+                            @Html.ActionLink(item.name, "Index", "Answer", new { id = item.id }, null)
+                        </b>
+                    </h4>
+                }
+            </div>
+        </div>
+    </div>
 </div>
