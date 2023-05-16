@@ -74,7 +74,7 @@ namespace RockstarsManagementSquad.Controllers
                         EmailToAddress = user.email,
                         EmailToName = user.username,
                         EmailSubject = "Squad Health Check",
-                        EmailBody = $"This is your personal surveylink: {surveyLink}"
+                        EmailBody = $"This is your personal surveylink: http://138.201.52.251:82/Home/Index/{surveyLink}"
                     }
                     );
             }
