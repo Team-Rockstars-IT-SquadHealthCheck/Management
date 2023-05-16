@@ -34,7 +34,18 @@
                 <td>@item.rockstar.username</td>
                 <td>@item.answers[i].id</td>
                 <td>@item.answers[i].question</td>
-                <td>@item.answers[i].answer</td>
+                    @if (item.answers[i].answer == 0)
+                    {
+                    <td>Good</td>
+                    }
+                    else if (item.answers[i].answer == 1)
+                    {
+                    <td>Meh</td>
+                    }
+                    else if (item.answers[i].answer == 2)
+                    {
+                    <td>Bad</td>
+                    }
                 <td>@item.answers[i].answerText</td>
                 <td>@item.answers[i].comment</td>
             </tr>
