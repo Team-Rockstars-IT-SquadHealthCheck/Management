@@ -1,34 +1,56 @@
 @model AnswerSquadViewModel
 
 @{
-    Layout = null;
+    Layout = "_Layout";
 }
 
 <!DOCTYPE html>
 
 <html>
 <head>
-    <h1>@Model.squad.id</h1>
+    <h1>@Model.squad.name</h1>
 </head>
+<form asp-controller="Squads" asp-action="Info">
+    <input style="display: none;" name="id" value="@Model.squad.id"></input>
+    <input type="submit" name="Info" value="Back" class="btn btn-dark"></input>
+</form>
 <table class="table">
     <tdead>
         <tr>
+            <th>User</th>
             <th>QuestionID</th>
             <th>Question</th>
+            <th>AnswerValue</th>
             <th>Answer</th>
             <th>Comment</th>
         </tr>
     </tdead>
     <tbody>
-    @*@foreach (var item in Model.answers)
+    @foreach (var item in Model.userAnswer)
     {
-        <tr>
-            <td>@item.id</td>
-            <td>@item.question</td>
-            <td>@item.answerText</td>
-            <td>@item.comment</td>
-        </tr>
-    }*@
+            @for (int i = 0; i < item.answers.Count(); i++)
+        {
+            <tr>
+                <td>@item.rockstar.username</td>
+                <td>@item.answers[i].id</td>
+                <td>@item.answers[i].question</td>
+                    @if (item.answers[i].answer == 0)
+                    {
+                    <td>Good</td>
+                    }
+                    else if (item.answers[i].answer == 1)
+                    {
+                    <td>Meh</td>
+                    }
+                    else if (item.answers[i].answer == 2)
+                    {
+                    <td>Bad</td>
+                    }
+                <td>@item.answers[i].answerText</td>
+                <td>@item.answers[i].comment</td>
+            </tr>
+        }
+    }
     </tbody>
 </table>
 </html>

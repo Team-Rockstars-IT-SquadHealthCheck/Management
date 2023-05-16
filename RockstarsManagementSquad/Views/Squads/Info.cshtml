@@ -3,8 +3,13 @@
 <h1>@Model.squad.name</h1>
 <h2>@Model.squad.companyName</h2>
 <div>
-    <a asp-action="Index" class="btn btn-dark" >Back</a>
-    <a class="btn btn-success">Squad result</a>
+    <div style="display: flex;">
+        <a asp-action="Index" class="btn btn-dark" >Back</a>
+        <form asp-controller="Answer" asp-action="Squad" style="margin-left: 5px;">
+            <input type="text" name="id" style="display: none;" value="@Model.squad.id" />
+            <input type="submit" name="Squad" class="btn btn-success" value="Results" />
+        </form>
+    </div>
     <br />
     <br />
     <table class="table">

@@ -36,21 +36,30 @@ public class AnswerController : Controller
 
     public async Task<IActionResult> Squad(int id)
     {
-        var squadAnswersTask = _service.SquadAnswers(id);
-        var squadTask = _squadViewModelService.FindById(id);
 
-        var answers = await squadAnswersTask;
-        var squad = await squadTask;
-
+		AnswerSquadViewModel squadAnswers = await GetAllSquadAnswersAsync(id);
 		
+
+		return View(squadAnswers);
+    }
+
+    private async Task<AnswerSquadViewModel> GetAllSquadAnswersAsync(int id)
+    {
+		Task<List<AnswerViewModel>> squadAnswersTask = _service.SquadAnswers(id);
+		var squadTask = _squadViewModelService.FindById(id);
+
+        List<AnswerViewModel> SquadAnswers = await squadAnswersTask;
+		var squad = await squadTask;
+
+
 		Dictionary<int, AnswerUserViewModel> userAnswers = new Dictionary<int, AnswerUserViewModel>();
 
-        
-		foreach (AnswerViewModel answer in answers)
+
+		foreach (AnswerViewModel answer in SquadAnswers)
 		{
 			if (!userAnswers.ContainsKey(answer.userid))
 			{
-				
+
 				userAnswers[answer.userid] = new AnswerUserViewModel
 				{
 					userid = answer.userid,
@@ -58,33 +67,29 @@ public class AnswerController : Controller
 				};
 			}
 
-			
+
 			userAnswers[answer.userid].answers.Add(answer);
 		}
 
-		
+
 		List<AnswerUserViewModel> userAnswersList = userAnswers.Values.ToList();
 
-        
-        var squadAnswers = new AnswerSquadViewModel
-        {
-            userAnswer = userAnswersList,
-            squad = squad
+
+		var squadAnswers = new AnswerSquadViewModel
+		{
+			userAnswer = userAnswersList,
+			squad = squad
 		};
 
-        foreach (var item in squadAnswers.userAnswer)
-        {
+		foreach (var item in squadAnswers.userAnswer)
+		{
 
 			var rockstarTask = _rockstarViewModelService.FindById(item.userid);
 			var rockstar = await rockstarTask;
-            item.rockstar = rockstar;
+			item.rockstar = rockstar;
 		}
 
-
-		//AnswerSquadViewModel answerSquadViewModel = new AnswerSquadViewModel();
-		//answerSquadViewModel.answers = squadAnswers;
-		//answerSquadViewModel.squad = squad;
-		return null;
+		return squadAnswers;
     }
 
 }
