@@ -47,5 +47,13 @@ namespace RockstarsManagementSquad.Services
 
             return await response.ReadContentAsync<List<AnswerViewModel>>();
         }
+
+        public async Task<IEnumerable<AnswerViewModel>> GetSquadFinnishedEnquetes(int squadId)
+        {
+            string path = $"https://localhost:7259/Answer/Squad/DistinctAnswer/{squadId}";
+            var response = await _client.GetAsync(path);
+
+            return await response.ReadContentAsync<List<AnswerViewModel>>();
+        }
     }
 }

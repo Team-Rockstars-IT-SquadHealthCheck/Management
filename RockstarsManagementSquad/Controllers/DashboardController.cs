@@ -4,7 +4,6 @@ using RockstarsManagementSquad.Models;
 using RockstarsManagementSquad.Services.Interfaces;
 using RockstarsManagementSquadLibrary;
 using System.Diagnostics;
-using RockstarsManagementSquad.Services.Interfaces;
 using System.ComponentModel;
 
 namespace RockstarsManagementSquad.Controllers
@@ -14,14 +13,14 @@ namespace RockstarsManagementSquad.Controllers
         private readonly IAnswerViewModelService _answerViewModelService;
         private readonly ISquadViewModelService _squadViewModelService;
         private readonly IRockstarViewModelService _rockstarsViewModelService;
+        private readonly ILogger _logger;
 
-        public DashboardController(IAnswerViewModelService answerService, ISquadViewModelService squadService,
-            ILogger<DashboardController> logger)
+        public DashboardController(IAnswerViewModelService answerService, ISquadViewModelService squadService, IRockstarViewModelService rockstarViewModelService, ILogger<DashboardController> logger)
         {
             _answerViewModelService = answerService ?? throw new ArgumentNullException(nameof(answerService));
             _squadViewModelService = squadService ?? throw new ArgumentNullException(nameof(squadService));
-			//_rockstarsService = rockstarsService ?? throw new ArgumentNullException(nameof(rockstarsService));
-			//_logger = logger;
+			_rockstarsViewModelService = rockstarViewModelService ?? throw new ArgumentNullException(nameof(rockstarViewModelService));
+			_logger = logger;
         }
 
         //[Authorize]
@@ -36,7 +35,7 @@ namespace RockstarsManagementSquad.Controllers
 
             foreach (var squad in allSquads)
             {
-                var answerInSquad = await _answerViewModelService.GetSquadAnswers(squad.id);
+                var answerInSquad = await _answerViewModelService.GetSquadFinnishedEnquetes(squad.id);
                 var usersInSquad = await _squadViewModelService.UsersInSquad(squad.id);
                 bool squadHasEnquete = false;
 

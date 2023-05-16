@@ -9,5 +9,6 @@ namespace RockstarsManagementSquad.Services.Interfaces
         Task <List<AnswerViewModel>> SquadAnswers(int id);
         Task<IEnumerable<AnswerViewModel>> GetSquadAnswers(int squadId);
         Task<IEnumerable<AnswerViewModel>> GetAllAnswers();
+        Task<IEnumerable<AnswerViewModel>> GetSquadFinnishedEnquetes(int squadId);
     }
 }
