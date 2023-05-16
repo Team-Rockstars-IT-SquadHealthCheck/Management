@@ -42,4 +42,8 @@ public class SquadsController : Controller
     {
         return View();
     }
+    public async Task<IActionResult> Graph(int? squadid)
+    {
+        return View();
+    }
 }
