@@ -56,8 +56,8 @@
                 <td>@item.url</td>
                 <td>
                     <form asp-controller="Rockstars" asp-action="Delete">
-                        <input type="text" name="userId" value="@item.id" style="display: none"/>
-                        <input type="submit" value="send"/>
+                        <input style="display: none" name="userId" value="@item.id"/>
+                        <input type="submit" name="Delete" value="delete"/>
                     </form>
                 </td>
                     <td>

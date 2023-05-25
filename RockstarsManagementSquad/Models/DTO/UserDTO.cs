@@ -9,5 +9,13 @@
         public int roleid { get;  set; }
         public int squadid { get;  set; }
         public string url { get; set; }
+        public UserDTO()
+        {
+            
+        }
+        public UserDTO(int userId)
+        {
+            id = userId;
+        }
     }
 }

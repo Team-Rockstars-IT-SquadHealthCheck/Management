@@ -44,8 +44,9 @@ public class RockstarViewModelService : IRockstarViewModelService
 
     public async Task<RockstarViewModel> Delete(int userId)
     {
+        UserDTO user = new UserDTO(userId);
         string path = $"https://localhost:7259/User/{userId}";
-        var response = await _client.GetAsync(path); // path was BasePath
+        var response = await _client.PostAsJsonAsync<UserDTO>(path, user); // path was BasePath
 
         return await response.ReadContentAsync<RockstarViewModel>();
     }
