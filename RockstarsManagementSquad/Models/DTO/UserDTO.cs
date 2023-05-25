@@ -13,9 +13,5 @@
         {
             
         }
-        public UserDTO(int userId)
-        {
-            id = userId;
-        }
     }
 }
