@@ -32,12 +32,17 @@ namespace RockstarsManagementSquad.Controllers
 
             List<SquadViewModel> NotFinnishedEnquetes = new List<SquadViewModel>();
             List<SquadViewModel> FinnishedEnquetes = new List<SquadViewModel>();
+            dashboardViewModel.AnswersInSquads = new List<int>();
+            dashboardViewModel.UsersInSquads = new List<int>();
 
             foreach (var squad in allSquads)
             {
                 var answerInSquad = await _answerViewModelService.GetSquadFinnishedEnquetes(squad.id);
                 var usersInSquad = await _squadViewModelService.UsersInSquad(squad.id);
                 bool squadHasEnquete = false;
+
+                dashboardViewModel.AnswersInSquads.Add(answerInSquad.Count());
+                dashboardViewModel.UsersInSquads.Add(usersInSquad.Count());
 
                 foreach (var user in usersInSquad)
                 {
