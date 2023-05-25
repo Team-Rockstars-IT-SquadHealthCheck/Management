@@ -55,7 +55,10 @@
                 <td>@item.squadid</td>
                 <td>@item.url</td>
                 <td>
-                    @Html.ActionLink("Delete", "Delete", new { id=item.id })
+                    <form asp-controller="Rockstars" asp-action="Delete">
+                        <input type="text" name="userId" value="@item.id" style="display: none"/>
+                        <input type="submit" value="send"/>
+                    </form>
                 </td>
                     <td>
                         @Html.ActionLink("Results", "User", "Answer", new { id = item.id }, null)

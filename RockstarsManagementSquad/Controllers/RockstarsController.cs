@@ -66,9 +66,19 @@ public class RockstarsController : Controller
         return RedirectToAction("Index");
     }
 
-    //[HttpPost]
-    //public async Task<IActionResult> Delete(int id)
-    //{
+    
+    [Route("/User/Delete/{id}")]
+    public async Task<IActionResult> Delete(int userId)
+    {
+        try
+        {
+            var url = await _rockstarsService.Delete(userId);
+        }
+        catch (Exception e)
+        {
+            ViewBag.Error = e.Message;
+        }
 
-    //}
+        return RedirectToAction("Index");
+    }
 }
