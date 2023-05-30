@@ -1,0 +1,67 @@
+﻿@model IEnumerable<RockstarsManagementSquad.Models.RockstarViewModel>
+@{
+    ViewData["Title"] = "Rockstars";
+}
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CreateRockstar">
+    Create Rockstar
+</button>
+
+<div class="modal fade" id="CreateRockstar" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-controller="Rockstars" method="post" asp-action="Create">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Rockstar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" name="username" placeholder="UserName" /><br />
+                    <input type="text" class="form-control" name="email" placeholder="Email" /><br />
+                    <input type="text" class="form-control" name="roleid" placeholder="RoleID" value="1" readonly/><br />
+                    <select name="squadid" class="form-select" asp-items="ViewBag.Squads"></select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" name="submit" value="Create" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div>
+    <br/>
+    <br/>
+    <table class="table">
+        <tdead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>RoleID</th>
+                <th>SquadID</th>
+                <th>url</th>
+            </tr>
+        </tdead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.username</td>
+                <td>@item.email</td>
+                <td>@item.roleid</td>
+                <td>@item.squadid</td>
+                <td>@item.url</td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { id=item.id })
+                </td>
+                    <td>
+                        @Html.ActionLink("Results", "User", "Answer", new { id = item.id }, null)
+                    </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
