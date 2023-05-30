@@ -14,5 +14,5 @@ public interface ISurveyViewModelService
     Task<SurveyDTO> FindById(int surveyId);
     Task<SurveyDTO> Create(SurveyDTO surveyDTO);
     Task<bool> CreateLinkSurveySquad(LinkSurveySquadDTO linkSurveySquadDTO);
+    void CreateQuestion(QuestionDTO questionDTO);
 }
-

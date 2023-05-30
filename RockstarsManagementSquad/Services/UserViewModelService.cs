@@ -16,8 +16,9 @@ namespace RockstarsManagementSquad.Services
 
         public async Task<string> AddSurveyLinkToUser(string SurveyLink, int userId)
         {
-            string path = $"https://localhost:7259/User/{userId}/Url";
-            var response = await _client.PutAsJsonAsync<string>(path, SurveyLink); // path was BasePath
+            UrlDTO urlDTO = new UrlDTO(SurveyLink, userId);
+            string path = $"https://localhost:7259/Url";
+            var response = await _client.PostAsJsonAsync<UrlDTO>(path, urlDTO); // path was BasePath
 
             return await response.ReadContentAsync<string>();
         }
