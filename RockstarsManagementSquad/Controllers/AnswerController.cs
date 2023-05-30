@@ -43,6 +43,14 @@ public class AnswerController : Controller
 		return View(squadAnswers);
     }
 
+	public async Task<IActionResult> SquadGraph(int id)
+	{
+        AnswerSquadViewModel squadAnswers = await GetAllSquadAnswersAsync(id);
+
+
+        return View(squadAnswers);
+    }
+
     private async Task<AnswerSquadViewModel> GetAllSquadAnswersAsync(int id)
     {
 		Task<List<AnswerViewModel>> squadAnswersTask = _service.SquadAnswers(id);

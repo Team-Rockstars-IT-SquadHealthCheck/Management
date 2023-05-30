@@ -30,7 +30,7 @@ namespace RockstarsManagementSquad.Services
             var response = await _client.GetAsync(path); // path was BasePath
 
             return await response.ReadContentAsync<List<AnswerViewModel>>();
-        }
+         }
 
         public async Task<IEnumerable<AnswerViewModel>> GetSquadAnswers(int squadId)
         {
