@@ -64,7 +64,8 @@
                         <div class="ag-courses-item_date-box">
 
 
-                            @*<a asp-action="" class="btn btn-success">Squads</a>*@
+                            <a asp-action="CompanyGraph" asp-controller="Answer" asp-route-id="@item.id" class="btn btn-success">Results</a>
+
 
                             <a asp-action="Info" asp-controller="Companies" asp-route-id="@item.id" class="btn btn-info" style="background-color:#FFE000; border-color:#FFE000">Info</a>
                             <a asp-action="" class="btn btn-danger" onclick="return confirm('Wil je deze company verwijderen? Alles met deze company zal verloren gaan.')">Delete</a>

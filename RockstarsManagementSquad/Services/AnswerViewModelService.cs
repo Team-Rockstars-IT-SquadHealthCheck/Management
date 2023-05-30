@@ -31,7 +31,13 @@ namespace RockstarsManagementSquad.Services
 
             return await response.ReadContentAsync<List<AnswerViewModel>>();
          }
+        public async Task<List<AnswerViewModel>> CompanyAnswers(int id)
+        {
+            string path =  $"https://localhost:7259/Answer/Company/{id}";
+            var response = await _client.GetAsync(path);
 
+            return await response.ReadContentAsync<List<AnswerViewModel>>();
+        }
         public async Task<IEnumerable<AnswerViewModel>> GetSquadAnswers(int squadId)
         {
             string path = $"https://localhost:7259/Answer/Squad/{squadId}";

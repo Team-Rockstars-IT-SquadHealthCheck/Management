@@ -1,27 +1,30 @@
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using RockstarsManagementSquad.Models;
 using RockstarsManagementSquad.Services;
 using RockstarsManagementSquad.Services.Interfaces;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using RockstarsManagementSquad.Configuration;
-
+using System;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-//Azure AD authentication
+// Azure AD authentication
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-  .AddMicrosoftIdentityWebApp(builder.Configuration);
+    .AddMicrosoftIdentityWebApp(builder.Configuration);
 
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>
     {
         var policy = new AuthorizationPolicyBuilder()
-                         .RequireAuthenticatedUser()
-                         .Build();
+            .RequireAuthenticatedUser()
+            .Build();
         options.Filters.Add(new AuthorizeFilter(policy));
     })
     .AddMicrosoftIdentityUI();
@@ -43,15 +46,17 @@ builder.Services.AddHttpClient<IUserViewModelService, UserViewModelService>(c =>
     c.BaseAddress = new Uri("https://localhost:7259"));
 builder.Services.AddHttpClient<IAnswerViewModelService, AnswerViewModelService>(c =>
     c.BaseAddress = new Uri("https://localhost:7259"));
-//====================================
-//BIJ LOCALHOST MOET DE LOCAL API PORT
-//====================================
 
+// SSL configuration
 
-
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.Listen(IPAddress.Any, 443, listenOptions =>
+    {
+        listenOptions.UseHttps("./certs/certificate.pem", "./certs/key.pem");
+    });
+});
 var app = builder.Build();
-
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

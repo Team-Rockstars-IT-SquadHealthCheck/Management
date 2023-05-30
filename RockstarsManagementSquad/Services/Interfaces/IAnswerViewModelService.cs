@@ -10,5 +10,7 @@ namespace RockstarsManagementSquad.Services.Interfaces
         Task<IEnumerable<AnswerViewModel>> GetSquadAnswers(int squadId);
         Task<IEnumerable<AnswerViewModel>> GetAllAnswers();
         Task<IEnumerable<AnswerViewModel>> GetSquadFinnishedEnquetes(int squadId);
+        Task<List<AnswerViewModel>> CompanyAnswers(int id);
+
     }
 }
