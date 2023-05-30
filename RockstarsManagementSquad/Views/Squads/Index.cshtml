@@ -1,0 +1,60 @@
+﻿@model IEnumerable<RockstarsManagementSquad.Models.SquadViewModel>
+@{
+	ViewData["Title"] = "Squads";
+}
+
+@*<div class="text-center">
+    <form method="post" action="">
+        <input type="text" name="name" placeholder="zeg even" />
+        <input type="text" name="address" placeholder="wat je" />
+        <input type="tel"  name="telNr" placeholder="hier wilt" />
+        <input type="submit" name="submit" value="Submit" />
+    </form>
+</div>*@
+<h1 class="title">Squads</h1>
+<a class="btn btn-primary">Create squad</a>
+<a class="btn btn-secondary">Add user to squad</a>
+<div class="center-content">
+	<br />
+	<br />
+	<div class="card-container">
+		@foreach (var item in Model)
+		{
+			<div class="ag-courses_box">
+				<div class="ag-courses_item">
+					<div class="ag-courses-item_link">
+
+
+						<div class="ag-courses-item_bg"></div>
+
+						<div class="ag-courses-item_title">
+							@item.name
+						</div>
+
+						<div class="ag-courses-item_content">
+							@item.companyName
+						</div>
+
+						<div class="ag-courses-item_date-box">
+
+
+
+							<a asp-action="Graph" asp-controller="Squads" class="btn btn-success">Results</a>
+
+							<a asp-action="Squad" asp-controller="Answer" asp-route-id="@item.id" class="btn btn-success">Results</a>
+
+
+							<a asp-action="Info" asp-controller="Squads" asp-route-id="@item.id" class="btn btn-info" style="background-color:#FFE000; border-color:#FFE000">Info</a>
+							<a asp-action="" class="btn btn-danger" onclick="return confirm('Wil je deze squad verwijder? De bijbehorende resultaten van de squad zullen verloren raken')">Delete</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+
+
+</div>
+
+
+
