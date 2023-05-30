@@ -52,4 +52,9 @@ public class SurveyViewModelService : ISurveyViewModelService
 
         return await response.ReadContentAsync<SurveyDTO>() != null;
     }
+    public async void CreateQuestion(QuestionDTO questionDTO)
+    {
+        string path = "https://localhost:7259/Question";
+        await _client.PostAsJsonAsync(path, questionDTO); // path was BasePath
+    }
 }

@@ -22,5 +22,9 @@ namespace RockstarsManagementSquad.Helpers
         {
             return new SurveyViewModel(sDTO.id, sDTO.name, sDTO.description);
         }
+        public static QuestionDTO ConvertQuestionToQuestionDTO(this Question question)
+        {
+            return new QuestionDTO(question._Question, question.Description, question.SurveyId, question.Desc_good, question.Desc_avg, question.Desc_bad);
+        }
     }
 }
