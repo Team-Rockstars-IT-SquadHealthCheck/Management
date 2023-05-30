@@ -41,4 +41,12 @@ public class RockstarViewModelService : IRockstarViewModelService
 
         return await response.ReadContentAsync<RockstarViewModel>();
     }
+
+    public async Task<RockstarViewModel> Delete(int userId)
+    {
+        string path = $"https://localhost:7259/User/{userId}";
+        var response = await _client.DeleteAsync(path); // path was BasePath
+
+        return await response.ReadContentAsync<RockstarViewModel>();
+    }
 }
