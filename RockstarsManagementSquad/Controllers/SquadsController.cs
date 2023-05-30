@@ -52,8 +52,9 @@ public class SquadsController : Controller
     {
         return View();
     }
-    public async Task<IActionResult> Graph(int? squadid)
+    public async Task<IActionResult> Graph(int squadid)
     {
-        return View();
+		var results = await _answer.SquadAnswers(squadid);
+		return View(results);
     }
 }

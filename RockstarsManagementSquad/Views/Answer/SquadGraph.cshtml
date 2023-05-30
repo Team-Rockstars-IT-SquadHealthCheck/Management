@@ -1,0 +1,106 @@
+﻿@model RockstarsManagementSquad.Models.AnswerSquadViewModel
+@using Newtonsoft.Json;
+@using System.Text;
+@{
+    ViewData["Title"] = "Graph";
+
+    List<string> questions = new List<string>();
+
+    foreach (var item in Model.userAnswer[0].answers)
+    {
+        questions.Add(item.question);
+    }
+
+    StringBuilder labelsBuilder = new StringBuilder();
+    foreach (var question in questions)
+    {
+        labelsBuilder.Append($"'{question}', ");
+    }
+    labelsBuilder.Remove(labelsBuilder.Length - 2, 2);
+    labelsBuilder.Append("");
+    string labelsString = labelsBuilder.ToString();
+
+    int[] goodAnswers = new int[questions.Count];
+    int[] mehAnswers = new int[questions.Count];
+    int[] badAnswers = new int[questions.Count];
+
+    for (int u = 0; u < Model.userAnswer.Count ; u++)
+    {
+        for (int i = 0; i < Model.userAnswer[u].answers.Count; i++)
+        {
+                if (Model.userAnswer[u].answers[i].answer == 0)
+                {
+                    goodAnswers[i]++;
+                }
+                else if (Model.userAnswer[u].answers[i].answer == 1)
+                {
+                    mehAnswers[i]++;
+                }
+                else
+                {
+                    badAnswers[i]++;
+                }
+        }
+
+    }
+    Console.WriteLine(labelsString);
+
+    
+
+}
+
+<h1>Graph</h1>
+
+<div>
+    <h4>SquadViewModel</h4>
+    <hr />
+    <canvas id="MyChart"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('MyChart');
+        var myLabel = [@Html.Raw(labelsString)];
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: myLabel,
+                datasets: [
+                    {
+                        label: "Goed",
+                        backgroundColor: ["#00d46b"],
+                        //     v1, v2, v3
+                        data: JSON.parse('@Html.Raw(JsonConvert.SerializeObject(goodAnswers))')
+                    },
+                    {
+                        label: "Meh",
+                        backgroundColor: ["#ffe000"],
+                        //     v1, v2, v3
+                        data: JSON.parse('@Html.Raw(JsonConvert.SerializeObject(mehAnswers))')
+                    },
+                    {
+                        label: "Slecht",
+                        backgroundColor: ["#ff6235"],
+                        //     v1, v2, v3  v4
+                        data: JSON.parse('@Html.Raw(JsonConvert.SerializeObject(badAnswers))')
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                elements: {
+                    bar: {
+                        backgroundColor: ['#00d46b', '#ffe000', '#ff6235']
+                    }
+                }
+            }
+        });
+    </script>
+
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
