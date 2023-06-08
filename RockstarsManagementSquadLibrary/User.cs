@@ -12,7 +12,7 @@ namespace RockstarsManagementSquadLibrary
         public string Username { get; set; }
         public string Email { get; set; }
         public int RoleId { get; set; }
-        public int SquadId { get; set; }
+        public int? SquadId { get; set; }
         public string Url { get; set; }
         public List<Answer> Answers { get; private set; }
 
@@ -24,7 +24,7 @@ namespace RockstarsManagementSquadLibrary
             Username = username;
             Answers = new List<Answer>();
         }
-        public User(int id, string username, string email, int roleId, int squadId, string url)
+        public User(int id, string username, string email, int roleId, int? squadId, string url)
         {
             Id = id;
             Username = username;
