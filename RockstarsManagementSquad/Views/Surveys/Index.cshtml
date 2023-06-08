@@ -1,6 +1,10 @@
 ﻿@model IEnumerable<RockstarsManagementSquad.Models.SurveyViewModel>
 @{
     ViewData["Title"] = "Surveys";
+    SurveyViewModel surveyViewModel = ViewBag.CreateSurveyViewModel;
+    int questionOpen = 0;
+    int OpenedQuestion = 0; 
+    Char questionLetter = 'a';
 }
 
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CreateSurvey">
@@ -19,8 +23,18 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="display: flex; flex-direction: column;">
-                    <p>Titel: <input name="title" class="text"></input></p>
-                    <p>Beschrijving: <input name="description" class="text"></input></p>
+                    <p>Titel: <input name="@surveyViewModel.name" class="text"></input></p>
+                    <p>Beschrijving: <input name="@surveyViewModel.description" class="text"></input></p>
+                    @foreach (var question in surveyViewModel.Questions)
+                    {
+                        {
+                            questionLetter = (Char)((true ? 65 : 97) + questionOpen);
+                        }
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#@questionLetter">
+                            @question.question
+                        </button>
+                        questionOpen++;
+                    }
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -30,6 +44,36 @@
         </div>
     </div>
 </div>
+
+@foreach (var question in surveyViewModel.Questions)
+{
+    {
+        questionLetter = (Char)((true ? 65 : 97) + OpenedQuestion);
+    }
+    <div class="modal fade" id="@questionLetter" tabindex="1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form asp-controller="Surveys" asp-action="">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Create Survey</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="display: flex; flex-direction: column;">
+                        <p>Vraag: <input name="@question.question" value="@question.question" class="text"></input></p>
+                        <p>Beschrijving: <input name="@question.description" value="@question.description" class="text"></input></p>
+                        <p>Antwoord - groen: <input name="@question.desc_good" value="@question.desc_good" class="text"></input></p>
+                        <p>Antwoord - geel: <input name="@question.desc_avg" value="@question.desc_avg" class="text"></input></p>
+                        <p>Antwoord - rood: <input name="@question.desc_bad" value="@question.desc_bad" class="text"></input></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    OpenedQuestion++;
+}
 
 <div class="modal fade" id="SendSurveyLink" tabindex="-1">
     <div class="modal-dialog">
