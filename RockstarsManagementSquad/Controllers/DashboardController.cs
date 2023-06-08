@@ -39,6 +39,7 @@ namespace RockstarsManagementSquad.Controllers
                 var usersInSquad = await _squadViewModelService.UsersInSquad(squad.id);
 
                 if (answerInSquad.Count(x => x.answerText != null) == usersInSquad.Count())
+
                 {
                     FinishedEnquetes.Add(squad);
                 }
