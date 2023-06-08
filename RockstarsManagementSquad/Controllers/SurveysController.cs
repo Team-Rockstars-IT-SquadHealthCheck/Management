@@ -27,7 +27,7 @@ namespace RockstarsManagementSquad.Controllers
             _squadService = squadService ?? throw new ArgumentNullException(nameof(squadService));
             _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
         }
-        
+
         public async Task<IActionResult> Index()
         {
             var squads = await _squadService.FindAll();
@@ -64,15 +64,19 @@ namespace RockstarsManagementSquad.Controllers
             {
                 CreateSurveyViewModel.Questions.Add(question.ConvertQuestionToQuestionViewModel());
             }
-            ViewBag.CreateSurveyViewModel = CreateSurveyViewModel;
 
-            return View(surveyViewModels);
+            SurveysViewModel surveysViewModel = new SurveysViewModel();
+            surveysViewModel.SurveyViewModels = surveyViewModels;
+            surveysViewModel.CreateSurveyViewModel = CreateSurveyViewModel;
+
+            return View(surveysViewModel);
         }
 
-        public async Task<IActionResult> CreateSurvey(SurveyViewModel surveyViewModel)
+        [HttpPost]
+        public async Task<IActionResult> CreateSurvey(SurveysViewModel surveysViewModel)
         {
-            Survey survey = new Survey(surveyViewModel.name, surveyViewModel.description);
-            foreach (var question in surveyViewModel.Questions)
+            Survey survey = new Survey(surveysViewModel.CreateSurveyViewModel.name, surveysViewModel.CreateSurveyViewModel.description);
+            foreach (var question in surveysViewModel.CreateSurveyViewModel.Questions)
             {
                 survey.questions.Add(question.ConvertQuestionViewModelToQuestion());
             }

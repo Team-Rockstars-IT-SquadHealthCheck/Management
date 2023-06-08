@@ -1,9 +1,8 @@
-﻿@model IEnumerable<RockstarsManagementSquad.Models.SurveyViewModel>
+﻿@model SurveysViewModel
 @{
     ViewData["Title"] = "Surveys";
-    SurveyViewModel surveyViewModel = ViewBag.CreateSurveyViewModel;
     int questionOpen = 0;
-    int OpenedQuestion = 0; 
+    int OpenedQuestion = 0;
     Char questionLetter = 'a';
 }
 
@@ -17,15 +16,15 @@
 <div class="modal fade" id="CreateSurvey" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form asp-controller="Surveys" asp-action="CreateSurvey">
+            <form asp-controller="Surveys" asp-action="CreateSurvey" asp-surveysViewModel="@Model" method="post" enctype="application/x-www-form-urlencoded">
                 <div class="modal-header">
                     <h5 class="modal-title">Create Survey</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="display: flex; flex-direction: column;">
-                    <p>Titel: <input name="@surveyViewModel.name" class="text"></input></p>
-                    <p>Beschrijving: <input name="@surveyViewModel.description" class="text"></input></p>
-                    @foreach (var question in surveyViewModel.Questions)
+                    <p>Titel: <input name="@Model.CreateSurveyViewModel.name" asp-for="@Model.CreateSurveyViewModel.name" class="text"></input></p>
+                    <p>Beschrijving: <input name="@Model.CreateSurveyViewModel.description" asp-for="@Model.CreateSurveyViewModel.description" class="text"></input></p>
+                    @foreach (var question in Model.CreateSurveyViewModel.Questions)
                     {
                         {
                             questionLetter = (Char)((true ? 65 : 97) + questionOpen);
@@ -38,14 +37,38 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-primary" name="submit" value="Create" />
+                    <input type="submit" class="btn btn-primary" name="CreateSurvey" value="Create" />
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-@foreach (var question in surveyViewModel.Questions)
+<script>
+    $(document).ready(function () {
+        $('form').submit(function (e) {
+            e.preventDefault();
+
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    // Handle the success response
+                },
+                error: function (error) {
+                    // Handle the error response
+                }
+            });
+        });
+    });
+</script>
+
+@foreach (var question in Model.CreateSurveyViewModel.Questions)
 {
     {
         questionLetter = (Char)((true ? 65 : 97) + OpenedQuestion);
@@ -108,7 +131,7 @@
             </tr>
         </tdead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.SurveyViewModels)
             {
                 <tr>
                     <td>@item.id</td>
