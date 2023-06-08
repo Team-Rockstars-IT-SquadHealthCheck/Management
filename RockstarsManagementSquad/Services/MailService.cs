@@ -1,44 +1,54 @@
+using MailKit.Net.Smtp;
+using MailKit.Security;
 using Microsoft.Extensions.Options;
-using PostmarkDotNet;
-using PostmarkDotNet.Model;
+using MimeKit;
 using RockstarsManagementSquad.Configuration;
 using RockstarsManagementSquad.Models;
 using RockstarsManagementSquad.Services.Interfaces;
+using System;
+using System.Threading.Tasks;
 
-namespace RockstarsManagementSquad.Services;
-
-public class MailService : IMailService
+namespace RockstarsManagementSquad.Services
 {
-    private readonly MailSettings _mailSettings;
-    public MailService(IOptions<MailSettings> mailSettingsOptions)
+    public class MailService : IMailService
     {
-        _mailSettings = mailSettingsOptions.Value;
-    }
-
-    public async Task<bool> SendMail(MailData mailData)
-    {
-        try
+        private readonly MailSettings _mailSettings;
+        
+        public MailService(IOptions<MailSettings> mailSettingsOptions)
         {
-            var message = new PostmarkMessage()
-            {
-                To = mailData.EmailToAddress,
-                From = _mailSettings.SenderEmail,
-                TrackOpens = true,
-                Subject = mailData.EmailSubject,
-                TextBody = $"{mailData.EmailBody}",
-                HtmlBody = $"<html><body>{mailData.EmailBody}</body></html>",
-                MessageStream = "broadcast"
-            };
-
-            var client = new PostmarkClient(_mailSettings.ServerToken);
-            var sendResult = await client.SendMessageAsync(message);
-
-            return true;
+            _mailSettings = mailSettingsOptions.Value;
         }
-        catch (Exception ex)
+
+        public async Task<bool> SendMail(MailData mailData)
         {
-            // Exception Details
-            return false;
+            try
+            {
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress(_mailSettings.SenderName, _mailSettings.SenderEmail));
+                message.To.Add(new MailboxAddress("", mailData.EmailToAddress));
+                message.Subject = mailData.EmailSubject;
+
+                var bodyBuilder = new BodyBuilder();
+                bodyBuilder.TextBody = mailData.EmailBody;
+                bodyBuilder.HtmlBody = $"<html><body>{mailData.EmailBody}</body></html>";
+
+                message.Body = bodyBuilder.ToMessageBody();
+
+                using (var client = new SmtpClient())
+                {
+                    await client.ConnectAsync(_mailSettings.Server, _mailSettings.Port, SecureSocketOptions.StartTls);
+                    await client.AuthenticateAsync(_mailSettings.UserName, _mailSettings.Password);
+                    await client.SendAsync(message);
+                    await client.DisconnectAsync(true);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return false;
+            }
         }
     }
 }
