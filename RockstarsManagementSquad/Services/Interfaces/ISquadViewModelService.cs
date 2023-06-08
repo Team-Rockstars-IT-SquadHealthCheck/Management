@@ -1,4 +1,6 @@
 using RockstarsManagementSquad.Models;
+using RockstarsManagementSquad.Models.DTO;
+
 namespace RockstarsManagementSquad.Services.Interfaces;
 
 /// <summary>
@@ -11,4 +13,5 @@ public interface ISquadViewModelService
     Task<SquadViewModel> FindById(int? id);
     Task<List<RockstarViewModel>> UsersInSquad(int? id);
     Task<IEnumerable<RockstarViewModel>> UsersInSquad(int squadId);
+	Task<CreateSquadDTO> Create(CreateSquadDTO squadDTO);
 }

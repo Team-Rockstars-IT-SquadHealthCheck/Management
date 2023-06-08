@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using RockstarsManagementSquad.Models;
+using RockstarsManagementSquad.Models.DTO;
 using RockstarsManagementSquad.Services.Interfaces;
+using RockstarsManagementSquadLibrary;
 
 namespace RockstarsManagementSquad.Controllers;
 
@@ -8,22 +11,56 @@ public class SquadsController : Controller
 {
     private readonly Services.Interfaces.ISquadViewModelService _squad;
     private readonly Services.Interfaces.IAnswerViewModelService _answer;
+    private readonly Services.Interfaces.ICompanyViewModelService _company;
+    private readonly Services.Interfaces.IRockstarViewModelService _rockstar;
 
-    public SquadsController(RockstarsManagementSquad.Services.Interfaces.ISquadViewModelService squad,
-        RockstarsManagementSquad.Services.Interfaces.IAnswerViewModelService answer)
+
+	public SquadsController(RockstarsManagementSquad.Services.Interfaces.ISquadViewModelService squad,
+        RockstarsManagementSquad.Services.Interfaces.IAnswerViewModelService answer,
+		RockstarsManagementSquad.Services.Interfaces.ICompanyViewModelService company,
+		RockstarsManagementSquad.Services.Interfaces.IRockstarViewModelService rockstar)
     {
-        _squad = squad ?? throw new ArgumentNullException(nameof(squad));
+
+		_squad = squad ?? throw new ArgumentNullException(nameof(squad));
         _answer = answer ?? throw new ArgumentNullException(nameof(answer));
-    }
+        _company = company ?? throw new ArgumentNullException(nameof(company));
+		_rockstar = rockstar ?? throw new ArgumentNullException(nameof(rockstar));
+	}
 
     public async Task<IActionResult> Index()
     {
         //var squads = await _service.Find();
-        var products = await _squad.FindAll();
-        
-        
-        return View(products);
+        var squads = await _squad.FindAll();
+        var companies = await _company.Find();
+        var users = await _rockstar.Find();
+
+        List<SelectListItem> companyItems = companies.Select(c => new SelectListItem
+        {
+            Text = c.name.ToString(),
+            Value = c.id.ToString()
+        }).ToList();
+
+		List<SelectListItem> SquadItems = squads.Select(c => new SelectListItem
+		{
+			Text = c.name.ToString(),
+			Value = c.id.ToString()
+		}).ToList(); 
+
+        List<SelectListItem> UserItems = users.Select(c => new SelectListItem
+		{
+			Text = c.username.ToString(),
+			Value = c.id.ToString()
+		}).ToList();
+
+		ViewBag.Company = companyItems;
+        ViewBag.Squad = SquadItems;
+        ViewBag.User = UserItems;
+
+
+        return View(squads);
     }
+
+
 
     public async Task<IActionResult> Info(int? id)
     {
@@ -43,10 +80,28 @@ public class SquadsController : Controller
         return View();
     }
 
-    public SquadAnswerViewModel SortAnswersToUser()
+    [HttpPost]
+    public async Task<IActionResult> Create(string squadName, int companyid)
     {
-        return null;
+        CreateSquadDTO squadDTO = new CreateSquadDTO {
+            CompanyId = companyid,
+            name = squadName,
+            CompanyName = "",
+            Id = 0
+        };
+
+        _squad.Create(squadDTO);
+
+
+        return RedirectToAction("Index");
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Add(int squadId, int userId)
+    {
+        return View(null);
+    }
+
 
     public async Task<IActionResult> Delete()
     {
