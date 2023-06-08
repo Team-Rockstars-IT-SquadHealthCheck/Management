@@ -15,7 +15,7 @@
 
 <h1 class="title">Squads</h1>
 <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CreateSquad">Create squad</a>
-<a type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#AddUserToSquad">Create squad</a>
+<a type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#AddUserToSquad">Add user to squad</a>
 
 
 
@@ -60,7 +60,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<input type="submit" class="btn btn-primary" name="submit" value="Create" />
+					<input type="submit" class="btn btn-primary" name="submit" value="Add" />
 				</div>
 			</form>
 		</div>
@@ -92,7 +92,7 @@
 						<div class="ag-courses-item_date-box">
 							<a asp-action="Squad" asp-controller="Answer" asp-route-id="@item.id" class="btn btn-success">Results</a>
 							<a asp-action="Info" asp-controller="Squads" asp-route-id="@item.id" class="btn btn-info" style="background-color:#FFE000; border-color:#FFE000">Info</a>
-							<a asp-action="" class="btn btn-danger" onclick="return confirm('Wil je deze squad verwijder? De bijbehorende resultaten van de squad zullen verloren raken')">Delete</a>
+							<a asp-action="Delete" asp-route-squadId="@item.id" class="btn btn-danger" onclick="return confirm('Wil je deze squad verwijder? De bijbehorende resultaten van de squad zullen verloren raken')">Delete</a>
 						</div>
 					</div>
 				</div>

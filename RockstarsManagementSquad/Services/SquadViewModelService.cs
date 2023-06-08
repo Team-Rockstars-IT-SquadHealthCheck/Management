@@ -2,6 +2,7 @@ using RockstarsManagementSquad.Models;
 using RockstarsManagementSquad.Models.DTO;
 using RockstarsManagementSquad.Services.Interfaces;
 using RockstarsManagementSquadLibrary;
+using System.Runtime.CompilerServices;
 using System.Text.Json.Nodes;
 
 namespace RockstarsManagementSquad.Services;
@@ -12,21 +13,21 @@ namespace RockstarsManagementSquad.Services;
 /// </summary>
 public class SquadViewModelService : ISquadViewModelService
 {
-    private readonly HttpClient _client;
-    public const string BasePath = "/";
+	private readonly HttpClient _client;
+	public const string BasePath = "/";
 
-    public SquadViewModelService(HttpClient client)
-    {
-        _client = client ?? throw new ArgumentNullException(nameof(client));
-    }
+	public SquadViewModelService(HttpClient client)
+	{
+		_client = client ?? throw new ArgumentNullException(nameof(client));
+	}
 
-    public async Task<IEnumerable<SquadViewModel>> FindAll()
-    {
-        string path = "https://localhost:7259/squads";
-        var response = await _client.GetAsync(path); // path was BasePath
+	public async Task<IEnumerable<SquadViewModel>> FindAll()
+	{
+		string path = "https://localhost:7259/squads";
+		var response = await _client.GetAsync(path); // path was BasePath
 
-        return await response.ReadContentAsync<List<SquadViewModel>>();
-    }
+		return await response.ReadContentAsync<List<SquadViewModel>>();
+	}
 
 
 	public async Task<CreateSquadDTO> Create(CreateSquadDTO squadDTO)
@@ -37,7 +38,7 @@ public class SquadViewModelService : ISquadViewModelService
 		return await response.ReadContentAsync<CreateSquadDTO>();
 	}
 	public async Task<SquadViewModel> FindById(int? squadId)
-  {
+	{
 		string path = $"https://localhost:7259/SquadDetails/{squadId}";
 		var response = await _client.GetAsync(path); // path was BasePath
 
@@ -54,10 +55,19 @@ public class SquadViewModelService : ISquadViewModelService
 
 
 	public async Task<IEnumerable<RockstarViewModel>> UsersInSquad(int squadId)
-    {
-        string path = $"https://localhost:7259/UsersInSquad/{squadId}";
-        var response = await _client.GetAsync(path); // path was BasePath
+	{
+		string path = $"https://localhost:7259/UsersInSquad/{squadId}";
+		var response = await _client.GetAsync(path); // path was BasePath
 
-        return await response.ReadContentAsync<List<RockstarViewModel>>();
+		return await response.ReadContentAsync<List<RockstarViewModel>>();
+	}
+
+	public async Task<bool> DeleteSquad(int id)
+	{	
+        string path = $"https://localhost:7259/api/Squad/{id}/Delete";
+        var response = await _client.DeleteAsync(path);
+
+        return response.IsSuccessStatusCode; 
     }
+
 }

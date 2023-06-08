@@ -49,4 +49,23 @@ public class RockstarViewModelService : IRockstarViewModelService
 
         return await response.ReadContentAsync<RockstarViewModel>();
     }
+
+
+    public async Task<bool> UpdateUserSquadID(int squadId, int userId)
+    {
+        string path = $"https://localhost:7259/api/User/{userId}/Squad/{squadId}";
+        var response = await _client.PostAsync(path, null); // assuming you're performing a POST request
+
+        return response.IsSuccessStatusCode;
+    }
+
+    public async Task<bool> RemoveUserFromSquad(int userId)
+    {
+        string path = $"https://localhost:7259/api/User/{userId}/SquadRemove";
+        var response = await _client.PostAsync(path, null);
+
+        return response.IsSuccessStatusCode;
+    }
+
+
 }

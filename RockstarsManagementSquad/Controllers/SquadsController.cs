@@ -99,13 +99,20 @@ public class SquadsController : Controller
     [HttpPost]
     public async Task<IActionResult> Add(int squadId, int userId)
     {
-        return View(null);
+        _rockstar.UpdateUserSquadID(squadId, userId);
+        return RedirectToAction("Index");
     }
 
-
-    public async Task<IActionResult> Delete()
+    public async Task<IActionResult> RemoveUserFromSquad(int userId, int squadId)
     {
-        return View();
+        _rockstar.RemoveUserFromSquad(userId);
+        return RedirectToAction("Info", "Squads", new { id = squadId});
+    }
+
+    public async Task<IActionResult> Delete(int squadId)
+    {
+        _squad.DeleteSquad(squadId);
+        return RedirectToAction("Index");
     }
     public async Task<IActionResult> Graph(int squadid)
     {
