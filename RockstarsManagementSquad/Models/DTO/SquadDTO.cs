@@ -14,5 +14,11 @@
             companyId = _companyId;
             name = _name;
         }
+        public SquadDTO(int _companyId, string _name) { 
+        
+            companyId= _companyId;
+            name = _name;   
+
+        }
     }
 }

@@ -11,9 +11,64 @@
         <input type="submit" name="submit" value="Submit" />
     </form>
 </div>*@
+
+
 <h1 class="title">Squads</h1>
-<a class="btn btn-primary">Create squad</a>
-<a class="btn btn-secondary">Add user to squad</a>
+<a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CreateSquad">Create squad</a>
+<a type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#AddUserToSquad">Create squad</a>
+
+
+
+<div class="modal fade" id="CreateSquad" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form asp-controller="Squads" method="post" asp-action="Create">
+				<div class="modal-header">
+					<h5 class="modal-title">Create Squad</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<input type="text" class="form-control" name="squadName" placeholder="Name" /><br />
+					<select name="companyid" class="form-select" asp-items="ViewBag.Company">
+						<option disable selected>Company</option>
+					</select>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<input type="submit" class="btn btn-primary" name="submit" value="Create" />
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="AddUserToSquad" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form asp-controller="Squads" method="post" asp-action="Add">
+				<div class="modal-header">
+					<h5 class="modal-title">Create Squad</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<select name="userId" class="form-select" asp-items="ViewBag.User">
+						<option disable selected>User</option>
+					</select><br />
+					<select name="squadId" class="form-select" asp-items="ViewBag.Squad">
+						<option disable selected>Squad</option>
+					</select>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<input type="submit" class="btn btn-primary" name="submit" value="Create" />
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
 <div class="center-content">
 	<br />
 	<br />
@@ -23,7 +78,6 @@
 			<div class="ag-courses_box">
 				<div class="ag-courses_item">
 					<div class="ag-courses-item_link">
-
 
 						<div class="ag-courses-item_bg"></div>
 
@@ -36,14 +90,7 @@
 						</div>
 
 						<div class="ag-courses-item_date-box">
-
-
-
-							<a asp-action="Graph" asp-controller="Squads" class="btn btn-success">Results</a>
-
 							<a asp-action="Squad" asp-controller="Answer" asp-route-id="@item.id" class="btn btn-success">Results</a>
-
-
 							<a asp-action="Info" asp-controller="Squads" asp-route-id="@item.id" class="btn btn-info" style="background-color:#FFE000; border-color:#FFE000">Info</a>
 							<a asp-action="" class="btn btn-danger" onclick="return confirm('Wil je deze squad verwijder? De bijbehorende resultaten van de squad zullen verloren raken')">Delete</a>
 						</div>
@@ -52,9 +99,4 @@
 			</div>
 		}
 	</div>
-
-
 </div>
-
-
-

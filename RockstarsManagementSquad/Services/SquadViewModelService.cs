@@ -1,4 +1,5 @@
 using RockstarsManagementSquad.Models;
+using RockstarsManagementSquad.Models.DTO;
 using RockstarsManagementSquad.Services.Interfaces;
 using RockstarsManagementSquadLibrary;
 using System.Text.Json.Nodes;
@@ -28,7 +29,14 @@ public class SquadViewModelService : ISquadViewModelService
     }
 
 
-  public async Task<SquadViewModel> FindById(int? squadId)
+	public async Task<CreateSquadDTO> Create(CreateSquadDTO squadDTO)
+	{
+		string path = "https://localhost:7259/api/Squad";
+		var response = await _client.PostAsJsonAsync<CreateSquadDTO>(path, squadDTO); // path was BasePath
+
+		return await response.ReadContentAsync<CreateSquadDTO>();
+	}
+	public async Task<SquadViewModel> FindById(int? squadId)
   {
 		string path = $"https://localhost:7259/SquadDetails/{squadId}";
 		var response = await _client.GetAsync(path); // path was BasePath

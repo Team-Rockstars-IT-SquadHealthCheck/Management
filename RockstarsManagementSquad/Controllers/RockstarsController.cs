@@ -1,14 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.Routing;
-using RockstarsManagementSquad.Models;
 using RockstarsManagementSquad.Models.DTO;
-using RockstarsManagementSquad.Services.Interfaces;
 
 
 namespace RockstarsManagementSquad.Controllers;
 
-public class RockstarsController : Controller   
+public class RockstarsController : Controller
 {
     private readonly Services.Interfaces.IRockstarViewModelService _rockstarsService;
 
@@ -66,9 +63,17 @@ public class RockstarsController : Controller
         return RedirectToAction("Index");
     }
 
-    //[HttpPost]
-    //public async Task<IActionResult> Delete(int id)
-    //{
+    public async Task<IActionResult> Delete(int userId)
+    {
+        try
+        {
+            await _rockstarsService.Delete(userId);
+        }
+        catch (Exception e)
+        {
+            ViewBag.Error = e.Message;
+        }
 
-    //}
+        return RedirectToAction("Index");
+    }
 }

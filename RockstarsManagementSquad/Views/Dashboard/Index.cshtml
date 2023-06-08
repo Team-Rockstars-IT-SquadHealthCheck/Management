@@ -15,7 +15,7 @@
             <div class="rectangle">
                 <h2>Lopende Enquêtes</h2>
                 <hr />
-                @foreach (var item in Model.SquadNotFinnishedEnquetes)
+                @foreach (var item in Model.SquadNotFinishedEnquetes)
                 {
                     <h4>
                         <b>
@@ -31,11 +31,11 @@
             <div class="rectangle">
                 <h2>Voltooide Enquêtes</h2>
                 <hr />
-                @foreach (var item in Model.SquadFinnishedEnquetes)
+                @foreach (var item in Model.SquadFinishedEnquetes)
                 {
                     <h4>
                         <b>
-                            @Html.ActionLink(item.name, "Index", "Answer", new { id = item.id }, null)
+                            @Html.ActionLink(item.name, "Squad", "Answer", new { id = item.id }, null)
                         </b>
                     </h4>
                 }

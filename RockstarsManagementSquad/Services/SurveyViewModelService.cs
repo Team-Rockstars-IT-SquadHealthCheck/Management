@@ -29,6 +29,14 @@ public class SurveyViewModelService : ISurveyViewModelService
         return await response.ReadContentAsync<List<SurveyDTO>>();
     }
 
+    public async Task<SurveyDTO> FindById(int surveyId)
+    {
+        string path = "https://localhost:7259/SurveyDetails/"+surveyId;
+        var response = await _client.GetAsync(path); // path was BasePath
+
+        return await response.ReadContentAsync<SurveyDTO>();
+    }
+
     public async Task<SurveyDTO> Create(SurveyDTO surveyDTO)
     {
         string path = "https://localhost:7259/api/survey";
@@ -43,5 +51,10 @@ public class SurveyViewModelService : ISurveyViewModelService
         var response = await _client.PostAsJsonAsync<LinkSurveySquadDTO>(path, linkSurveySquadDTO); // path was BasePath
 
         return await response.ReadContentAsync<SurveyDTO>() != null;
+    }
+    public async void CreateQuestion(QuestionDTO questionDTO)
+    {
+        string path = "https://localhost:7259/Question";
+        await _client.PostAsJsonAsync(path, questionDTO); // path was BasePath
     }
 }
