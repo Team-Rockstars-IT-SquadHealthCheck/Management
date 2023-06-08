@@ -30,6 +30,7 @@ namespace RockstarsManagementSquad.Controllers
 
             DashboardViewModel dashboardViewModel = new DashboardViewModel();
 
+
             List<SquadViewModel> NotFinishedEnquetes = new List<SquadViewModel>();
             List<SquadViewModel> FinishedEnquetes = new List<SquadViewModel>();
 
@@ -37,6 +38,7 @@ namespace RockstarsManagementSquad.Controllers
             {
                 var answerInSquad = await _answerViewModelService.GetSquadFinnishedEnquetes(squad.id);
                 var usersInSquad = await _squadViewModelService.UsersInSquad(squad.id);
+
 
                 if (answerInSquad.Count(x => x.answerText != null) == usersInSquad.Count())
 
