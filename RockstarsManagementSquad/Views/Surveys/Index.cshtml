@@ -4,6 +4,7 @@
     int questionOpen = 0;
     int OpenedQuestion = 0;
     Char questionLetter = 'a';
+    SurveysViewModel surveysViewModel = Model;
 }
 
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CreateSurvey">
@@ -16,15 +17,15 @@
 <div class="modal fade" id="CreateSurvey" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form asp-controller="Surveys" asp-action="CreateSurvey" asp-surveysViewModel="@Model" method="post" enctype="application/x-www-form-urlencoded">
+            <form asp-controller="Surveys" asp-action="Index" asp-surveysViewModel="@surveysViewModel" method="post" enctype="application/x-www-form-urlencoded">
                 <div class="modal-header">
                     <h5 class="modal-title">Create Survey</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="display: flex; flex-direction: column;">
-                    <p>Titel: <input name="@Model.CreateSurveyViewModel.name" asp-for="@Model.CreateSurveyViewModel.name" class="text"></input></p>
-                    <p>Beschrijving: <input name="@Model.CreateSurveyViewModel.description" asp-for="@Model.CreateSurveyViewModel.description" class="text"></input></p>
-                    @foreach (var question in Model.CreateSurveyViewModel.Questions)
+                    <p>Titel: <input name="@surveysViewModel.CreateSurveyViewModel.name" asp-for="@surveysViewModel.CreateSurveyViewModel.name" class="text"></input></p>
+                    <p>Beschrijving: <input name="@surveysViewModel.CreateSurveyViewModel.description" asp-for="@surveysViewModel.CreateSurveyViewModel.description" class="text"></input></p>
+                    @foreach (var question in surveysViewModel.CreateSurveyViewModel.Questions)
                     {
                         {
                             questionLetter = (Char)((true ? 65 : 97) + questionOpen);
@@ -68,7 +69,7 @@
     });
 </script>
 
-@foreach (var question in Model.CreateSurveyViewModel.Questions)
+@foreach (var question in surveysViewModel.CreateSurveyViewModel.Questions)
 {
     {
         questionLetter = (Char)((true ? 65 : 97) + OpenedQuestion);
@@ -131,7 +132,7 @@
             </tr>
         </tdead>
         <tbody>
-            @foreach (var item in Model.SurveyViewModels)
+            @foreach (var item in surveysViewModel.SurveyViewModels)
             {
                 <tr>
                     <td>@item.id</td>

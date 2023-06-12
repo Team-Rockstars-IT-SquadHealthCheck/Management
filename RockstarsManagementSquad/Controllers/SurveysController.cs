@@ -73,7 +73,7 @@ namespace RockstarsManagementSquad.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSurvey(SurveysViewModel surveysViewModel)
+        public async Task<IActionResult> Index(SurveysViewModel surveysViewModel)
         {
             Survey survey = new Survey(surveysViewModel.CreateSurveyViewModel.name, surveysViewModel.CreateSurveyViewModel.description);
             foreach (var question in surveysViewModel.CreateSurveyViewModel.Questions)
@@ -85,18 +85,24 @@ namespace RockstarsManagementSquad.Controllers
             return RedirectToAction("Index");
         }
 
-        private Survey CreateNewSurvey(Survey survey)
+        private async Task<Survey> CreateNewSurvey(Survey survey)
         {
-            _surveyService.Create(survey.ConvertSurveyToSurveyDTO());
-
-            List<SurveyDTO> surveyDTOs = _surveyService.Find().Result.ToList();
-            
-            for (int i = surveyDTOs.Count()-1; i < surveyDTOs.Count(); i++)
+            List<SurveyDTO> surveyDTOs = new List<SurveyDTO>();
+            if (survey.Name != "")
             {
-                survey.Id = surveyDTOs[i].id;
+                await _surveyService.Create(survey.ConvertSurveyToSurveyDTO());
+                surveyDTOs = _surveyService.Find().Result.ToList();
+            
+                for (int i = surveyDTOs.Count()-1; i < surveyDTOs.Count(); i++)
+                {
+                    survey.Id = surveyDTOs[i].id;
+                }
             }
 
-            CreateQuestionsToSurvey(survey.Id, survey.questions);
+            if (survey.Id != 0)
+            {
+                CreateQuestionsToSurvey(survey.Id, survey.questions);
+            }
 
             return survey;
         }
