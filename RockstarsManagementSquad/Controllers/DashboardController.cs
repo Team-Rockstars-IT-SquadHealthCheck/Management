@@ -30,40 +30,27 @@ namespace RockstarsManagementSquad.Controllers
 
             DashboardViewModel dashboardViewModel = new DashboardViewModel();
 
-            List<SquadViewModel> NotFinnishedEnquetes = new List<SquadViewModel>();
-            List<SquadViewModel> FinnishedEnquetes = new List<SquadViewModel>();
-            dashboardViewModel.AnswersInSquads = new List<int>();
-            dashboardViewModel.UsersInSquads = new List<int>();
+            List<SquadViewModel> NotFinishedEnquetes = new List<SquadViewModel>();
+            List<SquadViewModel> FinishedEnquetes = new List<SquadViewModel>();
 
             foreach (var squad in allSquads)
             {
                 var answerInSquad = await _answerViewModelService.GetSquadFinnishedEnquetes(squad.id);
                 var usersInSquad = await _squadViewModelService.UsersInSquad(squad.id);
-                bool squadHasEnquete = false;
 
-                dashboardViewModel.AnswersInSquads.Add(answerInSquad.Count());
-                dashboardViewModel.UsersInSquads.Add(usersInSquad.Count());
+                if (answerInSquad.Count(x => x.answerText != null) == usersInSquad.Count())
 
-                foreach (var user in usersInSquad)
                 {
-                    if (user.url != null)
-                    {
-                        squadHasEnquete = true;
-                    }
+                    FinishedEnquetes.Add(squad);
                 }
-
-                if (squadHasEnquete && answerInSquad.Count() == usersInSquad.Count())
+                else if (answerInSquad.Count(x => x.answerText != null) != usersInSquad.Count())
                 {
-                    FinnishedEnquetes.Add(squad);
-                }
-                else if (squadHasEnquete && answerInSquad.Count() != usersInSquad.Count())
-                {
-                    NotFinnishedEnquetes.Add(squad);
+                    NotFinishedEnquetes.Add(squad);
                 }
             }
 
-            dashboardViewModel.SquadFinnishedEnquetes = FinnishedEnquetes;
-            dashboardViewModel.SquadNotFinnishedEnquetes = NotFinnishedEnquetes;
+            dashboardViewModel.SquadFinishedEnquetes = FinishedEnquetes;
+            dashboardViewModel.SquadNotFinishedEnquetes = NotFinishedEnquetes;
 
             return View(dashboardViewModel);
         }

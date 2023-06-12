@@ -15,11 +15,12 @@
             <div class="rectangle">
                 <h2>Lopende Enquêtes</h2>
                 <hr />
-                @foreach (var item in Model.SquadNotFinnishedEnquetes)
+                @foreach (var item in Model.SquadNotFinishedEnquetes)
                 {
                     <h4>
                         <b>
-                            @Html.ActionLink(item.name, "Squad", "Answer", new { id = item.id }, null) - @Model.AnswersInSquads[i] / @Model.UsersInSquads[i]
+                            @Html.ActionLink(item.name, "Squad", "Answer", new { id = item.id }, null)
+                            @*- @Model.AnswersInSquads[i] / @Model.UsersInSquads[i]*@
                         </b>
                     </h4>
                     i++;
@@ -31,7 +32,7 @@
             <div class="rectangle">
                 <h2>Voltooide Enquêtes</h2>
                 <hr />
-                @foreach (var item in Model.SquadFinnishedEnquetes)
+                @foreach (var item in Model.SquadFinishedEnquetes)
                 {
                     <h4>
                         <b>

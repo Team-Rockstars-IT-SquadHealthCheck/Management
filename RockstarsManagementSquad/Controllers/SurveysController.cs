@@ -27,7 +27,7 @@ namespace RockstarsManagementSquad.Controllers
             _squadService = squadService ?? throw new ArgumentNullException(nameof(squadService));
             _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
         }
-        
+
         public async Task<IActionResult> Index()
         {
             var squads = await _squadService.FindAll();
@@ -57,46 +57,61 @@ namespace RockstarsManagementSquad.Controllers
 
             ViewBag.Surveys = surveys;
 
-            return View(surveyViewModels);
+            Survey CreateSurvey = new Survey();
+            CreateSurvey.GetDefaultQuestions();
+            SurveyViewModel CreateSurveyViewModel = CreateSurvey.ConvertSurveyToSurveyViewModel();
+            foreach (var question in CreateSurvey.questions)
+            {
+                CreateSurveyViewModel.Questions.Add(question.ConvertQuestionToQuestionViewModel());
+            }
+
+            SurveysViewModel surveysViewModel = new SurveysViewModel();
+            surveysViewModel.SurveyViewModels = surveyViewModels;
+            surveysViewModel.CreateSurveyViewModel = CreateSurveyViewModel;
+
+            return View(surveysViewModel);
         }
 
-        public async Task<IActionResult> CreateSurvey(string title, string description)
+        [HttpPost]
+        public async Task<IActionResult> Index(SurveysViewModel surveysViewModel)
         {
-            Survey survey = new Survey(title, description);
+            Survey survey = new Survey(surveysViewModel.CreateSurveyViewModel.name, surveysViewModel.CreateSurveyViewModel.description);
+            foreach (var question in surveysViewModel.CreateSurveyViewModel.Questions)
+            {
+                survey.questions.Add(question.ConvertQuestionViewModelToQuestion());
+            }
             CreateNewSurvey(survey);
 
             return RedirectToAction("Index");
         }
 
-        private Survey CreateNewSurvey(Survey survey)
+        private async Task<Survey> CreateNewSurvey(Survey survey)
         {
-            _surveyService.Create(survey.ConvertSurveyToSurveyDTO());
-
-            List<SurveyDTO> surveyDTOs = _surveyService.Find().Result.ToList();
-            
-            foreach (var surveyDTO in surveyDTOs)
+            List<SurveyDTO> surveyDTOs = new List<SurveyDTO>();
+            if (survey.Name != "")
             {
-                survey.Id = surveyDTO.id;
+                await _surveyService.Create(survey.ConvertSurveyToSurveyDTO());
+                surveyDTOs = _surveyService.Find().Result.ToList();
+            
+                for (int i = surveyDTOs.Count()-1; i < surveyDTOs.Count(); i++)
+                {
+                    survey.Id = surveyDTOs[i].id;
+                }
             }
 
-            CreateQuestionsToSurvey(survey.Id);
+            if (survey.Id != 0)
+            {
+                CreateQuestionsToSurvey(survey.Id, survey.questions);
+            }
 
             return survey;
         }
 
-        private void CreateQuestionsToSurvey(int surveyId)
+        private void CreateQuestionsToSurvey(int surveyId, List<Question> questions)
         {
-            List<Question> questions = new List<Question>();
-            questions.Add(new Question("Vraag 1: Toegevoegde waarde", "Heeft het team waardevolle resultaten opgeleverd?", surveyId, "Het team heeft aanzienlijke waarde opgeleverd", "Het team heeft enige waarde opgeleverd, maar er is nog ruimte voor verbetering", "Het team heeft weinig tot geen waarde opgeleverd"));
-            questions.Add(new Question("Vraag 2: Release gemak", "Kan het team de applicatie gemakkelijk vrijgeven voor gebruik?", surveyId, "Het team kan de applicatie gemakkelijk vrijgeven zonder enige problemen", "Het team heeft enige waarde opgeleverd, Het team kan de applicatie vrijgeven, maar er zijn nog enkele zaken die verbeterd moeten worden", "Het team kan de applicatie niet gemakkelijk vrijgeven vanwege grote technische problemen"));
-            questions.Add(new Question("Vraag 3: Werkplezier", "Vindt het team het leuk om aan dit project te werken?", surveyId, "Het team vindt het project erg leuk en is gemotiveerd om eraan te werken", "Het team vindt het project enigszins leuk, maar kan wel wat extra motivatie gebruiken", "Het team vindt het project niet leuk en heeft weinig motivatie om eraan te werken"));
-            questions.Add(new Question("Vraag 4: Codekwaliteit", "Is de code van goede kwaliteit en overzichtelijk geschreven?", surveyId, "Ja, de code is van goede kwaliteit en overzichtelijk geschreven", "De code kan beter, er zijn enkele punten voor verbetering", "Nee, de code is van slechte kwaliteit en chaotisch geschreven"));
-            questions.Add(new Question("Vraag 5: Leeropbrengst", "Doet het team nieuwe kennis op door aan dit project te werken?", surveyId, "Ja, het team verwerft nieuwe kennis door aan dit project te werken", "Het team doet enige nieuwe kennis op, maar het is beperkt", "Nee, het team leert geen nieuwe kennis door aan dit project te werken"));
-            questions.Add(new Question("Vraag 6: Missie en doelen", " Heeft het team duidelijke doelen en een visie die alle teamleden begrijpen en ondersteunen?", surveyId, "Ja, het team heeft duidelijke doelen en een visie die alle teamleden begrijpen en ondersteunen", "De doelen en visie van het team zijn enigszins onduidelijk en sommige teamleden begrijpen ze niet volledig", "Nee, het team heeft geen duidelijke doelen en visie en sommige teamleden begrijpen ze niet of ondersteunen ze niet"));
-            questions.Add(new Question("Vraag 7: Eigen inbreng", "Krijgt het team voldoende ruimte om eigen inbreng te hebben in het project?", surveyId, "Ja, het team krijgt voldoende ruimte om eigen inbreng te hebben in het project", "Het team heeft enige ruimte voor eigen inbreng, maar dit kan beter", "Nee, het team heeft geen duidelijke doelen en visie en sommige teamleden begrijpen ze niet of ondersteunen ze niet"));
-            questions.Add(new Question("Vraag 8: Snelheid van werken", "Werkt het team efficiënt en snel aan het project?", surveyId, "Ja, het team werkt efficiënt en snel aan het project", "Het team werkt redelijk efficiënt en snel aan het project, maar er zijn enkele verbeterpunten", "Nee, het team werkt niet efficiënt en/of snel aan het project"));
             foreach (var question in questions)
             {
+                question.SurveyId = surveyId;
                 _surveyService.CreateQuestion(question.ConvertQuestionToQuestionDTO());
             }
         }
