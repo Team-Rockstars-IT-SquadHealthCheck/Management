@@ -9,7 +9,6 @@ public static class HttpClientExtensions
     {
         static HttpClient client = new HttpClient();
         
-        
         public static async Task<T> ReadContentAsync<T>(this HttpResponseMessage response)
         {
             if (response.IsSuccessStatusCode == false)

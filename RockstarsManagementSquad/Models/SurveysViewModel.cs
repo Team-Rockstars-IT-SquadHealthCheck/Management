@@ -3,6 +3,11 @@
     public class SurveysViewModel
     {
         public IEnumerable<SurveyViewModel> SurveyViewModels = new List<SurveyViewModel>();
-        public SurveyViewModel CreateSurveyViewModel = new SurveyViewModel(0, "", "");
+        public SurveyViewModel CreateSurveyViewModel { get; set; }
+
+        public SurveysViewModel()
+        {
+            CreateSurveyViewModel = new SurveyViewModel();
+        }
     }
 }
