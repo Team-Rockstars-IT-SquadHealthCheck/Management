@@ -15,4 +15,6 @@ public interface ISquadViewModelService
     Task<IEnumerable<RockstarViewModel>> UsersInSquad(int squadId);
 	Task<CreateSquadDTO> Create(CreateSquadDTO squadDTO);
     Task<bool> DeleteSquad(int squadId);
+    Task<bool> RemoveSquadFromCompany(int squadId);
+    Task<bool> AddSquadToCompany(int squadId, int companyId);
 }
