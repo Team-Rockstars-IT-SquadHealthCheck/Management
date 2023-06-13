@@ -16,14 +16,14 @@
 <div class="modal fade" id="CreateSurvey" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form asp-controller="Surveys" asp-action="CreateSurvey" asp-surveysViewModel="@Model" method="post" enctype="application/x-www-form-urlencoded">
+            <form asp-action="Index" asp-controller="Surveys" method="post" >
                 <div class="modal-header">
                     <h5 class="modal-title">Create Survey</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="display: flex; flex-direction: column;">
-                    <p>Titel: <input name="@Model.CreateSurveyViewModel.name" asp-for="@Model.CreateSurveyViewModel.name" class="text"></input></p>
-                    <p>Beschrijving: <input name="@Model.CreateSurveyViewModel.description" asp-for="@Model.CreateSurveyViewModel.description" class="text"></input></p>
+                    <p>Titel: <input asp-for="CreateSurveyViewModel.name" class="text" /></p>
+                    <p>Beschrijving: <input asp-for="CreateSurveyViewModel.description" class="text" /></p>
                     @foreach (var question in Model.CreateSurveyViewModel.Questions)
                     {
                         {
@@ -37,38 +37,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-primary" name="CreateSurvey" value="Create" />
+                    <input type="submit" class="btn btn-primary" name="Index" value="Create" />
                 </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<script>
-    $(document).ready(function () {
-        $('form').submit(function (e) {
-            e.preventDefault();
-
-            var formData = new FormData(this);
-
-            $.ajax({
-                url: $(this).attr('action'),
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    // Handle the success response
-                },
-                error: function (error) {
-                    // Handle the error response
-                }
-            });
-        });
-    });
-</script>
-
-@foreach (var question in Model.CreateSurveyViewModel.Questions)
+@for (int i = 0; i < Model.CreateSurveyViewModel.Questions.Count(); i++)
 {
     {
         questionLetter = (Char)((true ? 65 : 97) + OpenedQuestion);
@@ -76,27 +47,30 @@
     <div class="modal fade" id="@questionLetter" tabindex="1">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form asp-controller="Surveys" asp-action="">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Create Survey</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" style="display: flex; flex-direction: column;">
-                        <p>Vraag: <input name="@question.question" value="@question.question" class="text"></input></p>
-                        <p>Beschrijving: <input name="@question.description" value="@question.description" class="text"></input></p>
-                        <p>Antwoord - groen: <input name="@question.desc_good" value="@question.desc_good" class="text"></input></p>
-                        <p>Antwoord - geel: <input name="@question.desc_avg" value="@question.desc_avg" class="text"></input></p>
-                        <p>Antwoord - rood: <input name="@question.desc_bad" value="@question.desc_bad" class="text"></input></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </form>
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Survey</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="display: flex; flex-direction: column;">
+                    <p>Vraag: <input asp-for="CreateSurveyViewModel.Questions[i].question" class="text" /></p>
+                    <p>Beschrijving: <input asp-for="CreateSurveyViewModel.Questions[i].description" class="text" /></p>
+                    <p>Antwoord - groen: <input asp-for="CreateSurveyViewModel.Questions[i].desc_good" class="text" /></p>
+                    <p>Antwoord - geel: <input asp-for="CreateSurveyViewModel.Questions[i].desc_avg" class="text" /></p>
+                    <p>Antwoord - rood: <input asp-for="CreateSurveyViewModel.Questions[i].desc_bad" class="text" /></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
     OpenedQuestion++;
 }
+            </form>
+        </div>
+    </div>
+</div>
+
 
 <div class="modal fade" id="SendSurveyLink" tabindex="-1">
     <div class="modal-dialog">
@@ -134,9 +108,9 @@
             @foreach (var item in Model.SurveyViewModels)
             {
                 <tr>
-                    <td>@item.id</td>
-                    <td>@item.name</td>
-                    <td>@item.description</td>
+                    <td>@Html.DisplayFor(x => item.id)</td>
+                    <td>@Html.DisplayFor(x => item.name)</td>
+                    <td>@Html.DisplayFor(x => item.description)</td>
                 </tr>
             }
         </tbody>

@@ -17,5 +17,9 @@
             desc_avg = _desc_avg;
             desc_bad = _desc_bad;
         }
+        public QuestionViewModel()
+        {
+            
+        }
     }
 }

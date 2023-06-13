@@ -73,7 +73,7 @@ namespace RockstarsManagementSquad.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSurvey(SurveysViewModel surveysViewModel)
+        public async Task<IActionResult> Index(SurveysViewModel surveysViewModel)
         {
             Survey survey = new Survey(surveysViewModel.CreateSurveyViewModel.name, surveysViewModel.CreateSurveyViewModel.description);
             foreach (var question in surveysViewModel.CreateSurveyViewModel.Questions)
@@ -85,18 +85,25 @@ namespace RockstarsManagementSquad.Controllers
             return RedirectToAction("Index");
         }
 
-        private Survey CreateNewSurvey(Survey survey)
+        private async Task<Survey> CreateNewSurvey(Survey survey)
         {
-            _surveyService.Create(survey.ConvertSurveyToSurveyDTO());
-
-            List<SurveyDTO> surveyDTOs = _surveyService.Find().Result.ToList();
-            
-            for (int i = surveyDTOs.Count()-1; i < surveyDTOs.Count(); i++)
+            List<SurveyDTO> surveyDTOs = new List<SurveyDTO>();
+            if (survey.Name != "")
             {
-                survey.Id = surveyDTOs[i].id;
+                _surveyService.Create(survey.ConvertSurveyToSurveyDTO());
+                var products = await _surveyService.Find();
+                surveyDTOs = products.ToList();
+            
+                for (int i = surveyDTOs.Count()-1; i < surveyDTOs.Count(); i++)
+                {
+                    survey.Id = surveyDTOs[i].id;
+                }
             }
 
-            CreateQuestionsToSurvey(survey.Id, survey.questions);
+            if (survey.Id != 0)
+            {
+                CreateQuestionsToSurvey(survey.Id, survey.questions);
+            }
 
             return survey;
         }
@@ -132,7 +139,7 @@ namespace RockstarsManagementSquad.Controllers
                         EmailToAddress = user.email,
                         EmailToName = user.username,
                         EmailSubject = "Squad Health Check",
-                        EmailBody = $"This is your personal surveylink: http://138.201.52.251:82/Home/Index/{surveyLink}"
+                        EmailBody = $"This is your personal surveylink: <a href=\"http://138.201.52.251:82/Home/Index/{surveyLink}\">http://138.201.52.251:82/Home/Index/{surveyLink}</ a>"
                     }
                     );
             }

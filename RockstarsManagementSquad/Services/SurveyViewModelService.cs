@@ -3,6 +3,7 @@ using RockstarsManagementSquad.Models.DTO;
 using RockstarsManagementSquad.Services.Interfaces;
 using RockstarsManagementSquadLibrary;
 using System.Net.Http.Json;
+using System.Runtime.CompilerServices;
 using System.Text.Json.Nodes;
 
 namespace RockstarsManagementSquad.Services;
@@ -37,12 +38,10 @@ public class SurveyViewModelService : ISurveyViewModelService
         return await response.ReadContentAsync<SurveyDTO>();
     }
 
-    public async Task<SurveyDTO> Create(SurveyDTO surveyDTO)
+    public async void Create(SurveyDTO surveyDTO)
     {
         string path = "https://localhost:7259/api/survey";
         var response = await _client.PostAsJsonAsync<SurveyDTO>(path, surveyDTO); // path was BasePath
-
-        return await response.ReadContentAsync<SurveyDTO>();
     }
 
     public async Task<bool> CreateLinkSurveySquad(LinkSurveySquadDTO linkSurveySquadDTO)
