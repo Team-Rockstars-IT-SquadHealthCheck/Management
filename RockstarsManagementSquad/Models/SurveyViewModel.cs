@@ -14,5 +14,20 @@
             description = _description;
             Questions = new List<QuestionViewModel>();
         }
+
+        public SurveyViewModel()
+        {
+            Questions = new List<QuestionViewModel>()
+            {
+                new QuestionViewModel(),
+                new QuestionViewModel(),
+                new QuestionViewModel(),
+                new QuestionViewModel(),
+                new QuestionViewModel(),
+                new QuestionViewModel(),
+                new QuestionViewModel(),
+                new QuestionViewModel()
+            };
+        }
     }
 }
