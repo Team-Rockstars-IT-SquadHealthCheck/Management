@@ -93,7 +93,7 @@ namespace RockstarsManagementSquad.Controllers
             List<SurveyDTO> surveyDTOs = new List<SurveyDTO>();
             if (survey.Name != "")
             {
-                _surveyService.Create(survey.ConvertSurveyToSurveyDTO());
+                await _surveyService.Create(survey.ConvertSurveyToSurveyDTO());
                 var products = await _surveyService.Find();
                 surveyDTOs = products.ToList();
             
@@ -111,13 +111,14 @@ namespace RockstarsManagementSquad.Controllers
             return survey;
         }
 
-        private void CreateQuestionsToSurvey(int surveyId, List<Question> questions)
+        private async Task<bool> CreateQuestionsToSurvey(int surveyId, List<Question> questions)
         {
             foreach (var question in questions)
             {
                 question.SurveyId = surveyId;
-                _surveyService.CreateQuestion(question.ConvertQuestionToQuestionDTO());
+                await _surveyService.CreateQuestion(question.ConvertQuestionToQuestionDTO());
             }
+            return true;
         }
 
         public async Task<IActionResult> SendSurveyLink(int surveyId, int squadId)
