@@ -24,8 +24,8 @@
                 <tr>
                     <td>@item.name</td>
                     <td>@item.surveyId</td>
-                    <td><button class="btn btn-outline-success">Result</button></td>
-                    <td><button class="btn btn-outline-danger">Remove Squad</button></td>
+                    <td>@Html.ActionLink("Result", "Info", "Squads", new { id=item.id }, new { @class = "btn btn-outline-success" })</td>
+                    <td>@Html.ActionLink("Remove", "RemoveSquadFromCompany", "Squads", new { squadId=item.id, companyId=item.companyId }, new { @class = "btn btn-outline-danger" })</td>
                 </tr>
             }
         </tbody>

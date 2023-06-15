@@ -59,4 +59,12 @@ public class CompanyViewModelService : ICompanyViewModelService
 
         return await response.ReadContentAsync<CompanyViewModel>();
     }
+
+    public async Task<bool> Delete(int id)
+    {
+        string path = $"https://localhost:7259/api/Company/{id}/Delete";
+        var response = await _client.DeleteAsync(path); // path was BasePath
+
+        return response.IsSuccessStatusCode;
+    }
 }
