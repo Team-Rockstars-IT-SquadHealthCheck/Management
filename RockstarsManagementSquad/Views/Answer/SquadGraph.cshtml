@@ -2,105 +2,216 @@
 @using Newtonsoft.Json;
 @using System.Text;
 @{
-    ViewData["Title"] = "Graph";
+	ViewData["Title"] = "Graph";
 
-    List<string> questions = new List<string>();
+	List<string> questions = new List<string>();
 
-    foreach (var item in Model.userAnswer[0].answers)
-    {
-        questions.Add(item.question);
-    }
+	foreach (var item in Model.userAnswer[0].answers)
+	{
+		questions.Add(item.question);
+	}
 
-    StringBuilder labelsBuilder = new StringBuilder();
-    foreach (var question in questions)
-    {
-        labelsBuilder.Append($"'{question}', ");
-    }
-    labelsBuilder.Remove(labelsBuilder.Length - 2, 2);
-    labelsBuilder.Append("");
-    string labelsString = labelsBuilder.ToString();
+	StringBuilder labelsBuilder = new StringBuilder();
+	foreach (var question in questions)
+	{
+		labelsBuilder.Append($"'{question}', ");
+	}
+	labelsBuilder.Remove(labelsBuilder.Length - 2, 2);
+	labelsBuilder.Append("");
+	string labelsString = labelsBuilder.ToString();
 
-    int[] goodAnswers = new int[questions.Count];
-    int[] mehAnswers = new int[questions.Count];
-    int[] badAnswers = new int[questions.Count];
+	int[] goodAnswers = new int[questions.Count];
+	int[] mehAnswers = new int[questions.Count];
+	int[] badAnswers = new int[questions.Count];
 
-    for (int u = 0; u < Model.userAnswer.Count ; u++)
-    {
-        for (int i = 0; i < Model.userAnswer[u].answers.Count; i++)
-        {
-                if (Model.userAnswer[u].answers[i].answer == 0)
-                {
-                    goodAnswers[i]++;
-                }
-                else if (Model.userAnswer[u].answers[i].answer == 1)
-                {
-                    mehAnswers[i]++;
-                }
-                else
-                {
-                    badAnswers[i]++;
-                }
-        }
+	for (int u = 0; u < Model.userAnswer.Count; u++)
+	{
+		for (int i = 0; i < Model.userAnswer[u].answers.Count; i++)
+		{
+			if (Model.userAnswer[u].answers[i].answer == 0)
+			{
+				goodAnswers[i]++;
+			}
+			else if (Model.userAnswer[u].answers[i].answer == 1)
+			{
+				mehAnswers[i]++;
+			}
+			else
+			{
+				badAnswers[i]++;
+			}
+		}
 
-    }
-    Console.WriteLine(labelsString);
+	}
+	Console.WriteLine(labelsString);
 
-    
+
 
 }
 
+<style>
+    .chart-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 10px; /* Adjust the top margin as needed */
+    }
+
+    .chart-item {
+        width: 300px;
+        height: 400px; /* Adjust the height as needed */
+        margin: 10px;
+        padding: 10px;
+        background-color: #f5f5f5;
+        border-radius: 5px;
+    }
+
+    .chart-item-bar {
+        width: 625px;
+        height: 400px; /* Adjust the height as needed */
+        margin: 10px;
+        padding: 10px;
+        background-color: #f5f5f5;
+        border-radius: 5px;
+    }
+</style>
+
 <h1>Graph</h1>
 
-<div>
-    <h4>SquadViewModel</h4>
-    <hr />
-    <canvas id="MyChart"></canvas>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const ctx = document.getElementById('MyChart');
-        var myLabel = [@Html.Raw(labelsString)];
+<div class="chart-container">
+    <div class="chart-item">
+        <h4>User Happiness Distribution</h4>
+        <hr />
+        <canvas id="userHappinessPieChart"></canvas>
+    </div>
 
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: myLabel,
-                datasets: [
-                    {
-                        label: "Goed",
-                        backgroundColor: ["#00d46b"],
-                        //     v1, v2, v3
-                        data: JSON.parse('@Html.Raw(JsonConvert.SerializeObject(goodAnswers))')
-                    },
-                    {
-                        label: "Meh",
-                        backgroundColor: ["#ffe000"],
-                        //     v1, v2, v3
-                        data: JSON.parse('@Html.Raw(JsonConvert.SerializeObject(mehAnswers))')
-                    },
-                    {
-                        label: "Slecht",
-                        backgroundColor: ["#ff6235"],
-                        //     v1, v2, v3  v4
-                        data: JSON.parse('@Html.Raw(JsonConvert.SerializeObject(badAnswers))')
-                    }
-                ]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+    <div class="chart-item">
+        <h4>User Happiness Comparison</h4>
+        <hr />
+        <canvas id="userHappinessRadarChart"></canvas>
+    </div>
+
+    <div class="chart-item-bar">
+        <h4>Happiness Per Question</h4>
+        <hr />
+        <canvas id="MyChart"></canvas>
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Your existing bar chart code
+    const ctx = document.getElementById('MyChart');
+    var myLabel = [@Html.Raw(labelsString)];
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: myLabel,
+            datasets: [
+                {
+                    label: "Goed",
+                    backgroundColor: ["#00d46b"],
+                    //     v1, v2, v3
+                    data: JSON.parse('@Html.Raw(JsonConvert.SerializeObject(goodAnswers))')
                 },
-                elements: {
-                    bar: {
-                        backgroundColor: ['#00d46b', '#ffe000', '#ff6235']
-                    }
+                {
+                    label: "Meh",
+                    backgroundColor: ["#ffe000"],
+                    //     v1, v2, v3
+                    data: JSON.parse('@Html.Raw(JsonConvert.SerializeObject(mehAnswers))')
+                },
+                {
+                    label: "Slecht",
+                    backgroundColor: ["#ff6235"],
+                    //     v1, v2, v3  v4
+                    data: JSON.parse('@Html.Raw(JsonConvert.SerializeObject(badAnswers))')
+                }
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            elements: {
+                bar: {
+                    backgroundColor: ['#00d46b', '#ffe000', '#ff6235']
                 }
             }
-        });
-    </script>
+        }
+    });
 
-</div>
-<div>
-    <a asp-action="Squad" asp-controller="Answer" asp-route-id="@Model.squad.id">Back to List</a>
-</div>
+    // Chart data and options for the pie chart
+    var pieChartData = {
+        labels: ['Happy', 'Neutral', 'Sad'],
+        datasets: [
+            {
+                data: [@Model.TotalGood, @Model.TotalMeh, @Model.TotalSad],
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(255, 99, 132, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }
+        ]
+    };
+
+    var pieChartOptions = {
+        responsive: true,
+        maintainAspectRatio: true
+    };
+
+    // Chart data and options for the radar chart
+    var radarChartData = {
+    labels: ['Happy', 'Neutral', 'Sad'],
+    datasets: [
+        @foreach (var userAnswer in Model.userAnswer)
+        {
+            <text>
+            {
+                label: '@userAnswer.rockstar.username',
+                data: [@userAnswer.happyAmount, @userAnswer.neutralAmount, @userAnswer.sadAmount],
+                borderWidth: 1
+            },
+            </text>
+        }
+    ]
+};
+
+    var radarChartOptions = {
+        responsive: true,
+        maintainAspectRatio: true,
+        scales: {
+            r: {
+                suggestedMin: 0,
+                suggestedMax: 3
+            }
+        }
+    };
+
+    // Create the pie chart
+    var userHappinessPieChart = new Chart(document.getElementById('userHappinessPieChart'), {
+        type: 'pie',
+        data: pieChartData,
+        options: pieChartOptions
+    });
+
+    // Create the radar chart
+    var userHappinessRadarChart = new Chart(document.getElementById('userHappinessRadarChart'), {
+        type: 'radar',
+        data: radarChartData,
+        options: radarChartOptions
+    });
+
+</script>
+    
