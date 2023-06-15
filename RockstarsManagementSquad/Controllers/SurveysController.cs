@@ -10,6 +10,9 @@ using PostmarkDotNet;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Reflection;
 using System.Linq;
+using Org.BouncyCastle.Crypto.Generators;
+using MimeKit.Encodings;
+using System.Text;
 
 namespace RockstarsManagementSquad.Controllers
 {
@@ -132,6 +135,10 @@ namespace RockstarsManagementSquad.Controllers
                 string surveyLink = survey.CreateNewSurveyLink(surveyId, squadId, userId);
                 
                 _userService.AddSurveyLinkToUser(surveyLink, userId);
+
+                byte[] input = Encoding.UTF8.GetBytes(surveyLink);
+
+                surveyLink = Convert.ToBase64String(input);
 
                 await SendMail(
                     new MailData() 
