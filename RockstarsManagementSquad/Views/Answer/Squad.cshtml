@@ -11,14 +11,7 @@
 	<h1>@Model.squad.name</h1>
 </head>
 <div class="d-flex flex-row">
-	<form asp-controller="Squads" asp-action="Info">
-		<input style="display: none;" name="id" value="@Model.squad.id"></input>
-		<input type="submit" name="Info" value="Back" class="btn btn-dark"></input>
-	</form>
-	@if (Model.userAnswer.Count != 0)
-	{
-		<a asp-action="SquadGraph" asp-controller="Answer" asp-route-id="@Model.squad.id" class="btn btn-success">Graph</a>
-	}
+	<a class="btn btn-outline-dark" href="javascript:history.back()">Return</a>
 	
 </div>
 <table class="table">

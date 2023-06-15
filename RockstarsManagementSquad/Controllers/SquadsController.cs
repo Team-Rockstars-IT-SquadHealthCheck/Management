@@ -73,12 +73,7 @@ public class SquadsController : Controller
         return View(infoViewModel);
     }
 
-    public async Task<IActionResult> Results(int id)
-    {
-        var results = await _answer.SquadAnswers(id);
-
-        return View();
-    }
+ 
 
     [HttpPost]
     public async Task<IActionResult> Create(string squadName, int companyid)
@@ -114,15 +109,29 @@ public class SquadsController : Controller
         _squad.DeleteSquad(squadId);
         return RedirectToAction("Index");
     }
-    public async Task<IActionResult> Graph(int squadid)
-    {
-		var results = await _answer.SquadAnswers(squadid);
-		return View(results);
-    }
+   
 
     public async Task<IActionResult> RemoveSquadFromCompany(int squadId, int companyId)
     {
         _squad.RemoveSquadFromCompany(squadId);
         return RedirectToAction("Info", "Companies", new { id = companyId });
     }
+
+    public async Task<IActionResult> SquadSurveys(int id)
+    {
+		var surveys = await _squad.GetAllSquadSurveys(id);
+		List<SurveyViewModel> surveyViewModels = surveys.Select(s => new SurveyViewModel
+		{
+			id = s.id,
+			name = s.name,
+			description = s.description
+		}).ToList();
+
+        SurveySquadViewModel surveysView = new SurveySquadViewModel();
+        surveysView.Surveys = surveyViewModels;
+        surveysView.SquadId = id;
+
+
+		return View(surveysView);
+	}
 }

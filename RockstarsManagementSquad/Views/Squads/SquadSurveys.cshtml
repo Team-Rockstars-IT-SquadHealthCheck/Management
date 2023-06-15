@@ -1,0 +1,30 @@
+﻿@model SurveySquadViewModel
+
+<div class="container">
+    <h2>Survey List</h2>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var survey in Model.Surveys)
+            {
+                <tr>
+                    <td>@survey.id</td>
+                    <td>@survey.name</td>
+                    <td>@survey.description</td>
+                    <td><button class="btn btn-outline-info" onclick="location.href='@Url.Action("SquadGraph", "Answer", new { id = survey.id, squadId = Model.SquadId })'">Graph</button></td>
+                    <td><button class="btn btn-outline-success" onclick="location.href='@Url.Action("Squad", "Answer", new { id = survey.id, squadId = Model.SquadId })'">Results</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>
+
+
