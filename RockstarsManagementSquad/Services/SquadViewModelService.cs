@@ -70,4 +70,19 @@ public class SquadViewModelService : ISquadViewModelService
         return response.IsSuccessStatusCode; 
     }
 
+	public async Task<bool> RemoveSquadFromCompany(int squadId)
+	{
+		string path = $"https://localhost:7259/api/Squad/{squadId}/CompanyRemove";
+        var response = await _client.PostAsync(path, null);
+
+		return response.IsSuccessStatusCode;
+    }
+
+	public async Task<bool> AddSquadToCompany(int squadId, int companyId)
+	{
+        string path = $"https://localhost:7259/api/Squad/{squadId}/Company/{companyId}";
+        var response = await _client.PostAsync(path, null);
+
+        return response.IsSuccessStatusCode;
+    }
 }
