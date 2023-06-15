@@ -119,4 +119,10 @@ public class SquadsController : Controller
 		var results = await _answer.SquadAnswers(squadid);
 		return View(results);
     }
+
+    public async Task<IActionResult> RemoveSquadFromCompany(int squadId, int companyId)
+    {
+        _squad.RemoveSquadFromCompany(squadId);
+        return RedirectToAction("Info", "Companies", new { id = companyId });
+    }
 }

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using RockstarsManagementSquad.Models;
 using RockstarsManagementSquad.Models.DTO;
 using RockstarsManagementSquad.Services.Interfaces;
@@ -9,22 +10,40 @@ namespace RockstarsManagementSquad.Controllers;
 public class CompaniesController : Controller
 {
     private readonly ICompanyViewModelService _companyService;
+    private readonly ISquadViewModelService _squadService;
 
-    public CompaniesController(RockstarsManagementSquad.Services.Interfaces.ICompanyViewModelService service)
+    public CompaniesController(ICompanyViewModelService companyService, ISquadViewModelService squadService)
     {
-        _companyService = service ?? throw new ArgumentNullException(nameof(service));
+        _companyService = companyService ?? throw new ArgumentNullException(nameof(companyService));
+        _squadService = squadService ?? throw new ArgumentNullException(nameof(squadService));
     }
     
     public async Task<IActionResult> Index()
     {
         //var companies = await _service.Find();
-        var products = await _companyService.Find();
+        var companies = await _companyService.Find();
+        var squads = await _squadService.FindAll();;
+
+        List<SelectListItem> companyItems = companies.Select(c => new SelectListItem
+        {
+            Text = c.name.ToString(),
+            Value = c.id.ToString()
+        }).ToList();
+
+        List<SelectListItem> SquadItems = squads.Select(c => new SelectListItem
+        {
+            Text = c.name.ToString(),
+            Value = c.id.ToString()
+        }).ToList();
+
+        ViewBag.Companies = companyItems;
+        ViewBag.Squads = SquadItems;
         // foreach company create new in view model
-        foreach (var product in products)
+        foreach (var company in companies)
         {
             CompanyViewModel companyViewModel = new CompanyViewModel();
         }
-        return View(products);
+        return View(companies);
     }
 
     Company company = new Company();
@@ -51,5 +70,25 @@ public class CompaniesController : Controller
         infoViewModel.squads = squads;
 
         return View(infoViewModel);
+    }
+
+    public async Task<IActionResult> Delete(int id)
+    {
+        try
+        {
+            await _companyService.Delete(id);
+        }
+        catch (Exception e)
+        {
+            ViewBag.Error = e.Message;
+        }
+        return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Add(int squadId, int companyId)
+    {
+        _squadService.AddSquadToCompany(squadId, companyId);
+        return RedirectToAction("Index");
     }
 }

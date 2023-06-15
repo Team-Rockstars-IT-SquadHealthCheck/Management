@@ -39,7 +39,34 @@
     </div>
 </div>
 
-@*<a class="btn btn-secondary">Add squad to company</a>*@
+<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#AddUserToSquad">
+    Add squad to company
+</button>
+
+<div class="modal fade" id="AddUserToSquad" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-controller="Companies" method="post" asp-action="Add">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add squad to company</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <select name="squadId" class="form-select" asp-items="ViewBag.Squads">
+                        <option disable selected>Squad</option>
+                    </select><br />
+                    <select name="companyId" class="form-select" asp-items="ViewBag.Companies">
+                        <option disable selected>Company</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" name="submit" value="Add" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <div class="center-content">
     <br />
@@ -69,7 +96,7 @@
 
 
                             <a asp-action="Info" asp-controller="Companies" asp-route-id="@item.id" class="btn btn-info" style="background-color:#FFE000; border-color:#FFE000">Info</a>
-                            <a asp-action="" class="btn btn-danger" onclick="return confirm('Wil je deze company verwijderen? Alles met deze company zal verloren gaan.')">Delete</a>
+                            <a asp-action="Delete" asp-controller="Companies" asp-route-id="@item.id" class="btn btn-danger" onclick="return confirm('Wil je deze company verwijderen? Alles met deze company zal verloren gaan.')">Delete</a>
                         </div>
                     </div>
                 </div>
