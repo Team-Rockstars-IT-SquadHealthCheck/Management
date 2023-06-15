@@ -85,4 +85,12 @@ public class SquadViewModelService : ISquadViewModelService
 
         return response.IsSuccessStatusCode;
     }
-}
+
+	public async Task<List<SurveyViewModel>> GetAllSquadSurveys(int squadId)
+	{
+		string path = $"https://localhost:7259/Squad/{squadId}/Surveys";
+		var response = await _client.GetAsync(path); // path was BasePath
+
+		return await response.ReadContentAsync<List<SurveyViewModel>>();
+	}
+}	
