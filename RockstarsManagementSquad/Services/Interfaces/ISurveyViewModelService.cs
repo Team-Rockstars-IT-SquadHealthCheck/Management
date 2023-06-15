@@ -12,7 +12,7 @@ public interface ISurveyViewModelService
 {
     Task<IEnumerable<SurveyDTO>> Find();
     Task<SurveyDTO> FindById(int surveyId);
-    void Create(SurveyDTO surveyDTO);
+    Task<bool> Create(SurveyDTO surveyDTO);
     Task<bool> CreateLinkSurveySquad(LinkSurveySquadDTO linkSurveySquadDTO);
-    void CreateQuestion(QuestionDTO questionDTO);
+    Task<bool> CreateQuestion(QuestionDTO questionDTO);
 }
