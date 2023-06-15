@@ -15,7 +15,11 @@
 		<input style="display: none;" name="id" value="@Model.squad.id"></input>
 		<input type="submit" name="Info" value="Back" class="btn btn-dark"></input>
 	</form>
-	<a asp-action="SquadGraph" asp-controller="Answer" asp-route-id="@Model.squad.id" class="btn btn-success">Graph</a>
+	@if (Model.userAnswer.Count != 0)
+	{
+		<a asp-action="SquadGraph" asp-controller="Answer" asp-route-id="@Model.squad.id" class="btn btn-success">Graph</a>
+	}
+	
 </div>
 <table class="table">
 	<tdead>
