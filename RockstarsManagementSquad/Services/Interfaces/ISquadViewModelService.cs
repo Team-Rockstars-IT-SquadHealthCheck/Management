@@ -1,5 +1,6 @@
 using RockstarsManagementSquad.Models;
 using RockstarsManagementSquad.Models.DTO;
+using RockstarsManagementSquadLibrary;
 
 namespace RockstarsManagementSquad.Services.Interfaces;
 
@@ -17,4 +18,5 @@ public interface ISquadViewModelService
     Task<bool> DeleteSquad(int squadId);
     Task<bool> RemoveSquadFromCompany(int squadId);
     Task<bool> AddSquadToCompany(int squadId, int companyId);
+    Task<List<SurveyViewModel>> GetAllSquadSurveys(int squadId);
 }

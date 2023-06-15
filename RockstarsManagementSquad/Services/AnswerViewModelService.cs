@@ -24,9 +24,9 @@ namespace RockstarsManagementSquad.Services
 
             return await response.ReadContentAsync<List<AnswerViewModel>>();
         }
-        public async Task<List<AnswerViewModel>> SquadAnswers(int id)
+        public async Task<List<AnswerViewModel>> SquadSurveyAnswers(int squadId,int surveyId)
         {
-            string path = $"https://localhost:7259/Answer/Squad/{id}";
+            string path = $"https://localhost:7259/Answer/Squad/{squadId}/Survey/{surveyId}";
             var response = await _client.GetAsync(path); // path was BasePath
 
             return await response.ReadContentAsync<List<AnswerViewModel>>();

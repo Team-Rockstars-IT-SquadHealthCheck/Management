@@ -7,6 +7,7 @@
         public string description { get; set; }
         public List<QuestionViewModel> Questions { get; set; }
 
+
         public SurveyViewModel(int _id, string _name, string _description)
         {
             id = _id;

@@ -34,26 +34,27 @@ public class AnswerController : Controller
         return View(answerUserViewModel);
     }
 
-    public async Task<IActionResult> Squad(int id)
+    public async Task<IActionResult> Squad(int id, int squadId)
     {
 
-		AnswerSquadViewModel squadAnswers = await GetAllSquadAnswersAsync(id);
+		AnswerSquadViewModel squadAnswers = await GetAllSquadAnswersAsync(id, squadId);
+		squadAnswers.squad.id = squadId;
 		
 
 		return View(squadAnswers);
     }
 
-	public async Task<IActionResult> SquadGraph(int id)
+	public async Task<IActionResult> SquadGraph(int id, int squadId)
 	{
-        AnswerSquadViewModel squadAnswers = await GetAllSquadAnswersAsync(id);
+        AnswerSquadViewModel squadAnswers = await GetAllSquadAnswersAsync(id, squadId);
 
 
         return View(squadAnswers);
     }
 
-    private async Task<AnswerSquadViewModel> GetAllSquadAnswersAsync(int id)
+    private async Task<AnswerSquadViewModel> GetAllSquadAnswersAsync(int id, int squadId)
     {
-		Task<List<AnswerViewModel>> squadAnswersTask = _service.SquadAnswers(id);
+		Task<List<AnswerViewModel>> squadAnswersTask = _service.SquadSurveyAnswers(squadId, id);
 		var squadTask = _squadViewModelService.FindById(id);
 
         List<AnswerViewModel> SquadAnswers = await squadAnswersTask;
