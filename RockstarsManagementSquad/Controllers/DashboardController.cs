@@ -38,14 +38,16 @@ namespace RockstarsManagementSquad.Controllers
                 var answerInSquad = await _answerViewModelService.GetSquadFinnishedEnquetes(squad.id);
                 var usersInSquad = await _squadViewModelService.UsersInSquad(squad.id);
 
-                if (answerInSquad.Count(x => x.answerText != null) == usersInSquad.Count())
-
-                {
-                    FinishedEnquetes.Add(squad);
-                }
-                else if (answerInSquad.Count(x => x.answerText != null) != usersInSquad.Count())
-                {
-                    NotFinishedEnquetes.Add(squad);
+                if (answerInSquad.Count() > 0) 
+                { 
+                    if (answerInSquad.Count(x => x.answerText != null && x.answerText != "") == usersInSquad.Count())
+                    {
+                        FinishedEnquetes.Add(squad);
+                    }
+                    else if (answerInSquad.Count(x => x.answerText != null && x.answerText != "") != usersInSquad.Count())
+                    {
+                        NotFinishedEnquetes.Add(squad);
+                    }
                 }
             }
 
