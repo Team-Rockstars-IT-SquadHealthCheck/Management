@@ -15,5 +15,6 @@ public interface ICompanyViewModelService
     Task<CompanyViewModel> FindById(int? id);
     Task<List<SquadViewModel>> SquadsInCompany(int? companyId);
     Task<IEnumerable<SquadViewModel>> SquadsInCompany(int companyId);
+    Task<bool> Delete(int id);
 }
 

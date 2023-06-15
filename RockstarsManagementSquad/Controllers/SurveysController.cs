@@ -10,6 +10,9 @@ using PostmarkDotNet;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Reflection;
 using System.Linq;
+using Org.BouncyCastle.Crypto.Generators;
+using MimeKit.Encodings;
+using System.Text;
 
 namespace RockstarsManagementSquad.Controllers
 {
@@ -90,8 +93,9 @@ namespace RockstarsManagementSquad.Controllers
             List<SurveyDTO> surveyDTOs = new List<SurveyDTO>();
             if (survey.Name != "")
             {
-                await _surveyService.Create(survey.ConvertSurveyToSurveyDTO());
-                surveyDTOs = _surveyService.Find().Result.ToList();
+                _surveyService.Create(survey.ConvertSurveyToSurveyDTO());
+                var products = await _surveyService.Find();
+                surveyDTOs = products.ToList();
             
                 for (int i = surveyDTOs.Count()-1; i < surveyDTOs.Count(); i++)
                 {
@@ -132,13 +136,17 @@ namespace RockstarsManagementSquad.Controllers
                 
                 _userService.AddSurveyLinkToUser(surveyLink, userId);
 
+                byte[] input = Encoding.UTF8.GetBytes(surveyLink);
+
+                surveyLink = Convert.ToBase64String(input);
+
                 await SendMail(
                     new MailData() 
                     { 
                         EmailToAddress = user.email,
                         EmailToName = user.username,
                         EmailSubject = "Squad Health Check",
-                        EmailBody = $"This is your personal surveylink: http://138.201.52.251:82/Home/Index/{surveyLink}"
+                        EmailBody = $"This is your personal surveylink: <a href=\"http://138.201.52.251:82/Home/Index/{surveyLink}\">http://138.201.52.251:82/Home/Index/{surveyLink}</ a>"
                     }
                     );
             }
